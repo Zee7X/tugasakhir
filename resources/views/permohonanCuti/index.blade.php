@@ -10,6 +10,9 @@
             <div class="card-header">
                 <h4>Data Permohonan Cuti</h4>
             </div>
+            <div class="ml-4 mt-3">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat Permohonan Cuti</button>
+            </div>
             <div class="card-body">
                 <div class="table-responsive table-invoice">
                 <table class="table table-striped" id="table-1">

@@ -33,6 +33,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [AuthControll
 Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpegawai');
 Route::get('/formedit/{id}', [KaryawanController::class, 'edit'])->name('formedit');
 Route::post('/formedit', [KaryawanController::class, 'update'])->name('updatepegawai');
+Route::get('/hapuspegawai/{id}', [KaryawanController::class, 'destroy'])->name('hapuspegawai');
+
 
 //Permohonan
 Route::get('/permohonan', [DashboardController::class, 'datapermohonan'])->name('permohonan');
