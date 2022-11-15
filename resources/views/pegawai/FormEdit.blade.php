@@ -6,9 +6,8 @@
           <div class="section-body">
             <div class="row">
               <div class="col-12 col-md-12 col-lg-12">
-                <Form method="POST" action="">
+                <form method="POST" action="{{route('updatepegawai')}}">
                 @csrf
-                
                     <div class="card">
                     <div class="card-header">
                         <h4>Form Edit Pegawai</h4>
@@ -16,32 +15,39 @@
                     <div class="card-body">
                         <div class="form-group">
                         <label>Nama</label>
-                        <input type="hidden" class="form-control" name="id" value="">
-                        <input type="text" class="form-control" name="name" value="">
+                        <input type="hidden" class="form-control" name="id" value="{{$users->id}}">
+                        <input type="text" class="form-control" name="name" value="{{$users->name}}">
                         </div>
                         <div class="form-group">
                         <label>NIP</label>
-                        <input type="text" class="form-control" name="nip" value="">
+                        <input type="text" class="form-control" name="nip" value="{{$users->nip}}">
+                        </div>
+                        <div class="form-group">
+                          <label>Jenis Kelamin</label>
+                          <input type="text" class="form-control" name="jenis_kelamin" value="{{$users->jenis_kelamin}}">
+                        </div>
+                        <div class="form-group">
+                          <label>Role ID</label>
+                          <input type="text" class="form-control" name="role_id" value="{{$users->role_id}}">
                         </div>
                         <div class="form-group">
                         <label>Jabatan</label>
-                        <input type="text" class="form-control" name="jabatan" value="">
+                        <input type="text" class="form-control" name="jabatan" value="{{$users->jabatan}}">
                         </div>
                         <div class="form-group">
                           <label>Unit</label>
-                          <input type="text" class="form-control" name="unit" value="">
+                          <input type="text" class="form-control" name="unit" value="{{$users->unit}}">
                           </div>
                         <div class="form-group">
                         <label>Jumlah Cuti</label>
-                        <input type="text" class="form-control" name="jumlah_cuti" value="">
+                        <input type="text" class="form-control" name="hak_cuti" value="{{$users->hak_cuti}}">
                         </div>
                     </div>
                     <div class="card-footer text-right">
                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
                     </div>
                     </div>
-            
-                </Form>
+                </form>
               
               </div>
               

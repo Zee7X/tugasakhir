@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KaryawanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +30,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
 //Route Data Pegawai/Admin Side 
-Route::get('/formpegawai', [DashboardController::class, 'formpegawai'])->name('formpegawai');
-Route::get('/editpegawai', [DashboardController::class, 'editpegawai'])->name('editpegawai');
+Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpegawai');
+Route::get('/formedit/{id}', [KaryawanController::class, 'edit'])->name('formedit');
+Route::post('/formedit', [KaryawanController::class, 'update'])->name('updatepegawai');
 
 //Permohonan
 Route::get('/permohonan', [DashboardController::class, 'datapermohonan'])->name('permohonan');

@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{ asset ('css/custom1.css')}}">
+	<link rel="stylesheet" href="{{ asset ('css/style.css')}}">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -23,7 +24,7 @@
 					<div class="lottie-player">
 						<lottie-player src="https://assets4.lottiefiles.com/packages/lf20_y1vgaq1e.json" background="transparent"  speed="1"  style="width: 360px; height: 140px;" loop autoplay></lottie-player>
 					</div>
-					<h2 class="title">Login Here</h2>
+					<h4 style="font-size: 2em">Login Here</h4>
 					@if ($errors->any())
 							<div class="" style="color: red">
 								{{ $errors->first() }}
@@ -48,7 +49,7 @@
 								</div>
 						</div>
 						<a href="#">Forget Password?</a>
-						<input type="submit" class="btn" value="Login">
+						<input type="submit" class="btn" value="Login" style="font-size: 20px">
 						{{-- <div class="end">
 							Don't Have An Account?
 							<input type="button" class="btn-end" value="Register">
