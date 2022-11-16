@@ -16,20 +16,20 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role)
     {
-        if($role == 'pegawai' && auth()->user()->role_id !==1){
-            abort(403);
+        if($role == 'pegawai' && auth()->user()->role_id ==1){
+            return $next($request);
         }
-        if($role == 'kepalabagian' && auth()->user()->role_id !==2){
-            abort(403);
+        if($role == 'kepalabagian' && auth()->user()->role_id ==2){
+            return $next($request);
         }
-        if($role == 'wakildirektur2' && auth()->user()->role_id !==3){
-            abort(403);
+        if($role == 'wakildirektur2' && auth()->user()->role_id ==3){
+            return $next($request);
         }
-        if($role == 'bagiankepegawaian' && auth()->user()->role_id !==4){
-            abort(403);
+        if($role == 'bagiankepegawaian' && auth()->user()->role_id ==4){
+            return $next($request);
         }
 
-
-        return $next($request);
+        abort(403);
+        
     }
 }

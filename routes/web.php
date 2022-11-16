@@ -34,9 +34,12 @@ Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpega
 Route::get('/formedit/{id}', [KaryawanController::class, 'edit'])->name('formedit');
 Route::post('/formedit', [KaryawanController::class, 'update'])->name('updatepegawai');
 Route::get('/hapuspegawai/{id}', [KaryawanController::class, 'destroy'])->name('hapuspegawai');
+Route::get('/formtambah', [DashboardController::class , 'formtambahpegawai'])->name('tambahpegawai');
 
 
 //Permohonan
 Route::get('/permohonan', [DashboardController::class, 'datapermohonan'])->name('permohonan');
 Route::get('/permohonandisetujui', [DashboardController::class, 'permohonandisetujui'])->name('permohonandisetujui');
 Route::get('/permohonanditolak', [DashboardController::class, 'permohonanditolak'])->name('permohonanditolak');
+
+// middleware(['role:bagiankepegawaian'])->

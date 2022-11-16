@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-   
+   public function formtambahpegawai(){
+    return view('pegawai.formtambahpegawai');
+   }
+
     public function formpegawai(){
         return view('pegawai.formpegawai');
     }

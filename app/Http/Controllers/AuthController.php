@@ -25,7 +25,8 @@ class AuthController extends Controller
     }
 
     public function dashboard(){
-        return view('Dashboard.Dashboard');
+        $sisacuti = User::findOrFail(auth()->user()->id);
+        return view('Dashboard.Dashboard', compact('sisacuti'));
     }
 
     public function login(Request $request){

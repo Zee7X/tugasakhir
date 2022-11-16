@@ -41,7 +41,7 @@ class KaryawanController extends Controller
     }
 
     //Delete Pegawai
-    public function destroy (User $user ,Request $request, $id)
+    public function destroy (User $user, $id)
     {
             $user = User::findOrFail($id);
 

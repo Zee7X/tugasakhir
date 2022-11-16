@@ -13,10 +13,13 @@
 
                         <div class="card-body">
                             <div class="btn-toolbar justify-content-between">
+                                @if (auth()->user()->role_id == 4)
                                 <div class="btn-group">
-                                    <button class="btn btn-primary modall" data-toggle="modal"
-                                        data-target="#exampleModal">Tambah Pegawai</button>
+                                    <a class="btn btn-primary mr-1" href="/formtambah">Tambah Pegawai</a>
+                                    {{-- <button class="btn btn-primary modall" data-toggle="modal"
+                                        data-target="#exampleModal">Tambah Pegawai</button> --}}
                                 </div>
+                                @endif
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                     </div>
@@ -40,7 +43,9 @@
                                             <th>Jabatan</th>
                                             <th>Unit</th>
                                             <th>Jumlah Cuti</th>
+                                            @if (auth()->user()->role_id == 4)
                                             <th>Opsi</th>
+                                            @endif
                                         </tr>
                                         @foreach ($users as $i => $k)
                                             <tr>
@@ -50,15 +55,16 @@
                                                 <td class="align-middle">{{ $k->jabatan }}</td>
                                                 <td class="align-middle">{{ $k->unit }}</td>
                                                 <td class="align-middle">{{ $k->hak_cuti }} Hari</td>
+                                                @if (auth()->user()->role_id == 4)
                                                 <td>
-                                                        <a class="btn btn-action bg-purple mr-1"
-                                                            href="{{ route('formedit', ['id' => $k->id]) }}"
-                                                            style="display: inline-block;">Edit</a>
-                                                        <a class="btn btn-danger delete-confirm"
-                                                            href="{{ route('hapuspegawai', ['id' => $k->id]) }}"
-                                                            style="display: inline-block;">Hapus</a>
-                                                        
+                                                    <a class="btn btn-action bg-purple mr-1"
+                                                        href="{{ route('formedit', ['id' => $k->id]) }}"
+                                                        style="display: inline-block;">Edit</a>
+                                                    <a class="btn btn-danger delete-confirm"
+                                                        href="{{ route('hapuspegawai', ['id' => $k->id]) }}"
+                                                        style="display: inline-block;">Hapus</a>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </table>
@@ -71,7 +77,7 @@
     </div>
     </section>
 
-    <!-- modal -->
+    {{-- <!-- modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -143,7 +149,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     </div>
     <script type="text/javascript">
         $(function() {
@@ -156,21 +162,30 @@
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <!-- SweetAlert2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $('.delete-confirm').on('click', function (event) {
-           event.preventDefault();
-           const url = $(this).attr('href');
-           swal({
-               title: 'Are you sure?',
-               text: 'This record and it`s details will be permanantly deleted!',
-               icon: 'warning',
-               buttons: ["Cancel", "Yes!"],
-               }).then(function(value) {
-               if (value) {
-               window.location.href = url;
-             }
-           });
-          });
-     </script>
+        $('.delete-confirm').on('click', function(event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                reverseButtons: true,
+                confirmButtonText: 'Hapus'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                    Swal.fire(
+                        'Terhapus!',
+                        'Data Pegawai Berhasil Dihapus!',
+                        'success'
+                    )
+                }
+            });
+        });
+    </script>
 @endsection

@@ -48,7 +48,7 @@
 									<input type="password" class="input" name="password">
 								</div>
 						</div>
-						<a href="#">Forget Password?</a>
+						<a href="#">Lupa Password?</a>
 						<input type="submit" class="btn" value="Login" style="font-size: 20px">
 						{{-- <div class="end">
 							Don't Have An Account?

@@ -9,8 +9,13 @@
             <div class="card-statistic-3">
                 <div class="card-icon card-icon-large"><i class="fa fa-briefcase"></i></div>
                 <div class="card-content">
-                <h4 class="card-title">Permohonan Cuti</h4>
-                <span>Permohonan</span>
+                @if (auth()->user()->role_id == 1)
+                <h4 class="card-title">Sisa Cuti</h4>
+                <span>{{ $sisacuti->hak_cuti }} Hari</span>
+                @else
+                    <h4 class="card-title">Permohonan Cuti</h4>
+                    <span>Permohonan</span>
+                @endif
                 <div class="progress mt-1 mb-1" data-height="8">
                     <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25"
                     aria-valuemin="0" aria-valuemax="100"></div>
