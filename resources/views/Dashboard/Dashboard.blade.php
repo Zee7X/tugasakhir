@@ -20,10 +20,17 @@
                     <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
+                @if (auth()->user()->role_id == 1)
+                <p class="mb-0 text-sm">
+                    <span class="mr-1"><i class="far fa-calendar-plus"></i></span>
+                        <a href="/permohonan" class="text-white">Permohonan</a> 
+                </p>
+                @else
                 <p class="mb-0 text-sm">
                     <span class="mr-1"><i class="fas fa-eye"></i></span>
                         <a href="/permohonan" class="text-white">Lihat Detail</a> 
                 </p>
+                @endif
                 </div>
             </div>
             </div>

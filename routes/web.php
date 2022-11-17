@@ -35,6 +35,7 @@ Route::get('/formedit/{id}', [KaryawanController::class, 'edit'])->name('formedi
 Route::post('/formedit', [KaryawanController::class, 'update'])->name('updatepegawai');
 Route::get('/hapuspegawai/{id}', [KaryawanController::class, 'destroy'])->name('hapuspegawai');
 Route::get('/formtambah', [DashboardController::class , 'formtambahpegawai'])->name('tambahpegawai');
+Route::post('/tambahpegawai', [KaryawanController::class , 'tambah'])->name('tambah');
 
 
 //Permohonan

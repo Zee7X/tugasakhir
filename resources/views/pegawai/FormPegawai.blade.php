@@ -42,7 +42,7 @@
                                             <th>NIP</th>
                                             <th>Jabatan</th>
                                             <th>Unit</th>
-                                            <th>Jumlah Cuti</th>
+                                            <th>Hak Cuti</th>
                                             @if (auth()->user()->role_id == 4)
                                             <th>Opsi</th>
                                             @endif

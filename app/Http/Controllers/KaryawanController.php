@@ -6,9 +6,37 @@ use App\Models\User;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 class KaryawanController extends Controller
 {
+
+    //Tambah Pegawai
+    public function tambah(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'nip' => 'required',
+            'jenis_kelamin' => 'required',
+            'jabatan' => 'required',
+            'unit' => 'required',
+            'hak_cuti' => 'required',
+            
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'nip' => $request->nip,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'jabatan' => $request->jabatan,
+            'unit' => $request->unit,
+            'hak_cuti' => $request->hak_cuti,
+            'password' => Hash::make('sipeti123'),
+            'role_id' => 1,
+        ];
+        User::create($data);
+        return redirect()->route('formpegawai')->with(['success' => 'Data Karyawan Berhasil Ditambah!']);
+    }
+
     //Menampilkan Pegawai
     public function index()
     {

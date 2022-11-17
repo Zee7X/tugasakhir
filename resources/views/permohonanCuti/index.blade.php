@@ -67,7 +67,7 @@
                 @csrf
                   <div class="form-group">
                     <label>Alasan Cuti</label>
-                    <textarea class="form-control" name="alasan_cuti" required ></textarea>
+                    <input type="text" class="form-control" name="alasan_cuti">
                   </div>
                   <div class="form-group">
                     <label>Tanggal Mulai Cuti</label>

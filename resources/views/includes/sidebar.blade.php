@@ -11,7 +11,7 @@
             </div>
             <div class="sidebar-user-details">
               <div class="user-name">{{Auth::user()->name}}</div>
-              <div class="user-role">{{Auth::user()->role}}</div>
+              <div class="user-jabatan">{{Auth::user()->jabatan}}</div>
             </div>
           </div>
           <ul class="sidebar-menu">
