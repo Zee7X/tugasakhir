@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'nip'=> '200302095',
-            'name' => 'Udin',
+            'name' => 'Dhiya Udin Adha Suhadi',
             'email'=> 'udin@gmail.com',
             'password'=> Hash::make('udin'),
             'jenis_kelamin'=> 'Laki-Laki',
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         ]);
         User::create([
             'nip'=> '200302096',
-            'name' => 'Aldot',
+            'name' => 'Muhamad Aldi',
             'email'=> 'aldot@gmail.com',
             'password'=> Hash::make('aldot'),
             'jenis_kelamin'=> 'Laki-Laki',
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         ]);
         User::create([
             'nip'=> '200302097',
-            'name' => 'Imas Anjay Mabar',
+            'name' => 'Imas Nurdianto',
             'email'=> 'imas@gmail.com',
             'password'=> Hash::make('imas'),
             'jenis_kelamin'=> 'Laki-Laki',

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\PermohonanCutiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +40,7 @@ Route::post('/tambahpegawai', [KaryawanController::class , 'tambah'])->name('tam
 
 
 //Permohonan
-Route::get('/permohonan', [DashboardController::class, 'datapermohonan'])->name('permohonan');
+Route::get('/permohonan', [PermohonanCutiController::class, 'datapermohonan'])->name('permohonan');
 Route::get('/permohonandisetujui', [DashboardController::class, 'permohonandisetujui'])->name('permohonandisetujui');
 Route::get('/permohonanditolak', [DashboardController::class, 'permohonanditolak'])->name('permohonanditolak');
 
