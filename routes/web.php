@@ -34,7 +34,7 @@ Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpega
 Route::get('/formedit/{id}', [KaryawanController::class, 'edit'])->name('formedit');
 Route::post('/formedit', [KaryawanController::class, 'update'])->name('updatepegawai');
 Route::get('/hapuspegawai/{id}', [KaryawanController::class, 'destroy'])->name('hapuspegawai');
-Route::get('/formtambah', [DashboardController::class , 'formtambahpegawai'])->name('tambahpegawai');
+Route::get('/formtambah', [KaryawanController::class , 'formtambahpegawai'])->name('tambahpegawai');
 Route::post('/tambahpegawai', [KaryawanController::class , 'tambah'])->name('tambah');
 
 

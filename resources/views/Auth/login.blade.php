@@ -50,10 +50,6 @@
 						</div>
 						<a href="#">Lupa Password?</a>
 						<input type="submit" class="btn" value="Login" style="font-size: 20px">
-						{{-- <div class="end">
-							Don't Have An Account?
-							<input type="button" class="btn-end" value="Register">
-						</div> --}}
 				</form>
 			</div>
 		</div>

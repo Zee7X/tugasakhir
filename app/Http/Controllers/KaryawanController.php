@@ -18,7 +18,7 @@ class KaryawanController extends Controller
             'nip' => 'required',
             'jenis_kelamin' => 'required',
             'jabatan' => 'required',
-            'unit' => 'required',
+            'unit_id' => 'required',
             'hak_cuti' => 'required',
             
         ]);
@@ -28,7 +28,7 @@ class KaryawanController extends Controller
             'nip' => $request->nip,
             'jenis_kelamin' => $request->jenis_kelamin,
             'jabatan' => $request->jabatan,
-            'unit' => $request->unit,
+            'unit_id' => $request->unit_id,
             'hak_cuti' => $request->hak_cuti,
             'password' => Hash::make('sipeti123'),
             'role_id' => 1,
@@ -36,6 +36,11 @@ class KaryawanController extends Controller
         User::create($data);
         return redirect()->route('formpegawai')->with(['success' => 'Data Karyawan Berhasil Ditambah!']);
     }
+
+    //View Form
+    public function formtambahpegawai(){
+        return view('pegawai.formtambahpegawai');
+       }
 
     //Menampilkan Pegawai
     public function index()
@@ -60,7 +65,7 @@ class KaryawanController extends Controller
             'jenis_kelamin' => 'required',
             'role_id' => 'required',
             'jabatan' => 'required',
-            'unit' => 'required',
+            'unit_id' => 'required',
             'hak_cuti' => 'required',
         ]);
 

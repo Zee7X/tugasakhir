@@ -39,9 +39,31 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Role ID</label>
-                                        <input type="text" class="form-control" name="role_id"
-                                            value="{{ $users->role_id }}">
+                                        <label>Role</label>
+                                        <select class="form-control" name="role_id" id="role_id">
+                                            <option disabled>Pilih Role</option>
+                                            @if($users->role_id == 1)
+                                            <option name="role_id" value="1" selected>Pegawai</option>
+                                            <option name="role_id" value="2">Assesor 1</option>
+                                            <option name="role_id" value="3">Assesor 2</option>
+                                            <option name="role_id" value="4">Admin</option>
+                                            @elseif ($users->role_id == 2)
+                                            <option name="role_id" value="1">Pegawai</option>
+                                            <option name="role_id" value="2" selected>Assesor 1</option>
+                                            <option name="role_id" value="3">Assesor 2</option>
+                                            <option name="role_id" value="4">Admin</option>
+                                            @elseif ($users->role_id == 3)
+                                            <option name="role_id" value="1">Pegawai</option>
+                                            <option name="role_id" value="2">Assesor 1</option>
+                                            <option name="role_id" value="3" selected>Assesor 2</option>
+                                            <option name="role_id" value="4">Admin</option>
+                                            @else
+                                            <option name="role_id" value="1">Pegawai</option>
+                                            <option name="role_id" value="2">Assesor 1</option>
+                                            <option name="role_id" value="3">Assesor 2</option>
+                                            <option name="role_id" value="4" selected>Admin</option>
+                                            @endif
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Jabatan</label>
@@ -50,8 +72,30 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Unit</label>
-                                        <input type="text" class="form-control" name="unit"
-                                            value="{{ $users->unit }}">
+                                        <select class="form-control" name="unit_id" id="unit_id">
+                                            <option disabled>Pilih Unit</option>
+                                            @if($users->role_id == 1)
+                                            <option name="unit_id" value="1" selected>Teknik Informatika</option>
+                                            <option name="unit_id" value="2">Teknik Mesin</option>
+                                            <option name="unit_id" value="3">Teknik Elektro</option>
+                                            <option name="unit_id" value="4">Teknik Listrik</option>
+                                            @elseif ($users->unit_id == 2)
+                                            <option name="unit_id" value="1">Teknik Informatika</option>
+                                            <option name="unit_id" value="2" selected>Teknik Mesin</option>
+                                            <option name="unit_id" value="3">Teknik Elektro</option>
+                                            <option name="unit_id" value="4">Teknik Listrik</option>
+                                            @elseif ($users->unit_id == 3)
+                                            <option name="unit_id" value="1">Teknik Informatika</option>
+                                            <option name="unit_id" value="2">Teknik Mesin</option>
+                                            <option name="unit_id" value="3" selected>Teknik Elektro</option>
+                                            <option name="unit_id" value="4">Teknik Listrik</option>
+                                            @else
+                                            <option name="unit_id" value="1">Teknik Informatika</option>
+                                            <option name="unit_id" value="2">Teknik Mesin</option>
+                                            <option name="unit_id" value="3">Teknik Elektro</option>
+                                            <option name="unit_id" value="4" selected>Teknik Listrik</option>
+                                            @endif
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Hak Cuti</label>

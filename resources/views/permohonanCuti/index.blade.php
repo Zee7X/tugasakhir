@@ -75,7 +75,7 @@
                   </div>
                   <div class="form-group">
                     <label>Tanggal Berakhir Cuti</label>
-                    <input type="text" name="tgl_akhir" required class="form-control datepicker">
+                    <input type="text" name="tgl_akhir" required class="form-control datepicker" value = "{{date('Y-m-d', strtotime('+1 day'))}}">
                   </div> 
                   <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                 </form>

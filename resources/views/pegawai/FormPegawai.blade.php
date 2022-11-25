@@ -53,7 +53,16 @@
                                                 <td class="font-weight-600">{{ $k->name }}</td>
                                                 <td class="text-truncate">{{ $k->nip }}</td>
                                                 <td class="align-middle">{{ $k->jabatan }}</td>
-                                                <td class="align-middle">{{ $k->unit }}</td>
+                                                @if ($k->unit_id == 1)
+                                                <td class="align-middle">Teknik Informatika</td>
+                                                @elseif ($k->unit_id == 2)
+                                                <td class="align-middle">Teknik Mesin</td>
+                                                @elseif ($k->unit_id == 3)
+                                                <td class="align-middle">Teknik Elektro</td>
+                                                @elseif ($k->unit_id == 4)
+                                                <td class="align-middle">Teknik Listrik</td>
+                                                @endif
+                                                
                                                 <td class="align-middle">{{ $k->hak_cuti }} Hari</td>
                                                 @if (auth()->user()->role_id == 4)
                                                 <td>

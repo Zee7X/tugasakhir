@@ -25,7 +25,7 @@ class User extends Authenticatable
         'jenis_kelamin',
         'role_id',
         'jabatan',
-        'unit',
+        'unit_id',
         'hak_cuti',
     ];
 

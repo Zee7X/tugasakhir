@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 1,
             'jabatan'=> 'Dosen',
-            'unit'=> 'Teknik Informatika',
+            'unit_id'=> 1,
             'hak_cuti' => 12,
         ]);
         User::create([
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 2,
             'jabatan'=> 'Kepala Bagian',
-            'unit'=> 'Teknik Informatika',
+            'unit_id'=> 2,
         ]);
         User::create([
             'nip'=> '200302097',
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 3,
             'jabatan'=> 'Wakil Direktur II',
-            'unit'=> 'Direksi',
+            'unit_id'=> 3,
         ]);
         User::create([
             'nip'=> '200302094',
@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 4,
             'jabatan'=> 'Bagian Kepegawaian',
-            'unit'=> 'BAAK',
+            'unit_id'=> 4,
         ]);
     }
 }

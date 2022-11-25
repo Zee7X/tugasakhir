@@ -35,7 +35,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Unit</label>
-                                        <input type="text" class="form-control" name="unit">
+                                        <select class="form-control" name="unit_id" id="unit_id">
+                                            <option disabled selected>Pilih Unit</option>
+                                            <option name="unit_id" value="1">Teknik Informatika</option>
+                                            <option name="unit_id" value="2">Teknik Mesin</option>
+                                            <option name="unit_id" value="3">Teknik Elektro</option>
+                                            <option name="unit_id" value="4">Teknik Listrik</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Hak Cuti</label>

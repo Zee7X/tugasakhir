@@ -1,12 +1,11 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\Role;
+use App\Models\Unit;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class UnitSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,20 +14,20 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::create([
-            'name'=> 'Pegawai'
+        Unit::create([
+            'name'=> 'Teknik Informatika'
         ]);
 
-        Role::create([
-            'name'=> 'Assesor1'
+        Unit::create([
+            'name'=> 'Teknik Mesin'
         ]);
 
-        Role::create([
-            'name'=> 'Assesor2'
+        Unit::create([
+            'name'=> 'Teknik Elektro'
         ]);
         
-        Role::create([
-            'name'=> 'Admin'
+        Unit::create([
+            'name'=> 'Teknik Listrik'
         ]);
     }
 }
