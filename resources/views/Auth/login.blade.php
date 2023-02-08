@@ -21,6 +21,7 @@
 			<div class="login-content">
 				<form action="{{ route('login') }}" method="POST">
 					@csrf
+					<h4 style="font-size: 2em">Politeknik Negeri Cilacap</h4>
 					<div class="lottie-player">
 						<lottie-player src="https://assets4.lottiefiles.com/packages/lf20_y1vgaq1e.json" background="transparent"  speed="1"  style="width: 360px; height: 140px;" loop autoplay></lottie-player>
 					</div>

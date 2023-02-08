@@ -11,7 +11,9 @@
                             <div class="card-content">
                                 @if (auth()->user()->role_id == 1)
                                     <h4 class="card-title">Sisa Cuti</h4>
-                                    <span>{{ $sisacuti->hak_cuti }} Hari</span>
+                                    @foreach ($sisacuti as $d)
+                                    <span>{{ $d->hak_cuti }} Hari</span>
+                                    @endforeach
                                 @else
                                     <h4 class="card-title">Permohonan Cuti</h4>
                                     <span>Permohonan</span>

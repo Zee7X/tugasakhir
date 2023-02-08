@@ -24,7 +24,6 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained();
             $table->string('jabatan')->nullable();
             $table->foreignId('unit_id')->constrained();
-            $table->integer('hak_cuti')->nullable();
             $table->rememberToken();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

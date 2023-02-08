@@ -16,8 +16,6 @@
                                 @if (auth()->user()->role_id == 4)
                                 <div class="btn-group">
                                     <a class="btn btn-primary mr-1" href="/formtambah">Tambah Pegawai</a>
-                                    {{-- <button class="btn btn-primary modall" data-toggle="modal"
-                                        data-target="#exampleModal">Tambah Pegawai</button> --}}
                                 </div>
                                 @endif
                                 <div class="input-group">

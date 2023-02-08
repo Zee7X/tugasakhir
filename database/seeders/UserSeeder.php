@@ -1,7 +1,10 @@
 <?php
 
 namespace Database\Seeders;
+
+use App\Models\HakCuti;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -24,8 +27,14 @@ class UserSeeder extends Seeder
             'role_id'=> 1,
             'jabatan'=> 'Dosen',
             'unit_id'=> 1,
-            'hak_cuti' => 12,
         ]);
+        HakCuti::create([
+            'user_id' => 1,
+            'hak_cuti' => 12,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
         User::create([
             'nip'=> '200302096',
             'name' => 'Muhamad Aldi',
@@ -35,6 +44,13 @@ class UserSeeder extends Seeder
             'role_id'=> 2,
             'jabatan'=> 'Kepala Bagian',
             'unit_id'=> 2,
+        ]);
+
+        HakCuti::create([
+            'user_id' => 2,
+            'hak_cuti' => 0,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
         User::create([
             'nip'=> '200302097',
@@ -46,6 +62,12 @@ class UserSeeder extends Seeder
             'jabatan'=> 'Wakil Direktur II',
             'unit_id'=> 3,
         ]);
+        HakCuti::create([
+            'user_id' => 3,
+            'hak_cuti' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
         User::create([
             'nip'=> '200302094',
             'name' => 'Rizick Fimelyan Sabillah',
@@ -55,6 +77,12 @@ class UserSeeder extends Seeder
             'role_id'=> 4,
             'jabatan'=> 'Bagian Kepegawaian',
             'unit_id'=> 4,
+        ]);
+        HakCuti::create([
+            'user_id' => 4,
+            'hak_cuti' => 4,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
     }
 }

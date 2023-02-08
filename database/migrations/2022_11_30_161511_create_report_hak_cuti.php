@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-         Schema::create('permohonan_cuti', function (Blueprint $table) {
+        Schema::create('report_hak_cutis', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained();
-            $table->string('alasan_cuti');
-            $table->date('tgl_mulai');
-            $table->date('tgl_akhir');
-            $table->string('alamat_cuti');
-            $table->string('status');
-            $table->string('alasan_ditolak')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();    
+            $table->string('report');
+            $table->enum('status', ['bertambah','berkurang']);
+            $table->timestamps();
         });
     }
 
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permohonan_cuti');
+        Schema::dropIfExists('report_hak_cutis');
     }
 };

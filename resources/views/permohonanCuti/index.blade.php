@@ -62,20 +62,22 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="" action="" method="">
+                        <form class="" action="permohonancuti" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Alasan Cuti</label>
                                 <select class="form-control" name="alasan_cuti" id="alasan_cuti">
-                                    <option disabled selected>Pilih Alasan Permintaan Cuti</option>
-                                    <option name="alasan_cuti" value="">Cuti Bersalin</option>
-                                    <option name="alasan_cuti" value="">Cuti Besar</option>
-                                    <option name="alasan_cuti" value="">Cuti Diluar Tanggungan</option>
-                                    <option name="alasan_cuti" value="">Cuti Tahunan</option>
-                                    <option name="alasan_cuti" value="">Cuti Ibadah Keagamaan</option>
-                                    <option name="alasan_cuti" value="">Cuti Karena Alasan Penting</option>
-                                    <option name="alasan_cuti" value="">Gugur Kandungan</option>
-                                    <option name="alasan_cuti" value="">Lain - Lain</option>
+                                    <option disabled selected>Pilih Alasan Permohonan Cuti</option>
+                                    @if (auth()->user()->jenis_kelamin != "Laki-Laki")
+                                    <option name="alasan_cuti" value="Cuti Bersalin">Cuti Bersalin</option>
+                                    <option name="alasan_cuti" value="Gugur Kandungan">Gugur Kandungan</option>
+                                    @endif
+                                    <option name="alasan_cuti" value="Cuti Besar">Cuti Besar</option>
+                                    <option name="alasan_cuti" value="Cuti Diluar Tanggungan">Cuti Diluar Tanggungan</option>
+                                    <option name="alasan_cuti" value="Cuti Tahunan">Cuti Tahunan</option>
+                                    <option name="alasan_cuti" value="Cuti Ibadah Keagamaan">Cuti Ibadah Keagamaan</option>
+                                    <option name="alasan_cuti" value="Cuti Karena Alasan Penting">Cuti Karena Alasan Penting</option>
+                                    <option name="alasan_cuti" value="Lain - Lain">Lain - Lain</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -89,7 +91,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Alamat Selama Cuti</label>
-                                <input type="text" class="form-control" name="alama_cuti">
+                                <input type="text" class="form-control" name="alamat_cuti">
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                         </form>

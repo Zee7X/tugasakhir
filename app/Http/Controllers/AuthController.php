@@ -25,7 +25,9 @@ class AuthController extends Controller
     }
 
     public function dashboard(){
-        $sisacuti = User::findOrFail(auth()->user()->id);
+        $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
+        ->where('hak_cuti.user_id', '=', auth()->user()->id)
+        ->get();
         return view('Dashboard.Dashboard', compact('sisacuti'));
     }
 

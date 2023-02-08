@@ -12,24 +12,25 @@
                                 <div class="card-header">
                                     <h4>Form Edit Pegawai</h4>
                                 </div>
+                                @foreach ($users as $i => $k)
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Nama</label>
                                         <input type="hidden" class="form-control" name="id"
-                                            value="{{ $users->id }}">
+                                            value="{{ $k->id }}">
                                         <input type="text" class="form-control" name="name"
-                                            value="{{ $users->name }}">
+                                            value="{{ $k->name }}">
                                     </div>
                                     <div class="form-group">
                                         <label>NIP</label>
                                         <input type="text" class="form-control" name="nip"
-                                            value="{{ $users->nip }}">
+                                            value="{{ $k->nip }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Jenis Kelamin</label>
                                         <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                             <option disabled>Pilih Jenis Kelamin</option>
-                                            @if ($users->jenis_kelamin == 'Laki-Laki')
+                                            @if ($k->jenis_kelamin == 'Laki-Laki')
                                                 <option name="jenis_kelamin" value="Laki-Laki" selected>Laki-Laki</option>
                                                 <option name="jenis_kelamin" value="Perempuan">Perempuan</option>
                                             @else
@@ -42,17 +43,17 @@
                                         <label>Role</label>
                                         <select class="form-control" name="role_id" id="role_id">
                                             <option disabled>Pilih Role</option>
-                                            @if ($users->role_id == 1)
+                                            @if ($k->role_id == 1)
                                                 <option name="role_id" value="1" selected>Pegawai</option>
                                                 <option name="role_id" value="2">Assesor I</option>
                                                 <option name="role_id" value="3">Assesor II</option>
                                                 <option name="role_id" value="4">Admin</option>
-                                            @elseif ($users->role_id == 2)
+                                            @elseif ($k->role_id == 2)
                                                 <option name="role_id" value="1">Pegawai</option>
                                                 <option name="role_id" value="2" selected>Assesor I</option>
                                                 <option name="role_id" value="3">Assesor II</option>
                                                 <option name="role_id" value="4">Admin</option>
-                                            @elseif ($users->role_id == 3)
+                                            @elseif ($k->role_id == 3)
                                                 <option name="role_id" value="1">Pegawai</option>
                                                 <option name="role_id" value="2">Assesor I</option>
                                                 <option name="role_id" value="3" selected>Assesor II</option>
@@ -68,28 +69,28 @@
                                     <div class="form-group">
                                         <label>Jabatan</label>
                                         <input type="text" class="form-control" name="jabatan"
-                                            value="{{ $users->jabatan }}">
+                                            value="{{ $k->jabatan }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Unit</label>
                                         <select class="form-control" name="unit_id" id="unit_id">
                                             <option disabled>Pilih Unit</option>
-                                            @if ($users->role_id == 1)
+                                            @if ($k->role_id == 1)
                                                 <option name="unit_id" value="1" selected>Teknik Informatika</option>
                                                 <option name="unit_id" value="2">Teknik Mesin</option>
                                                 <option name="unit_id" value="3">Teknik Elektro</option>
                                                 <option name="unit_id" value="4">Teknik Listrik</option>
-                                            @elseif ($users->unit_id == 2)
+                                            @elseif ($k->unit_id == 2)
                                                 <option name="unit_id" value="1">Teknik Informatika</option>
                                                 <option name="unit_id" value="2" selected>Teknik Mesin</option>
                                                 <option name="unit_id" value="3">Teknik Elektro</option>
                                                 <option name="unit_id" value="4">Teknik Listrik</option>
-                                            @elseif ($users->unit_id == 3)
+                                            @elseif ($k->unit_id == 3)
                                                 <option name="unit_id" value="1">Teknik Informatika</option>
                                                 <option name="unit_id" value="2">Teknik Mesin</option>
                                                 <option name="unit_id" value="3" selected>Teknik Elektro</option>
                                                 <option name="unit_id" value="4">Teknik Listrik</option>
-                                            @elseif ($users->unit_id == 4)
+                                            @elseif ($k->unit_id == 4)
                                                 <option name="unit_id" value="1">Teknik Informatika</option>
                                                 <option name="unit_id" value="2">Teknik Mesin</option>
                                                 <option name="unit_id" value="3">Teknik Elektro</option>
@@ -100,9 +101,10 @@
                                     <div class="form-group">
                                         <label>Hak Cuti</label>
                                         <input type="text" class="form-control" name="hak_cuti"
-                                            value="{{ $users->hak_cuti }}">
+                                            value="{{ $k->hak_cuti }}">
                                     </div>
                                 </div>
+                                @endforeach
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary mr-1" type="submit">Submit</button>
                                 </div>

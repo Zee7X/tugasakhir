@@ -6,6 +6,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PermohonanCutiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,8 @@ Route::post('/tambahpegawai', [KaryawanController::class , 'tambah'])->name('tam
 
 
 //Permohonan
-Route::get('/permohonan', [PermohonanCutiController::class, 'datapermohonan'])->name('permohonan');
+Route::post('/permohonancuti', [PermohonanCutiController::class , 'store'])->name('permohonancuti');
+Route::get('/permohonan', [DashboardController::class, 'permohonan'])->name('permohonan');
 Route::get('/permohonandisetujui', [DashboardController::class, 'permohonandisetujui'])->name('permohonandisetujui');
 Route::get('/permohonanditolak', [DashboardController::class, 'permohonanditolak'])->name('permohonanditolak');
 
