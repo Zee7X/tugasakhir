@@ -41,7 +41,7 @@ Route::post('/tambahpegawai', [KaryawanController::class , 'tambah'])->name('tam
 
 
 //Permohonan
-Route::post('/permohonancuti', [PermohonanCutiController::class , 'store'])->name('permohonancuti');
+Route::post('/permohonancuti', [PermohonanCutiController::class , 'tambahPermohonan'])->name('permohonancuti');
 Route::get('/permohonan', [DashboardController::class, 'permohonan'])->name('permohonan');
 Route::get('/permohonandisetujui', [DashboardController::class, 'permohonandisetujui'])->name('permohonandisetujui');
 Route::get('/permohonanditolak', [DashboardController::class, 'permohonanditolak'])->name('permohonanditolak');

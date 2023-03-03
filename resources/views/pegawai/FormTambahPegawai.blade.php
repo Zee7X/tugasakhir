@@ -37,10 +37,22 @@
                                         <label>Unit</label>
                                         <select class="form-control" name="unit_id" id="unit_id">
                                             <option disabled selected>Pilih Unit</option>
-                                            <option name="unit_id" value="1">Teknik Informatika</option>
-                                            <option name="unit_id" value="2">Teknik Mesin</option>
-                                            <option name="unit_id" value="3">Teknik Elektro</option>
-                                            <option name="unit_id" value="4">Teknik Listrik</option>
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
                                         </select>
                                     </div>
                                     <div class="form-group">

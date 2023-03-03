@@ -14,6 +14,24 @@ class UnitSeeder extends Seeder
      */
     public function run()
     {
+        
+        Unit::create([
+            'name'=> 'Direksi'
+        ]);
+
+        Unit::create([
+            'name'=> 'SPI'
+        ]);
+
+        Unit::create([
+            'name'=> 'P4MP'
+        ]);
+
+        Unit::create([
+            'name'=> 'PPM'
+        ]);
+
+
         Unit::create([
             'name'=> 'Teknik Informatika'
         ]);
@@ -23,11 +41,44 @@ class UnitSeeder extends Seeder
         ]);
 
         Unit::create([
-            'name'=> 'Teknik Elektro'
+            'name'=> 'Teknik Elektronika'
         ]);
         
         Unit::create([
-            'name'=> 'Teknik Listrik'
+            'name'=> 'Teknik Pencemaran Pengendalian Lingkungan'
         ]);
+
+        Unit::create([
+            'name'=> 'D4 PPA'
+        ]);
+
+        Unit::create([
+            'name'=> 'Umum'
+        ]);
+
+        Unit::create([
+            'name'=> 'Akademik'
+        ]);
+
+        Unit::create([
+            'name'=> 'Keuangan'
+        ]);
+
+        Unit::create([
+            'name'=> 'Teknologi Informasi Komputer'
+        ]);
+
+        Unit::create([
+            'name'=> 'Pemeliharaan'
+        ]);
+
+        Unit::create([
+            'name'=> 'Bahasa'
+        ]);
+
+        Unit::create([
+            'name'=> 'Perpustakaan'
+        ]);
+
     }
 }

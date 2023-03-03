@@ -29,22 +29,21 @@
   
   $(document).ready(function() {
     const flashData = $("#flash-data").data('flashdata');
-    console.log('flash-data',flashData);
-    // if(flashData === "Maaf sisa cuti anda sudah habis"){
-        
-    //     iziToast.error({
-    //         title: 'Error!',
-    //         message: flashData,
-    //         position: 'topRight'
-    //     });
-
-    // }
-    if(flashData){
-        iziToast.success({
+    console.log(flashData);
+    if(flashData == "Berhasil Mengajukan Permohonan Cuti"){ 
+      iziToast.success({
             title: 'Success !!',
             message: flashData,
             position: 'topRight'
         });
+    }
+    else if(flashData == "Maaf sisa cuti anda sudah habis" || flashData == "Silahkan Periksa kembali tanggal cuti"){
+        iziToast.error({
+            title: 'Error!',
+            message: flashData,
+            position: 'topRight'
+        });
+
     }
   });
   </script>

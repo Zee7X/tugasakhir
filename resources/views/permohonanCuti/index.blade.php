@@ -5,7 +5,12 @@
         <section class="section">
             <div class="row">
                 <div class="col-12 col-sm-12 col-lg-12">
-                    <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
+                    @if (Session::has('error'))
+                        <div id="flash-data" data-flashdata="{{ Session::get('error') }}"></div>
+                    @else
+                        <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
+                    @endif
+                    
                     <div class="card">
                         <div class="card-header">
                             <h4>Data Permohonan Cuti</h4>
@@ -66,8 +71,8 @@
                             @csrf
                             <div class="form-group">
                                 <label>Alasan Cuti</label>
-                                <select class="form-control" name="alasan_cuti" id="alasan_cuti">
-                                    <option disabled selected>Pilih Alasan Permohonan Cuti</option>
+                                <select class="form-control" name="alasan_cuti" id="alasan_cuti" required>
+                                    <option disabled selected hidden>Pilih Alasan Permohonan Cuti</option>
                                     @if (auth()->user()->jenis_kelamin != "Laki-Laki")
                                     <option name="alasan_cuti" value="Cuti Bersalin">Cuti Bersalin</option>
                                     <option name="alasan_cuti" value="Gugur Kandungan">Gugur Kandungan</option>
@@ -82,16 +87,16 @@
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Mulai Cuti</label>
-                                <input type="text" name="tgl_mulai" required class="form-control datepicker">
+                                <input type="text" name="tgl_mulai" required class="form-control datepicker" required>
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Berakhir Cuti</label>
                                 <input type="text" name="tgl_akhir" required class="form-control datepicker"
-                                    value="{{ date('Y-m-d', strtotime('+1 day')) }}">
+                                    value="{{ date('Y-m-d', strtotime('+1 day')) }}" required>
                             </div>
                             <div class="form-group">
                                 <label>Alamat Selama Cuti</label>
-                                <input type="text" class="form-control" name="alamat_cuti">
+                                <input type="text" class="form-control" name="alamat_cuti" required>
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                         </form>

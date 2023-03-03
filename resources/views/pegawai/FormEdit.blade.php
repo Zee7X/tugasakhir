@@ -76,25 +76,277 @@
                                         <select class="form-control" name="unit_id" id="unit_id">
                                             <option disabled>Pilih Unit</option>
                                             @if ($k->role_id == 1)
-                                                <option name="unit_id" value="1" selected>Teknik Informatika</option>
-                                                <option name="unit_id" value="2">Teknik Mesin</option>
-                                                <option name="unit_id" value="3">Teknik Elektro</option>
-                                                <option name="unit_id" value="4">Teknik Listrik</option>
+                                            <option name="unit_id" value="1" selected>Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
                                             @elseif ($k->unit_id == 2)
-                                                <option name="unit_id" value="1">Teknik Informatika</option>
-                                                <option name="unit_id" value="2" selected>Teknik Mesin</option>
-                                                <option name="unit_id" value="3">Teknik Elektro</option>
-                                                <option name="unit_id" value="4">Teknik Listrik</option>
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2" selected>SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
                                             @elseif ($k->unit_id == 3)
-                                                <option name="unit_id" value="1">Teknik Informatika</option>
-                                                <option name="unit_id" value="2">Teknik Mesin</option>
-                                                <option name="unit_id" value="3" selected>Teknik Elektro</option>
-                                                <option name="unit_id" value="4">Teknik Listrik</option>
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3" selected>P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
                                             @elseif ($k->unit_id == 4)
-                                                <option name="unit_id" value="1">Teknik Informatika</option>
-                                                <option name="unit_id" value="2">Teknik Mesin</option>
-                                                <option name="unit_id" value="3">Teknik Elektro</option>
-                                                <option name="unit_id" value="4" selected>Teknik Listrik</option>
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4" selected>PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 5)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5" selected>Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 6)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6" selected>Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 7)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7" selected>Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 8)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8" selected>Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 9)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9" selected>D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 10)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10" selected>Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 11)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11" selected>Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 12)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12" selected>Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 13)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13" selected>Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 14)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13" >Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14" selected>Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 15)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15" selected>Bahasa</option>
+                                            <option name="unit_id" value="16">Perpustakaan</option>
+                                            @elseif ($k->unit_id == 16)
+                                            <option name="unit_id" value="1">Direksi</option>
+                                            <option name="unit_id" value="2">SPI</option>
+                                            <option name="unit_id" value="3">P4MP</option>
+                                            <option name="unit_id" value="4">PPM</option>
+                                            <option name="unit_id" value="5">Teknik Informatika</option>
+                                            <option name="unit_id" value="6">Teknik Mesin</option>
+                                            <option name="unit_id" value="7">Teknik Elektronika</option>
+                                            <option name="unit_id" value="8">Teknik Pencemaran Pengendalian Lingkungan</option>
+                                            <option name="unit_id" value="9">D4 PPA</option>
+                                            <option name="unit_id" value="10">Umum</option>
+                                            <option name="unit_id" value="11">Akademik</option>
+                                            <option name="unit_id" value="12">Keuangan</option>
+                                            <option name="unit_id" value="13">Teknologi Informasi Komputer</option>
+                                            <option name="unit_id" value="14">Pemeliharaan</option>
+                                            <option name="unit_id" value="15">Bahasa</option>
+                                            <option name="unit_id" value="16" selected>Perpustakaan</option>
                                             @endif
                                         </select>
                                     </div>
