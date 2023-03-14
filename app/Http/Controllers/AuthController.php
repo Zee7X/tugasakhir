@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use \Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Hash;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
+use datatables;
+use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
+use App\Http\Controllers\Controller;
+use App\Models\PermohonanModel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use \Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
 class AuthController extends Controller
@@ -24,11 +27,23 @@ class AuthController extends Controller
         return view('Auth.login');
     }
 
-    public function dashboard(){
+    public function dashboard(Request $request){
         $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
         ->where('hak_cuti.user_id', '=', auth()->user()->id)
         ->get();
-        return view('Dashboard.Dashboard', compact('sisacuti'));
+
+        
+        // $dashboard = PermohonanModel::orderBy('id', 'desc')->get();
+        $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->orderBy('permohonan_cuti.created_at', 'DESC')
+        ->limit(5)
+        ->get();
+        // ->orderBy('users.created_at', 'DESC')
+        // ->select(['users.name', 'permohonan_cuti.alasan_cuti', 'users.created_at']);
+        // ->whereDate('users.created_at', Carbon::today());
+        // dd($dashboard);
+        
+        return view('Dashboard.Dashboard', ['dashboard'=>$dashboard], ['sisacuti'=>$sisacuti],);
     }
 
     public function login(Request $request){
