@@ -24,6 +24,7 @@
 
   <script src="{{asset('js/page/forms-advanced-forms.js')}}"></script>
   <script src="{{asset('bundles/izitoast/js/iziToast.min.js')}}"></script>
+ 
 
   <script>
   

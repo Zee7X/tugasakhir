@@ -15,15 +15,13 @@ use PhpParser\Node\Stmt\Return_;
 
 class AuthController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth')->except('logout');
-    // }
 
+    //Login Form
     public function login_view(){
         return view('Auth.login');
     }
 
+    //Dashboard
     public function dashboard(){
         $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
         ->where('hak_cuti.user_id', '=', auth()->user()->id)
@@ -31,8 +29,8 @@ class AuthController extends Controller
         return view('Dashboard.Dashboard', compact('sisacuti'));
     }
 
+    //Login Function
     public function login(Request $request){
-        
         $check = 0;
         $request->validate([
             'nip' => 'required',
@@ -50,7 +48,6 @@ class AuthController extends Controller
                 $check = 1;
             }
         }
-
         if($check == 1){
             if (auth()->attempt($credential)){
                 return redirect()->route('dashboard');
@@ -62,8 +59,9 @@ class AuthController extends Controller
             return redirect()->back()->withErrors(['msg' => 'NIP/Password Salah']);
         }
     }
-    public function logout(Request $request){
 
+    //Logout Function
+    public function logout(Request $request){
         Session::flush();
         Auth::logout();
         return Redirect()->route('login');

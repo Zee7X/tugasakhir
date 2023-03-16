@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class PermohonanCutiController extends Controller
 {
+
+   //Tambah Permohonan Cuti 
    public function tambahPermohonan(Request $request)
    {
        $id = Auth()->user()->id;
@@ -30,7 +32,7 @@ class PermohonanCutiController extends Controller
         return redirect()->route('permohonan')->with(['error' => 'Maaf sisa cuti anda sudah habis']);
     }else{
         if($durasi->days <= 0){
-            return redirect()->route('permohonan')->with(['error' => 'Silahkan Periksa kembali tanggal cuti']);
+            return redirect()->route('permohonan')->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
         }else{
             PermohonanModel::insert([
                 'user_id' => Auth::id(),
@@ -48,17 +50,6 @@ class PermohonanCutiController extends Controller
             ]);
 
             HakCuti::whereId($id)->update($hak_cuti);
-
-            // $user = User::findOrfail($id);
-
-            // User::insert([
-            //     'nip' => $user->nip,
-            //     'name' => $user->name,
-            //     'jenis_kelamin' => $user->jenis_kelamin,
-            //     'role_id' => $user->role_id,
-            //     'unit_id' => $user->unit_id,
-            //     'hak_cuti' => $jumlahCuti
-            // ])->where('id', $id)->save();
             
             return redirect()->route('permohonan')->with(['success' => 'Berhasil Mengajukan Permohonan Cuti']);
         }

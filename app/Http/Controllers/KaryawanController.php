@@ -41,10 +41,10 @@ class KaryawanController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        return redirect()->route('formpegawai')->with(['success' => 'Data Karyawan Berhasil Ditambah!']);
+        return redirect()->route('formpegawai')->with(['success' => 'Data Pegawai Berhasil Ditambah!']);
     }
 
-    //View Form
+    //Menampilkan Form Tambah Pegawai
     public function formtambahpegawai(){
         return view('pegawai.formtambahpegawai');
        }
@@ -84,7 +84,7 @@ class KaryawanController extends Controller
 
        User::whereId($request->id)->update($validated);
        HakCuti::whereId($request->id)->update($hak_cuti);
-       return redirect()->route('formpegawai')->with(['success' => 'Data Karyawan Berhasil Diupdate!']);
+       return redirect()->route('formpegawai')->with(['success' => 'Data Pegawai Berhasil Diupdate!']);
     }
 
     //Delete Pegawai
@@ -98,6 +98,6 @@ class KaryawanController extends Controller
 
             $user->delete();
 
-            return redirect()->route('formpegawai')->with(['success' => 'Data Karyawan Berhasil Dihapus!']);
+            return redirect()->route('formpegawai')->with(['success' => 'Data Pegawai Berhasil Dihapus!']);
     }
 }
