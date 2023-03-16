@@ -36,7 +36,7 @@ class AuthController extends Controller
         // $dashboard = PermohonanModel::orderBy('id', 'desc')->get();
         $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
         ->orderBy('permohonan_cuti.created_at', 'DESC')
-        ->limit(5)
+        // ->limit(5)
         ->get();
         // ->orderBy('users.created_at', 'DESC')
         // ->select(['users.name', 'permohonan_cuti.alasan_cuti', 'users.created_at']);

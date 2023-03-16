@@ -94,7 +94,6 @@
                                             <th class="text-center">Mulai Cuti</th>
                                             <th class="text-center">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
-                                            {{-- <th>Opsi</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -123,20 +122,6 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    {{-- @foreach ($permohonan as $i => $p) --}}
-                                    {{-- <tr>
-                        <td class="p-0 text-center"></td>
-                        <td class="font-weight-600"></td>
-                        <td class="text-truncate"></td>
-                        <td class="align-middle"></td>
-                        <td class="align-middle"></td>
-                        <td class="align-middle"><span class="badge badge-warning"></span></td>
-                        <td>
-                            <a class="btn btn-action bg-purple mr-1" href="" >Setuju</a> 
-                            <a class="btn btn-danger btn-action" href="">Tolak</a>
-                        </td>
-                    </tr> --}}
-
                                 </table>
                             </div>
                         </div>
@@ -146,54 +131,11 @@
         </section>
     </div>
 @endsection
-@push('scripts')
-    <script>
-        $('#dt-dashboard').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "lengthChange": false,
-            "bDestroy": true,
-            "searching": true,
-            "paginate": {
-                "first": "First",
-                "last": "Last",
-                "next": "Next",
-                "previous": "Previous"
-            },
-            "ajax": {
-                "url": "{{ route('dashboard') }}",
-                "type": "GET",
-                "datatype": "json"
-            },
-            "render": $.fn.dataTable.render.text(),
-            "columns": [{
-                    data: 'name',
-                    searchable: true,
-                    orderable: false
-                },
-                {
-                    data: 'alasan_cuti',
-                    searchable: true,
-                    orderable: false
-                },
-                {
-                    data: 'created_at',
-                    searchable: true,
-                    orderable: false
-                },
-            ],
-            order: [],
-            responsive: true,
-            language: {
-                search: "",
-                searchPlaceholder: "Cari Nama",
-                emptyTable: "Tidak ada data pada tabel ini",
-                info: "Menampilkan _START_ s/d _END_ dari _TOTAL_ data",
-                infoFiltered: "(difilter dari _MAX_ total data)",
-                infoEmpty: "Tidak ada data pada tabel ini",
-                lengthMenu: "Menampilkan _MENU_ data",
-                zeroRecords: "Tidak ada data pada tabel ini"
-            },
-        });
-    </script>
-@endpush
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#dt-dashboard').DataTable();
+    });
+</script>
