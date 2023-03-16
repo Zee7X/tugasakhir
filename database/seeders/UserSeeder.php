@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ]);
         User::create([
-            'nip'=> '200302097',
+            'nip'=> '200102015',
             'name' => 'Imas Nurdianto',
             'email'=> 'imas@gmail.com',
             'password'=> Hash::make('imas'),
