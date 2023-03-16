@@ -1,7 +1,7 @@
 <!-- General JS Scripts -->
 <script src="{{ asset('js/app.min.js') }}"></script>
 <!-- JS Libraies -->
-{{-- <script src="{{ asset('bundles/echart/echarts.js') }}"></script> --}}
+<script src="{{ asset('bundles/echart/echarts.js') }}"></script>
 <script src="{{ asset('bundles/chartjs/chart.min.js') }}"></script>
 <!-- Page Specific JS File -->
 {{-- <script src="{{ asset('js/page/index.js') }}"></script> --}}
@@ -11,7 +11,7 @@
 <!-- myscript -->
 <!-- Custom JS File -->
 <script src="{{ asset('js/custom.js') }}"></script>
-{{-- <script src="{{ asset('bundles/cleave-js/dist/cleave.min.js') }}"></script> --}}
+<script src="{{ asset('bundles/cleave-js/dist/cleave.min.js') }}"></script>
 <script src="{{ asset('bundles/cleave-js/dist/addons/cleave-phone.us.js') }}"></script>
 <script src="{{ asset('bundles/jquery-pwstrength/jquery.pwstrength.min.js') }}"></script>
 <script src="{{ asset('bundles/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
