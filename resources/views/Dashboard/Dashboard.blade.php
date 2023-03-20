@@ -98,29 +98,79 @@
                                     </thead>
                                     <tbody>
                                         <input type="hidden" value="{{ $i = 1 }}">
-                                        @foreach ($dashboard as $user)
-                                            <tr>
-                                                <td class="text-center">{{ $i++ }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->alasan_cuti }}</td>
-                                                <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
-                                                </td>
-                                                <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
-                                                </td>
-                                                @if ($user->status == 'Disetujui')
-                                                    <td class="text-center"><span
-                                                            class="badge badge-success">{{ $user->status }}</span></td>
-                                                @endif
-                                                @if ($user->status == 'Pending')
-                                                    <td class="text-center"><span
-                                                            class="badge badge-warning">{{ $user->status }}</span></td>
-                                                @endif
-                                                @if ($user->status == 'Ditolak')
-                                                    <td class="text-center"><span
-                                                            class="badge badge-danger">{{ $user->status }}</span></td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
+                                        @if (auth()->user()->role_id == 1)
+                                            @foreach ($dashboard2 as $user)
+                                                <tr>
+                                                    <td class="text-center">{{ $i++ }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->alasan_cuti }}</td>
+                                                    <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
+                                                    </td>
+                                                    <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
+                                                    </td>
+                                                    @if ($user->status == 'Disetujui')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-success">{{ $user->status }}</span></td>
+                                                    @endif
+                                                    @if ($user->status == 'Pending')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-warning">{{ $user->status }}</span></td>
+                                                    @endif
+                                                    @if ($user->status == 'Ditolak')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-danger">{{ $user->status }}</span></td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                        @elseif (auth()->user()->role_id == 2)
+                                            @foreach ($dashboard3 as $user)
+                                                <tr>
+                                                    <td class="text-center">{{ $i++ }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->alasan_cuti }}</td>
+                                                    <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
+                                                    </td>
+                                                    <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
+                                                    </td>
+                                                    @if ($user->status == 'Disetujui')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-success">{{ $user->status }}</span></td>
+                                                    @endif
+                                                    @if ($user->status == 'Pending')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-warning">{{ $user->status }}</span></td>
+                                                    @endif
+                                                    @if ($user->status == 'Ditolak')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-danger">{{ $user->status }}</span></td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            @foreach ($dashboard as $user)
+                                                <tr>
+                                                    <td class="text-center">{{ $i++ }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->alasan_cuti }}</td>
+                                                    <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
+                                                    </td>
+                                                    <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
+                                                    </td>
+                                                    @if ($user->status == 'Disetujui')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-success">{{ $user->status }}</span></td>
+                                                    @endif
+                                                    @if ($user->status == 'Pending')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-warning">{{ $user->status }}</span></td>
+                                                    @endif
+                                                    @if ($user->status == 'Ditolak')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-danger">{{ $user->status }}</span></td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

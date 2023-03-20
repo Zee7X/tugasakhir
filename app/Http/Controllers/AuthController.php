@@ -38,12 +38,20 @@ class AuthController extends Controller
         ->orderBy('permohonan_cuti.created_at', 'DESC')
         // ->limit(5)
         ->get();
+        $dashboard2 = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->orderBy('permohonan_cuti.created_at', 'DESC')
+        ->where('users.role_id', '=', auth()->user()->id)
+        ->get();
+        $dashboard3 = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->orderBy('permohonan_cuti.created_at', 'DESC')
+        ->where('users.unit_id', '=', auth()->user()->id)
+        ->get();
         // ->orderBy('users.created_at', 'DESC')
         // ->select(['users.name', 'permohonan_cuti.alasan_cuti', 'users.created_at']);
         // ->whereDate('users.created_at', Carbon::today());
-        // dd($dashboard);
+        dd($dashboard);
         
-        return view('Dashboard.Dashboard', ['dashboard'=>$dashboard], ['sisacuti'=>$sisacuti],);
+        return view('Dashboard.Dashboard', compact('dashboard','dashboard2','dashboard3','sisacuti'));
     }
 
     public function login(Request $request){
