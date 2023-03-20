@@ -65,7 +65,7 @@
                                                 @if (auth()->user()->role_id == 4)
                                                 <td>
                                                     <a class="btn btn-action bg-purple mr-1"
-                                                        href="{{ route('formedit', ['id' => $k->id]) }}"
+                                                        href="{{ route('formedit', ['id' => Crypt::encryptString($k->id)]) }}"
                                                         style="display: inline-block;">Edit</a>
                                                     <a class="btn btn-danger delete-confirm"
                                                         href="{{ route('hapuspegawai', ['id' => $k->id]) }}"

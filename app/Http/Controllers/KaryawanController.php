@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HakCuti;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Auth\Events\Validated;
+use App\Models\User;
+use App\Models\HakCuti;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\PermohonanModel;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Redirect;
 
 class KaryawanController extends Controller
 {
@@ -60,8 +62,9 @@ class KaryawanController extends Controller
     //Edit Pegawai By ID
     public function edit($id)
     {
+        $decrypt_id = Crypt::decryptString($id);
         $users = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
-        ->where('hak_cuti.user_id', '=', $id)
+        ->where('hak_cuti.user_id', '=', $decrypt_id)
         ->get();
         return view('pegawai.formedit', compact('users'));
     }
@@ -90,14 +93,19 @@ class KaryawanController extends Controller
     //Delete Pegawai
     public function destroy (User $user, $id)
     {
-            $hak_cuti = HakCuti::where('user_id', '=', $id);
+        $hak_cuti = HakCuti::where('user_id', '=', $id);
 
-            $hak_cuti->delete();
+        $hak_cuti->delete();
 
-            $user = User::findOrFail($id);
+        $permohonan = PermohonanModel::where('user_id', '=', $id);
 
-            $user->delete();
+        $permohonan->delete();
+        
 
-            return redirect()->route('formpegawai')->with(['success' => 'Data Karyawan Berhasil Dihapus!']);
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect()->intended('formpegawai')->with(['success' => 'Data Karyawan Berhasil Dihapus!']);
     }
 }
