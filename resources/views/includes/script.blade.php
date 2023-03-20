@@ -25,6 +25,8 @@
 {{-- <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script> --}}
 <script src="{{ asset('bundles/izitoast/js/iziToast.min.js') }}"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
@@ -50,5 +52,39 @@
             });
 
         }
+    });
+</script>
+<script>
+    $(function() {
+        $(".modall").click(function() {
+            var my_id_value = $(this).data('id');
+            $(".modal-body #hiddenValue").val(my_id_value);
+        })
+    });
+</script>
+
+<script>
+    $('.delete-confirm').on('click', function(event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            reverseButtons: true,
+            confirmButtonText: 'Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+                Swal.fire(
+                    'Terhapus!',
+                    'Data Pegawai Berhasil Dihapus!',
+                    'success'
+                )
+            }
+        });
     });
 </script>
