@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Hash;
 use datatables;
 use Carbon\Carbon;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\PermohonanModel;
 use PhpParser\Node\Stmt\Return_;
 use App\Http\Controllers\Controller;
-use App\Models\PermohonanModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -35,12 +36,41 @@ class AuthController extends Controller
         ->orderBy('permohonan_cuti.created_at', 'DESC')
         // ->limit(5)
         ->get();
+        $dashboard2 = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->orderBy('permohonan_cuti.created_at', 'DESC')
+        ->where('users.role_id', '=', auth()->user()->id)
+        ->get();
+        $dashboard3 = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->orderBy('permohonan_cuti.created_at', 'DESC')
+        ->where('users.unit_id', '=', auth()->user()->id)
+        ->get();
+        $disetujui = PermohonanModel::where('status', '=', 'Disetujui')
+        ->count();
+        $ditolak = PermohonanModel::where('status', '=', 'Ditolak')
+        ->count();
+        $pending = PermohonanModel::where('status', '=', 'Pending')
+        ->count();
+        $disetujui2 =  PermohonanModel::where('status', '=', 'Disetujui')
+        ->where('user_id', '=', auth()->user()->id)
+        ->count();
+        $disetujui3 =  User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->where('status', '=', 'Disetujui')
+        ->where('users.unit_id', '=', auth()->user()->id)
+        ->count();
+        $ditolak2 =  User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->where('status', '=', 'Ditolak')
+        ->where('users.role_id', '=', auth()->user()->id)
+        ->count();
+        $ditolak3 =  User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->where('status', '=', 'Ditolak')
+        ->where('users.unit_id', '=', auth()->user()->id)
+        ->count();
         // ->orderBy('users.created_at', 'DESC')
         // ->select(['users.name', 'permohonan_cuti.alasan_cuti', 'users.created_at']);
         // ->whereDate('users.created_at', Carbon::today());
-        // dd($dashboard);
+        // dd($disetujui3);
         
-        return view('Dashboard.Dashboard', ['dashboard'=>$dashboard], ['sisacuti'=>$sisacuti],);
+        return view('Dashboard.Dashboard', compact('dashboard','dashboard2','dashboard3','sisacuti', 'disetujui', 'ditolak', 'pending', 'disetujui2','disetujui3','ditolak2','ditolak3',));
     }
 
     //Login Function
