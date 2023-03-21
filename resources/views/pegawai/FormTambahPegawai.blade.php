@@ -19,7 +19,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>NIP</label>
-                                        <input type="text" class="form-control" name="nip">
+                                        <input type="number" class="form-control" name="nip">
                                     </div>
                                     <div class="form-group">
                                         <label>Jenis Kelamin</label>
@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Hak Cuti</label>
-                                        <input type="text" class="form-control" name="hak_cuti">
+                                        <input type="number" class="form-control" name="hak_cuti">
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">

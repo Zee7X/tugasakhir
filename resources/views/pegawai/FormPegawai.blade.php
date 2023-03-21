@@ -55,13 +55,37 @@
                                                     <td class="text-truncate">{{ $k->nip }}</td>
                                                     <td class="align-middle">{{ $k->jabatan }}</td>
                                                     @if ($k->unit_id == 1)
-                                                    <td class="align-middle">Teknik Informatika</td>
+                                                    <td class="align-middle">Direksi</td>
                                                     @elseif ($k->unit_id == 2)
-                                                    <td class="align-middle">Teknik Mesin</td>
+                                                    <td class="align-middle">SPI</td>
                                                     @elseif ($k->unit_id == 3)
-                                                    <td class="align-middle">Teknik Elektro</td>
+                                                    <td class="align-middle">P4MP</td>
                                                     @elseif ($k->unit_id == 4)
-                                                    <td class="align-middle">Teknik Listrik</td>
+                                                    <td class="align-middle">PPM</td>
+                                                    @elseif ($k->unit_id == 5)
+                                                    <td class="align-middle">Teknik Informatika</td>
+                                                    @elseif ($k->unit_id == 6)
+                                                    <td class="align-middle">Teknik Mesin</td>
+                                                    @elseif ($k->unit_id == 7)
+                                                    <td class="align-middle">Teknik Elektronika</td>
+                                                    @elseif ($k->unit_id == 8)
+                                                    <td class="align-middle">Teknik Pencemaran Pengendalian Lingkungan</td>
+                                                    @elseif ($k->unit_id == 9)
+                                                    <td class="align-middle">D4 PPA</td>
+                                                    @elseif ($k->unit_id == 10)
+                                                    <td class="align-middle">Umum</td>
+                                                    @elseif ($k->unit_id == 11)
+                                                    <td class="align-middle">Akademik</td>
+                                                    @elseif ($k->unit_id == 12)
+                                                    <td class="align-middle">Keuangan</td>
+                                                    @elseif ($k->unit_id == 13)
+                                                    <td class="align-middle">Teknologi Informasi Komputer</td>
+                                                    @elseif ($k->unit_id == 14)
+                                                    <td class="align-middle">Pemeliharaan</td>
+                                                    @elseif ($k->unit_id == 15)
+                                                    <td class="align-middle">Bahasa</td>
+                                                    @elseif ($k->unit_id == 16)
+                                                    <td class="align-middle">Perpustakaan</td>
                                                     @endif
                                                     
                                                     <td class="align-middle">{{ $k->hak_cuti }} Hari</td>
