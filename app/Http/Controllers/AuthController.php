@@ -33,14 +33,18 @@ class AuthController extends Controller
         
         // $dashboard = PermohonanModel::orderBy('id', 'desc')->get();
         $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->leftJoin('units', 'users.unit_id', '=', 'units.id')
         ->orderBy('permohonan_cuti.created_at', 'DESC')
         // ->limit(5)
         ->get();
         $dashboard2 = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->rightJoin('units', 'users.unit_id', '=', 'units.id')
         ->orderBy('permohonan_cuti.created_at', 'DESC')
-        ->where('users.role_id', '=', auth()->user()->id)
+        ->where('users.role_id', '=', auth()->user()->role_id)
+        ->where('users.id', '=', auth()->id())
         ->get();
         $dashboard3 = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+        ->rightJoin('units', 'users.unit_id', '=', 'units.id')
         ->orderBy('permohonan_cuti.created_at', 'DESC')
         ->where('users.unit_id', '=', auth()->user()->id)
         ->get();

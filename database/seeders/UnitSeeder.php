@@ -16,68 +16,68 @@ class UnitSeeder extends Seeder
     {
         
         Unit::create([
-            'name'=> 'Direksi'
+            'name_unit'=> 'Direksi'
         ]);
 
         Unit::create([
-            'name'=> 'SPI'
+            'name_unit'=> 'SPI'
         ]);
 
         Unit::create([
-            'name'=> 'P4MP'
+            'name_unit'=> 'P4MP'
         ]);
 
         Unit::create([
-            'name'=> 'PPM'
+            'name_unit'=> 'PPM'
         ]);
 
 
         Unit::create([
-            'name'=> 'Teknik Informatika'
+            'name_unit'=> 'Teknik Informatika'
         ]);
 
         Unit::create([
-            'name'=> 'Teknik Mesin'
+            'name_unit'=> 'Teknik Mesin'
         ]);
 
         Unit::create([
-            'name'=> 'Teknik Elektronika'
+            'name_unit'=> 'Teknik Elektronika'
         ]);
         
         Unit::create([
-            'name'=> 'Teknik Pencemaran Pengendalian Lingkungan'
+            'name_unit'=> 'Teknik Pencemaran Pengendalian Lingkungan'
         ]);
 
         Unit::create([
-            'name'=> 'D4 PPA'
+            'name_unit'=> 'D4 PPA'
         ]);
 
         Unit::create([
-            'name'=> 'Umum'
+            'name_unit'=> 'Umum'
         ]);
 
         Unit::create([
-            'name'=> 'Akademik'
+            'name_unit'=> 'Akademik'
         ]);
 
         Unit::create([
-            'name'=> 'Keuangan'
+            'name_unit'=> 'Keuangan'
         ]);
 
         Unit::create([
-            'name'=> 'Teknologi Informasi Komputer'
+            'name_unit'=> 'Teknologi Informasi Komputer'
         ]);
 
         Unit::create([
-            'name'=> 'Pemeliharaan'
+            'name_unit'=> 'Pemeliharaan'
         ]);
 
         Unit::create([
-            'name'=> 'Bahasa'
+            'name_unit'=> 'Bahasa'
         ]);
 
         Unit::create([
-            'name'=> 'Perpustakaan'
+            'name_unit'=> 'Perpustakaan'
         ]);
 
     }

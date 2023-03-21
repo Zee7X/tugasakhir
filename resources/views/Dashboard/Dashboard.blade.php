@@ -47,7 +47,7 @@
                                     <span>{{ $disetujui2 }}</span>
                                 @elseif (auth()->user()->role_id == 2)
                                     <span>{{ $disetujui3 }}</span>
-                                @else ()
+                                @else
                                     <span>{{ $disetujui }}</span>
                                 @endif
                                 <div class="progress mt-1 mb-1" data-height="8">
@@ -72,7 +72,7 @@
                                     <span>{{ $ditolak2 }}</span>
                                 @elseif (auth()->user()->role_id == 2)
                                     <span>{{ $ditolak3 }}</span>
-                                @else ()
+                                @else
                                     <span>{{ $ditolak }}</span>
                                 @endif
                                 <div class="progress mt-1 mb-1" data-height="8">
@@ -114,48 +114,18 @@
                                         <input type="hidden" value="{{ $i = 1 }}">
                                         @if (auth()->user()->role_id == 1)
                                             @foreach ($dashboard2 as $user)
-                                            <tr>
-                                                <td class="text-center">{{ $i++ }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->jabatan }}</td>
-                                                @if ($user->unit_id == 1)
-                                                    <td>Direksi</td>
-                                                @elseif ($user->unit_id == 2)
-                                                    <td>SPI</td>
-                                                @elseif ($user->unit_id == 3)
-                                                    <td>P4MP</td>
-                                                @elseif ($user->unit_id == 4)
-                                                    <td>PPM</td>
-                                                @elseif ($user->unit_id == 5)
-                                                    <td>Teknik Informatika</td>
-                                                @elseif ($user->unit_id == 6)
-                                                    <td>Teknik Mesin</td>
-                                                @elseif ($user->unit_id == 7)
-                                                    <td>Teknik Elektronika</td>
-                                                @elseif ($user->unit_id == 8)
-                                                    <td>Teknik Pencemaran Pengendalian Lingkungan</td>
-                                                @elseif ($user->unit_id == 9)
-                                                    <td>D4 PPA</td>
-                                                @elseif ($user->unit_id == 10)
-                                                    <td>Umum</td>
-                                                @elseif ($user->unit_id == 11)
-                                                    <td>Akademik</td>
-                                                @elseif ($user->unit_id == 12)
-                                                    <td>Keuangan</td>
-                                                @elseif ($user->unit_id == 13)
-                                                    <td>Teknologi Informasi Komputer</td>
-                                                @elseif ($user->unit_id == 14)
-                                                    <td>Pemeliharaan</td>
-                                                @elseif ($user->unit_id == 15)
-                                                    <td>Bahasa</td>
-                                                @else
-                                                    ()
-                                                    <td>Perpustakaan</td>
-                                                @endif
-                                                <td>{{ $user->alasan_cuti }}</td>
-                                                    <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
+                                                <tr>
+
+                                                    <td class="text-center">{{ $i++ }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->jabatan }}</td>
+                                                    <td>{{ $user->name_unit }}</td>
+                                                    <td>{{ $user->alasan_cuti }}</td>
+                                                    <td class="text-center">
+                                                        {{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
                                                     </td>
-                                                    <td class="text-center">{{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
+                                                    <td class="text-center">
+                                                        {{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
                                                     </td>
                                                     @if ($user->status == 'Disetujui')
                                                         <td class="text-center"><span
@@ -173,45 +143,13 @@
                                             @endforeach
                                         @elseif (auth()->user()->role_id == 2)
                                             @foreach ($dashboard3 as $user)
-                                            <tr>
-                                                <td class="text-center">{{ $i++ }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->jabatan }}</td>
-                                                @if ($user->unit_id == 1)
-                                                    <td>Direksi</td>
-                                                @elseif ($user->unit_id == 2)
-                                                    <td>SPI</td>
-                                                @elseif ($user->unit_id == 3)
-                                                    <td>P4MP</td>
-                                                @elseif ($user->unit_id == 4)
-                                                    <td>PPM</td>
-                                                @elseif ($user->unit_id == 5)
-                                                    <td>Teknik Informatika</td>
-                                                @elseif ($user->unit_id == 6)
-                                                    <td>Teknik Mesin</td>
-                                                @elseif ($user->unit_id == 7)
-                                                    <td>Teknik Elektronika</td>
-                                                @elseif ($user->unit_id == 8)
-                                                    <td>Teknik Pencemaran Pengendalian Lingkungan</td>
-                                                @elseif ($user->unit_id == 9)
-                                                    <td>D4 PPA</td>
-                                                @elseif ($user->unit_id == 10)
-                                                    <td>Umum</td>
-                                                @elseif ($user->unit_id == 11)
-                                                    <td>Akademik</td>
-                                                @elseif ($user->unit_id == 12)
-                                                    <td>Keuangan</td>
-                                                @elseif ($user->unit_id == 13)
-                                                    <td>Teknologi Informasi Komputer</td>
-                                                @elseif ($user->unit_id == 14)
-                                                    <td>Pemeliharaan</td>
-                                                @elseif ($user->unit_id == 15)
-                                                    <td>Bahasa</td>
-                                                @else
-                                                    ()
-                                                    <td>Perpustakaan</td>
-                                                @endif
-                                                <td>{{ $user->alasan_cuti }}</td>
+                                                <tr>
+                                                    <td class="text-center">{{ $i++ }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->jabatan }}</td>
+                                                    <td>{{ $user->name_unit }}</td>
+
+                                                    <td>{{ $user->alasan_cuti }}</td>
                                                     <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
                                                     </td>
@@ -239,40 +177,7 @@
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->jabatan }}</td>
-                                                    @if ($user->unit_id == 1)
-                                                        <td>Direksi</td>
-                                                    @elseif ($user->unit_id == 2)
-                                                        <td>SPI</td>
-                                                    @elseif ($user->unit_id == 3)
-                                                        <td>P4MP</td>
-                                                    @elseif ($user->unit_id == 4)
-                                                        <td>PPM</td>
-                                                    @elseif ($user->unit_id == 5)
-                                                        <td>Teknik Informatika</td>
-                                                    @elseif ($user->unit_id == 6)
-                                                        <td>Teknik Mesin</td>
-                                                    @elseif ($user->unit_id == 7)
-                                                        <td>Teknik Elektronika</td>
-                                                    @elseif ($user->unit_id == 8)
-                                                        <td>Teknik Pencemaran Pengendalian Lingkungan</td>
-                                                    @elseif ($user->unit_id == 9)
-                                                        <td>D4 PPA</td>
-                                                    @elseif ($user->unit_id == 10)
-                                                        <td>Umum</td>
-                                                    @elseif ($user->unit_id == 11)
-                                                        <td>Akademik</td>
-                                                    @elseif ($user->unit_id == 12)
-                                                        <td>Keuangan</td>
-                                                    @elseif ($user->unit_id == 13)
-                                                        <td>Teknologi Informasi Komputer</td>
-                                                    @elseif ($user->unit_id == 14)
-                                                        <td>Pemeliharaan</td>
-                                                    @elseif ($user->unit_id == 15)
-                                                        <td>Bahasa</td>
-                                                    @else
-                                                        ()
-                                                        <td>Perpustakaan</td>
-                                                    @endif
+                                                    <td>{{ $user->name_unit }}</td>
                                                     <td>{{ $user->alasan_cuti }}</td>
                                                     <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($user->tgl_mulai)) }}

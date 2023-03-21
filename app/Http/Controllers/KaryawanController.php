@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\HakCuti;
 use Illuminate\Http\Request;
 use App\Models\PermohonanModel;
+use App\Models\Unit;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Crypt;
@@ -48,13 +49,16 @@ class KaryawanController extends Controller
 
     //Menampilkan Form Tambah Pegawai
     public function formtambahpegawai(){
-        return view('pegawai.formtambahpegawai');
+        $unit = Unit::all();
+        return view('pegawai.formtambahpegawai', compact('unit'));
        }
 
     //Menampilkan Pegawai
     public function index()
     {
         $users = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
+        ->Join('units', 'users.unit_id', '=', 'units.id')
+        ->select('units.name_unit','users.id','users.name','users.jabatan','users.nip','hak_cuti.hak_cuti')
         ->get();
         return view('pegawai.FormPegawai', compact('users'));
     }
@@ -100,12 +104,11 @@ class KaryawanController extends Controller
         $permohonan = PermohonanModel::where('user_id', '=', $id);
 
         $permohonan->delete();
-        
 
         $user = User::findOrFail($id);
 
         $user->delete();
 
-        return redirect()->intended('formpegawai')->with(['success' => 'Data Karyawan Berhasil Dihapus!']);
+        return redirect()->back()->with(['success' => 'Data Karyawan Berhasil Dihapus!']);
     }
 }
