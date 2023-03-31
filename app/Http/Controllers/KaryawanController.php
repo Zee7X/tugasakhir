@@ -12,21 +12,29 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class KaryawanController extends Controller
 {
 
     //Tambah Pegawai
     public function tambah(Request $request){
-        $request->validate([
+        $validatedData = Validator::make($request->all(), [
             'name' => 'required',
-            'nip' => 'required',
+            'nip' => 'required|unique:users,nip',
             'jenis_kelamin' => 'required',
             'jabatan' => 'required',
             'unit_id' => 'required',
             'hak_cuti' => 'required',
             
         ]);
+        $messages = [
+            'nip'      => 'NIP Sudah Ada!',
+        ];
+
+        if ($validatedData->fails()) { 
+            return back()->withInput()->withErrors($messages);
+        }
 
         $data = [
             'name' => $request->name,

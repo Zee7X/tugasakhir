@@ -23,32 +23,59 @@
                         @endif
                         <div class="card-body">
                             <div class="table-responsive table-invoice">
-                                <table class="table table-striped" id="table-1">
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th>Nama</th>
-                                        <th>Alasan Cuti</th>
-                                        <th>Mulai Cuti</th>
-                                        <th>Berakhir Cuti</th>
-                                        <th>Status</th>
-                                        @if (auth()->user()->role_id != 1)
-                                            <th>Opsi</th>
-                                        @endif
-                                    </tr>
-                                    <tr>
-                                        <td class="p-0 text-center"></td>
-                                        <td class="font-weight-600"></td>
-                                        <td class="text-truncate"></td>
-                                        <td class="align-middle"></td>
-                                        <td class="align-middle"></td>
-                                        <td class="align-middle"><span class="badge badge-warning"></span></td>
-                                        @if (auth()->user()->role_id != 1)
-                                            <td>
-                                                <a class="btn btn-action bg-purple mr-1" href="">Setuju</a>
-                                                <a class="btn btn-danger btn-action" href="">Tolak</a>
-                                            </td>
-                                        @endif
-                                    </tr>
+                                <table class="table table-striped" id="dt-dashboard">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th>Nama Karyawan</th>
+                                            <th>Jabatan</th>
+                                            <th>Unit</th>
+                                            <th>Alasan Cuti</th>
+                                            <th class="text-center">Mulai Cuti</th>
+                                            <th class="text-center">Berakhir Cuti</th>
+                                            <th class="text-center">Status</th>
+                                            @if (auth()->user()->role_id != 1)
+                                            <th class="text-center">Opsi</th>
+                                            @endif
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <input type="hidden" value="{{ $i = 1 }}">
+                                            @foreach ($permohonan as $p)
+                                                <tr>
+
+                                                    <td class="text-center">{{ $i++ }}</td>
+                                                    <td>{{ $p->name }}</td>
+                                                    <td>{{ $p->jabatan }}</td>
+                                                    <td>{{ $p->name_unit }}</td>
+                                                    <td>{{ $p->alasan_cuti }}</td>
+                                                    <td class="text-center">
+                                                        {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
+                                                    </td>
+                                                    @if ($p->status == 'Disetujui')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-success">{{ $p->status }}</span></td>
+                                                    @endif
+                                                    @if ($p->status == 'Pending')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-warning">{{ $p->status }}</span></td>
+                                                    @endif
+                                                    @if ($p->status == 'Ditolak')
+                                                        <td class="text-center"><span
+                                                                class="badge badge-danger">{{ $p->status }}</span></td>
+                                                    @endif
+                                                    <td>
+                                                        @if (auth()->user()->role_id != 1)
+                                                        <a class="btn btn-action bg-purple mr-1" href="">Setuju</a>
+                                                        <a class="btn btn-danger btn-action" href="">Tolak</a>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

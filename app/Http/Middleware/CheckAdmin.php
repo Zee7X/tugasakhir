@@ -5,9 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckRole
+class CheckAdmin
 {
-    /**
+   /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -16,10 +16,9 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role)
     {
-        if($role == 'pegawai' && auth()->user()->role_id ==1){
-            abort(404);
-            
+        if($role == 'admin' && auth()->user()->role_id ==4){
+            return $next($request);
         }
-        return $next($request);
+        abort(404);
     }
 }
