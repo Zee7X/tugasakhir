@@ -17,6 +17,7 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th>Nama Karyawan</th>
+                                            <th>NIP</th>
                                             <th>Jabatan</th>
                                             <th>Unit</th>
                                             <th>Alasan Cuti</th>
@@ -32,6 +33,7 @@
 
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $p->name }}</td>
+                                                    <td>{{ $p->nip }}</td>
                                                     <td>{{ $p->jabatan }}</td>
                                                     <td>{{ $p->name_unit }}</td>
                                                     <td>{{ $p->alasan_cuti }}</td>

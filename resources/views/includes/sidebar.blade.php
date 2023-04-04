@@ -2,7 +2,7 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="#"> <span
-                class="logo-name">SIPETI</span>
+                class="logo-name">SICUTI</span>
             </a>
           </div>
           <div class="sidebar-user">

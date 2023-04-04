@@ -102,7 +102,7 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th>Nama Karyawan</th>
-                                            <th>Jabatan</th>
+                                            {{-- <th>Jabatan</th> --}}
                                             <th>Unit</th>
                                             <th>Alasan Cuti</th>
                                             <th class="text-center">Mulai Cuti</th>
@@ -118,7 +118,7 @@
 
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $user->name }}</td>
-                                                    <td>{{ $user->jabatan }}</td>
+                                                    {{-- <td>{{ $user->jabatan }}</td> --}}
                                                     <td>{{ $user->name_unit }}</td>
                                                     <td>{{ $user->alasan_cuti }}</td>
                                                     <td class="text-center">
@@ -146,7 +146,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $user->name }}</td>
-                                                    <td>{{ $user->jabatan }}</td>
+                                                    {{-- <td>{{ $user->jabatan }}</td> --}}
                                                     <td>{{ $user->name_unit }}</td>
 
                                                     <td>{{ $user->alasan_cuti }}</td>
@@ -176,7 +176,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $user->name }}</td>
-                                                    <td>{{ $user->jabatan }}</td>
+                                                    {{-- <td>{{ $user->jabatan }}</td> --}}
                                                     <td>{{ $user->name_unit }}</td>
                                                     <td>{{ $user->alasan_cuti }}</td>
                                                     <td class="text-center">

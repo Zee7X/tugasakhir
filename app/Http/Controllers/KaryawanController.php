@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\HakCuti;
 use Illuminate\Http\Request;
 use App\Models\PermohonanModel;
+use App\Models\Role;
 use App\Models\Unit;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Validated;
@@ -64,6 +65,7 @@ class KaryawanController extends Controller
     //Menampilkan Pegawai
     public function index()
     {
+        
         $users = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
         ->Join('units', 'users.unit_id', '=', 'units.id')
         ->select('units.name_unit','users.id','users.name','users.jabatan','users.nip','hak_cuti.hak_cuti')
@@ -74,11 +76,15 @@ class KaryawanController extends Controller
     //Edit Pegawai By ID
     public function edit($id)
     {
+        $unit = Unit::all();
+        $role = Role::all();
         $decrypt_id = Crypt::decryptString($id);
         $users = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
+        ->Join('units', 'users.unit_id', '=', 'units.id')
+        ->select('units.name_unit','users.id','users.unit_id','users.name','users.role_id','users.jenis_kelamin','users.jabatan','users.nip','hak_cuti.hak_cuti')
         ->where('hak_cuti.user_id', '=', $decrypt_id)
         ->get();
-        return view('pegawai.formedit', compact('users'));
+        return view('pegawai.formedit', compact('users','unit','role'));
     }
 
     //Update Pegawai

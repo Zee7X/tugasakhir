@@ -28,12 +28,16 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th>Nama Karyawan</th>
+                                            @if (auth()->user()->role_id == 1)
                                             <th>Jabatan</th>
+                                            @endif
                                             <th>Unit</th>
                                             <th>Alasan Cuti</th>
                                             <th class="text-center">Mulai Cuti</th>
                                             <th class="text-center">Berakhir Cuti</th>
+                                            @if (auth()->user()->role_id == 1)
                                             <th class="text-center">Status</th>
+                                            @endif
                                             @if (auth()->user()->role_id != 1)
                                             <th class="text-center">Opsi</th>
                                             @endif
@@ -43,10 +47,11 @@
                                         <input type="hidden" value="{{ $i = 1 }}">
                                             @foreach ($permohonan as $p)
                                                 <tr>
-
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $p->name }}</td>
+                                                    @if (auth()->user()->role_id == 1)
                                                     <td>{{ $p->jabatan }}</td>
+                                                    @endif
                                                     <td>{{ $p->name_unit }}</td>
                                                     <td>{{ $p->alasan_cuti }}</td>
                                                     <td class="text-center">
@@ -55,24 +60,30 @@
                                                     <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
+                                                    @if (auth()->user()->role_id == 1)
                                                     @if ($p->status == 'Disetujui')
                                                         <td class="text-center"><span
                                                                 class="badge badge-success">{{ $p->status }}</span></td>
                                                     @endif
+                                                    @endif
+                                                    @if (auth()->user()->role_id == 1)
                                                     @if ($p->status == 'Pending')
                                                         <td class="text-center"><span
                                                                 class="badge badge-warning">{{ $p->status }}</span></td>
                                                     @endif
+                                                    @endif
+                                                    @if (auth()->user()->role_id == 1)
                                                     @if ($p->status == 'Ditolak')
                                                         <td class="text-center"><span
                                                                 class="badge badge-danger">{{ $p->status }}</span></td>
                                                     @endif
+                                                    @endif
+                                                    @if (auth()->user()->role_id != 1)
                                                     <td>
-                                                        @if (auth()->user()->role_id != 1)
-                                                        <a class="btn btn-action bg-purple mr-1" href="">Setuju</a>
+                                                        <a class="btn btn-action bg-green mr-1" href="">Setuju</a>
                                                         <a class="btn btn-danger btn-action" href="">Tolak</a>
-                                                        @endif
                                                     </td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                     </tbody>
