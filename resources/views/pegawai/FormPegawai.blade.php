@@ -5,12 +5,15 @@
         <section class="section">
             <div class="row">
                 <div class="col-12 col-sm-12 col-lg-12">
-                    <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
+                    @if (Session::has('error'))
+                        <div id="flash-data" data-flashdata="{{ Session::get('error') }}"></div>
+                    @elseif(Session::has('success'))
+                        <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
+                    @endif
                     <div class="card">
                         <div class="card-header">
                             <h4>Data Pegawai</h4>
                         </div>
-
                         <div class="card-body">
                             <div class="btn-toolbar justify-content-between">
                                 @if (auth()->user()->role_id == 4)

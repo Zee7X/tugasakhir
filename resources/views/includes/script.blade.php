@@ -37,20 +37,19 @@
     $(document).ready(function() {
         const flashData = $("#flash-data").data('flashdata');
         console.log(flashData);
-        if (flashData == "Berhasil Mengajukan Permohonan Cuti") {
+        if (flashData == "Berhasil Mengajukan Permohonan Cuti" || flashData == "Data Pegawai Berhasil Diupdate!" || flashData == "Data Pegawai Berhasil Ditambah!" || flashData == "Data Pegawai Berhasil Dihapus!") {
             iziToast.success({
                 title: 'Success !!',
                 message: flashData,
                 position: 'topRight'
             });
         } else if (flashData == "Maaf sisa cuti anda sudah habis" || flashData ==
-            "Silahkan Periksa kembali tanggal cuti") {
+            "Silahkan Periksa kembali tanggal cuti" || flashData == "Silahkan periksa alasan cuti!") {
             iziToast.error({
                 title: 'Error!',
                 message: flashData,
                 position: 'topRight'
             });
-
         }
     });
 </script>

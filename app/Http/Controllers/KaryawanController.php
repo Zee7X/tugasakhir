@@ -131,6 +131,6 @@ class KaryawanController extends Controller
 
         $user->delete();
 
-        return redirect()->back()->with(['success' => 'Data Karyawan Berhasil Dihapus!']);
+        return redirect()->back()->with(['success' => 'Data Pegawai Berhasil Dihapus!']);
     }
 }

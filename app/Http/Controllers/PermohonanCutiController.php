@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PermohonanCutiController extends Controller
 {
@@ -29,6 +30,15 @@ class PermohonanCutiController extends Controller
             if($durasi->days <= 0){
                 return redirect()->route('permohonan')->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
             }else{
+                $validasiData = Validator::make($request->all(), [
+                    'alasan_cuti' => 'required',
+                    'tgl_mulai' => 'required',
+                    'tgl_akhir' => 'required',
+                    'alamat_cuti' => 'required|max:255',
+                ]);
+                if($validasiData->fails()){
+                    return back()->withInput()->with(['error' => 'Silahkan periksa alasan cuti!']);
+                }else{
                 PermohonanModel::insert([
                     'user_id' => Auth::id(),
                     'alasan_cuti' => $request->alasan_cuti,
@@ -47,6 +57,7 @@ class PermohonanCutiController extends Controller
                 HakCuti::whereId($id)->update($hak_cuti);
                 
                 return redirect()->route('permohonan')->with(['success' => 'Berhasil Mengajukan Permohonan Cuti']);
+            }
             }
         }
     }

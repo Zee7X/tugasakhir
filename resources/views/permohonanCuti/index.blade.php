@@ -7,13 +7,12 @@
                 <div class="col-12 col-sm-12 col-lg-12">
                     @if (Session::has('error'))
                         <div id="flash-data" data-flashdata="{{ Session::get('error') }}"></div>
-                    @else
+                    @elseif (Session::has('success'))
                         <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
                     @endif
-
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Permohonan Cuti</h4>
+                            <h4>Data Permohonan Cuti </h4>
                         </div>
                             <div class="ml-4 mt-3">
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat
@@ -100,33 +99,33 @@
                             <div class="form-group">
                                 <label>Alasan Cuti</label>
                                 <select class="form-control" name="alasan_cuti" id="alasan_cuti" required>
-                                    <option disabled selected hidden>Pilih Alasan Permohonan Cuti</option>
+                                    <option disabled selected>Pilih Alasan Permohonan Cuti</option>
                                     @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
-                                        <option name="alasan_cuti" value="Cuti Bersalin">Cuti Bersalin</option>
-                                        <option name="alasan_cuti" value="Gugur Kandungan">Gugur Kandungan</option>
+                                        <option name="alasan_cuti" value="Cuti Bersalin" {{ (old("alasan_cuti") == "Cuti Bersalin" ? "selected" : "") }}>Cuti Bersalin</option>
+                                        <option name="alasan_cuti" value="Gugur Kandungan" {{ (old("alasan_cuti") == "Gugur Kandungan" ? "selected" : "") }}>Gugur Kandungan</option>
                                     @endif
-                                    <option name="alasan_cuti" value="Cuti Besar">Cuti Besar</option>
-                                    <option name="alasan_cuti" value="Cuti Diluar Tanggungan">Cuti Diluar Tanggungan
+                                    <option name="alasan_cuti" value="Cuti Besar" {{ (old("alasan_cuti") == "Cuti Besar" ? "selected" : "") }}>Cuti Besar</option>
+                                    <option name="alasan_cuti" value="Cuti Diluar Tanggungan" {{ (old("alasan_cuti") == "Cuti Diluar Tanggungan" ? "selected" : "") }}>Cuti Diluar Tanggungan
                                     </option>
-                                    <option name="alasan_cuti" value="Cuti Tahunan">Cuti Tahunan</option>
-                                    <option name="alasan_cuti" value="Cuti Ibadah Keagamaan">Cuti Ibadah Keagamaan</option>
-                                    <option name="alasan_cuti" value="Cuti Karena Alasan Penting">Cuti Karena Alasan Penting
+                                    <option name="alasan_cuti" value="Cuti Tahunan" {{ (old("alasan_cuti") == "Cuti Tahunan" ? "selected" : "") }}>Cuti Tahunan</option>
+                                    <option name="alasan_cuti" value="Cuti Ibadah Keagamaan" {{ (old("alasan_cuti") == "Cuti Ibadah Keagamaan" ? "selected" : "") }}>Cuti Ibadah Keagamaan</option>
+                                    <option name="alasan_cuti" value="Cuti Karena Alasan Penting" {{ (old("alasan_cuti") == "Cuti Karena Alasan Penting" ? "selected" : "") }}>Cuti Karena Alasan Penting
                                     </option>
-                                    <option name="alasan_cuti" value="Lain - Lain">Lain - Lain</option>
+                                    <option name="alasan_cuti" value="Lain - Lain" {{ (old("alasan_cuti") == "Lain - Lain" ? "selected" : "") }}>Lain - Lain</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Mulai Cuti</label>
-                                <input type="text" name="tgl_mulai" required class="form-control datepicker" required>
+                                <input type="text" name="tgl_mulai" value="{{ old('tgl_mulai', date('Y-m-d')) }}" required class="form-control datepicker" required>
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Berakhir Cuti</label>
-                                <input type="text" name="tgl_akhir" required class="form-control datepicker"
+                                <input type="text" name="tgl_akhir" value="{{ old('tgl_akhir', date('Y-m-d')) }}" required class="form-control datepicker"
                                     value="{{ date('Y-m-d', strtotime('+1 day')) }}" required>
                             </div>
                             <div class="form-group">
                                 <label>Alamat Selama Cuti</label>
-                                <input type="text" class="form-control" name="alamat_cuti" required>
+                                <input type="text" class="form-control" value="{{ old("alamat_cuti") }}" name="alamat_cuti" required>
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                         </form>
@@ -134,6 +133,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
