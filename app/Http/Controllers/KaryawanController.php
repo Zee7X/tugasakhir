@@ -65,11 +65,19 @@ class KaryawanController extends Controller
     //Menampilkan Pegawai
     public function index()
     {
-        
+        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3){
         $users = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
         ->Join('units', 'users.unit_id', '=', 'units.id')
         ->select('units.name_unit','users.id','users.name','users.jabatan','users.nip','hak_cuti.hak_cuti')
         ->get();
+        }
+        if(auth()->user()->role_id == 2){
+            $users = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
+        ->Join('units', 'users.unit_id', '=', 'units.id')
+        ->where('units.id', '=', auth()->user()->unit_id)
+        ->select('units.name_unit','users.id','users.name','users.jabatan','users.nip','hak_cuti.hak_cuti')
+        ->get();
+        }
         return view('pegawai.FormPegawai', compact('users'));
     }
 

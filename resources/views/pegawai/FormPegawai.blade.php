@@ -37,13 +37,13 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">No</th>
-                                                <th>Nama</th>
-                                                <th>NIP</th>
-                                                <th>Jabatan</th>
-                                                <th>Unit</th>
-                                                <th>Sisa Cuti</th>
+                                                <th class="text-center">Nama Pegawai</th>
+                                                <th class="text-center">NIP</th>
+                                                <th class="text-center">Jabatan</th>
+                                                <th class="text-center">Unit</th>
+                                                <th class="text-center">Sisa Cuti</th>
                                                 @if (auth()->user()->role_id == 4)
-                                                <th>Opsi</th>
+                                                <th class="text-center">Opsi</th>
                                                 @endif
                                             </tr>
                                         </thead>
@@ -55,11 +55,9 @@
                                                     <td class="text-truncate">{{ $k->nip }}</td>
                                                     <td class="align-middle">{{ $k->jabatan }}</td>
                                                     <td class="align-middle">{{ $k->name_unit }}</td>
-                                                    
-                                                    
                                                     <td class="align-middle">{{ $k->hak_cuti }} Hari</td>
                                                     @if (auth()->user()->role_id == 4)
-                                                    <td>
+                                                    <td class="align-middle">
                                                         <a class="btn btn-action bg-purple mr-1"
                                                             href="{{ route('formedit', ['id' => Crypt::encryptString($k->id)]) }}"
                                                             style="display: inline-block;">Edit</a>

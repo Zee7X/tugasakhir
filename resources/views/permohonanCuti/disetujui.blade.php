@@ -16,11 +16,11 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th>Nama Karyawan</th>
-                                            <th>NIP</th>
-                                            <th>Jabatan</th>
-                                            <th>Unit</th>
-                                            <th>Alasan Cuti</th>
+                                            <th class="text-center">Nama Pegawai</th>
+                                            <th class="text-center">NIP</th>
+                                            <th class="text-center">Jabatan</th>
+                                            <th class="text-center">Unit</th>
+                                            <th class="text-center">Alasan Cuti</th>
                                             <th class="text-center">Mulai Cuti</th>
                                             <th class="text-center">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
@@ -30,17 +30,16 @@
                                         <input type="hidden" value="{{ $i = 1 }}">
                                             @foreach ($permohonan_disetujui as $p)
                                                 <tr>
-
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $p->name }}</td>
                                                     <td>{{ $p->nip }}</td>
                                                     <td>{{ $p->jabatan }}</td>
                                                     <td>{{ $p->name_unit }}</td>
                                                     <td>{{ $p->alasan_cuti }}</td>
-                                                    <td class="text-center">
+                                                    <td>
                                                         {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                     </td>
-                                                    <td class="text-center">
+                                                    <td>
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
                                                     @if ($p->status == 'Disetujui')

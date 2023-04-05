@@ -10,82 +10,72 @@
                     @else
                         <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
                     @endif
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <h4>Data Permohonan Cuti</h4>
                         </div>
-                        @if (auth()->user()->role_id == 1)
                             <div class="ml-4 mt-3">
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat
                                     Permohonan Cuti</button>
                             </div>
-                        @endif
                         <div class="card-body">
                             <div class="table-responsive table-invoice">
                                 <table class="table table-striped" id="dt-dashboard">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th>Nama Karyawan</th>
+                                            <th class="text-center">Nama Pegawai</th>
                                             @if (auth()->user()->role_id == 1)
-                                            <th>Jabatan</th>
+                                                <th class="text-center">Jabatan</th>
                                             @endif
-                                            <th>Unit</th>
-                                            <th>Alasan Cuti</th>
+                                            <th class="text-center">Unit</th>
+                                            <th class="text-center">Alasan Cuti</th>
                                             <th class="text-center">Mulai Cuti</th>
                                             <th class="text-center">Berakhir Cuti</th>
-                                            @if (auth()->user()->role_id == 1)
-                                            <th class="text-center">Status</th>
+                                            @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4 )
+                                                <th class="text-center">Status</th>
                                             @endif
-                                            @if (auth()->user()->role_id != 1)
+                                            @if (auth()->user()->role_id == 2 || auth()->user()->role_id ==3 )
                                             <th class="text-center">Opsi</th>
                                             @endif
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <input type="hidden" value="{{ $i = 1 }}">
-                                            @foreach ($permohonan as $p)
-                                                <tr>
-                                                    <td class="text-center">{{ $i++ }}</td>
-                                                    <td>{{ $p->name }}</td>
-                                                    @if (auth()->user()->role_id == 1)
+                                        @foreach ($permohonan as $p)
+                                            <tr>
+                                                <td class="text-center">{{ $i++ }}</td>
+                                                <td>{{ $p->name }}</td>
+                                                @if (auth()->user()->role_id == 1)
                                                     <td>{{ $p->jabatan }}</td>
-                                                    @endif
-                                                    <td>{{ $p->name_unit }}</td>
-                                                    <td>{{ $p->alasan_cuti }}</td>
-                                                    <td class="text-center">
-                                                        {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
-                                                    </td>
-                                                    @if (auth()->user()->role_id == 1)
-                                                    @if ($p->status == 'Disetujui')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-success">{{ $p->status }}</span></td>
-                                                    @endif
-                                                    @endif
-                                                    @if (auth()->user()->role_id == 1)
+                                                @endif
+                                                <td>{{ $p->name_unit }}</td>
+                                                <td>{{ $p->alasan_cuti }}</td>
+                                                <td class="text-center">
+                                                    {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
+                                                </td>
+                                                @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                     @if ($p->status == 'Pending')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-warning">{{ $p->status }}</span></td>
+                                                        <td>
+                                                            <span class="badge badge-warning">{{ $p->status }}</span>
+                                                        </td>
                                                     @endif
-                                                    @endif
-                                                    @if (auth()->user()->role_id == 1)
-                                                    @if ($p->status == 'Ditolak')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-danger">{{ $p->status }}</span></td>
-                                                    @endif
-                                                    @endif
-                                                    @if (auth()->user()->role_id != 1)
+                                                @endif
+                                                @if (auth()->user()->role_id == 2 || auth()->user()->role_id ==3)
                                                     <td>
                                                         <a class="btn btn-action bg-green mr-1" href="">Setuju</a>
                                                         <a class="btn btn-danger btn-action" href="">Tolak</a>
                                                     </td>
-                                                    @endif
-                                                </tr>
-                                            @endforeach
+                                                {{-- @elseif (auth()->user()->role_id == 1)
+                                                    <td><a class="btn btn-action bg-primary mr-1" href="">Edit</a>
+                                                    </td> --}}
+                                                @endif
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -111,15 +101,17 @@
                                 <label>Alasan Cuti</label>
                                 <select class="form-control" name="alasan_cuti" id="alasan_cuti" required>
                                     <option disabled selected hidden>Pilih Alasan Permohonan Cuti</option>
-                                    @if (auth()->user()->jenis_kelamin != "Laki-Laki")
-                                    <option name="alasan_cuti" value="Cuti Bersalin">Cuti Bersalin</option>
-                                    <option name="alasan_cuti" value="Gugur Kandungan">Gugur Kandungan</option>
+                                    @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
+                                        <option name="alasan_cuti" value="Cuti Bersalin">Cuti Bersalin</option>
+                                        <option name="alasan_cuti" value="Gugur Kandungan">Gugur Kandungan</option>
                                     @endif
                                     <option name="alasan_cuti" value="Cuti Besar">Cuti Besar</option>
-                                    <option name="alasan_cuti" value="Cuti Diluar Tanggungan">Cuti Diluar Tanggungan</option>
+                                    <option name="alasan_cuti" value="Cuti Diluar Tanggungan">Cuti Diluar Tanggungan
+                                    </option>
                                     <option name="alasan_cuti" value="Cuti Tahunan">Cuti Tahunan</option>
                                     <option name="alasan_cuti" value="Cuti Ibadah Keagamaan">Cuti Ibadah Keagamaan</option>
-                                    <option name="alasan_cuti" value="Cuti Karena Alasan Penting">Cuti Karena Alasan Penting</option>
+                                    <option name="alasan_cuti" value="Cuti Karena Alasan Penting">Cuti Karena Alasan Penting
+                                    </option>
                                     <option name="alasan_cuti" value="Lain - Lain">Lain - Lain</option>
                                 </select>
                             </div>
