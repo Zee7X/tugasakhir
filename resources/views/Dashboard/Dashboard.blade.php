@@ -16,7 +16,7 @@
                                     @endforeach
                                 @else
                                     <h4 class="card-title">Permohonan Cuti</h4>
-                                    <span>{{ $pending }}</span>
+                                    <span>{{ $pending }} Pending</span>
                                 @endif
                                 <div class="progress mt-1 mb-1" data-height="8">
                                     <div class="progress-bar l-bg-orange" role="progressbar" data-width="100%"
@@ -43,13 +43,7 @@
                             <div class="card-icon card-icon-large"><i class="fa fa-briefcase"></i></div>
                             <div class="card-content">
                                 <h4 class="card-title">Permohonan Disetujui</h4>
-                                @if (auth()->user()->role_id == 1)
-                                    <span>{{ $disetujui2 }}</span>
-                                @elseif (auth()->user()->role_id == 2)
-                                    <span>{{ $disetujui3 }}</span>
-                                @else
-                                    <span>{{ $disetujui }}</span>
-                                @endif
+                                <span>{{ $disetujui }}</span>
                                 <div class="progress mt-1 mb-1" data-height="8">
                                     <div class="progress-bar l-bg-cyan" role="progressbar" data-width="100%"
                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -68,13 +62,7 @@
                             <div class="card-icon card-icon-large"><i class="fa fa-briefcase"></i></div>
                             <div class="card-content">
                                 <h4 class="card-title">Permohonan Ditolak</h4>
-                                @if (auth()->user()->role_id == 1)
-                                    <span>{{ $ditolak2 }}</span>
-                                @elseif (auth()->user()->role_id == 2)
-                                    <span>{{ $ditolak3 }}</span>
-                                @else
-                                    <span>{{ $ditolak }}</span>
-                                @endif
+                                <span>{{ $ditolak }}</span>
                                 <div class="progress mt-1 mb-1" data-height="8">
                                     <div class="progress-bar l-bg-green" role="progressbar" data-width="100%"
                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -102,7 +90,6 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th>Nama Karyawan</th>
-                                            {{-- <th>Jabatan</th> --}}
                                             <th>Unit</th>
                                             <th>Alasan Cuti</th>
                                             <th class="text-center">Mulai Cuti</th>
@@ -112,96 +99,32 @@
                                     </thead>
                                     <tbody>
                                         <input type="hidden" value="{{ $i = 1 }}">
-                                        @if (auth()->user()->role_id == 1)
-                                            @foreach ($dashboard2 as $user)
+                                            @foreach ($dashboard as $d)
                                                 <tr>
-
                                                     <td class="text-center">{{ $i++ }}</td>
-                                                    <td>{{ $user->name }}</td>
-                                                    {{-- <td>{{ $user->jabatan }}</td> --}}
-                                                    <td>{{ $user->name_unit }}</td>
-                                                    <td>{{ $user->alasan_cuti }}</td>
+                                                    <td>{{ $d->name }}</td>
+                                                    <td>{{ $d->name_unit }}</td>
+                                                    <td>{{ $d->alasan_cuti }}</td>
                                                     <td class="text-center">
-                                                        {{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
+                                                        {{ date('d-M-Y', strtotime($d->tgl_mulai)) }}
                                                     </td>
                                                     <td class="text-center">
-                                                        {{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
+                                                        {{ date('d-M-Y', strtotime($d->tgl_akhir)) }}
                                                     </td>
-                                                    @if ($user->status == 'Disetujui')
+                                                    @if ($d->status == 'Disetujui')
                                                         <td class="text-center"><span
-                                                                class="badge badge-success">{{ $user->status }}</span></td>
+                                                                class="badge badge-success">{{ $d->status }}</span></td>
                                                     @endif
-                                                    @if ($user->status == 'Pending')
+                                                    @if ($d->status == 'Pending')
                                                         <td class="text-center"><span
-                                                                class="badge badge-warning">{{ $user->status }}</span></td>
+                                                                class="badge badge-warning">{{ $d->status }}</span></td>
                                                     @endif
-                                                    @if ($user->status == 'Ditolak')
+                                                    @if ($d->status == 'Ditolak')
                                                         <td class="text-center"><span
-                                                                class="badge badge-danger">{{ $user->status }}</span></td>
+                                                                class="badge badge-danger">{{ $d->status }}</span></td>
                                                     @endif
                                                 </tr>
                                             @endforeach
-                                        @elseif (auth()->user()->role_id == 2)
-                                            @foreach ($dashboard3 as $user)
-                                                <tr>
-                                                    <td class="text-center">{{ $i++ }}</td>
-                                                    <td>{{ $user->name }}</td>
-                                                    {{-- <td>{{ $user->jabatan }}</td> --}}
-                                                    <td>{{ $user->name_unit }}</td>
-
-                                                    <td>{{ $user->alasan_cuti }}</td>
-                                                    <td class="text-center">
-                                                        {{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
-                                                    </td>
-                                                    @if ($user->status == 'Disetujui')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-success">{{ $user->status }}</span></td>
-                                                    @endif
-                                                    @if ($user->status == 'Pending')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-warning">{{ $user->status }}</span>
-                                                        </td>
-                                                    @endif
-                                                    @if ($user->status == 'Ditolak')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-danger">{{ $user->status }}</span></td>
-                                                    @endif
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            @foreach ($dashboard as $user)
-                                                <tr>
-                                                    <td class="text-center">{{ $i++ }}</td>
-                                                    <td>{{ $user->name }}</td>
-                                                    {{-- <td>{{ $user->jabatan }}</td> --}}
-                                                    <td>{{ $user->name_unit }}</td>
-                                                    <td>{{ $user->alasan_cuti }}</td>
-                                                    <td class="text-center">
-                                                        {{ date('d-M-Y', strtotime($user->tgl_mulai)) }}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{ date('d-M-Y', strtotime($user->tgl_akhir)) }}
-                                                    </td>
-                                                    @if ($user->status == 'Disetujui')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-success">{{ $user->status }}</span>
-                                                        </td>
-                                                    @endif
-                                                    @if ($user->status == 'Pending')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-warning">{{ $user->status }}</span>
-                                                        </td>
-                                                    @endif
-                                                    @if ($user->status == 'Ditolak')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-danger">{{ $user->status }}</span></td>
-                                                    @endif
-                                                </tr>
-                                            @endforeach
-                                        @endif
                                     </tbody>
                                 </table>
                             </div>

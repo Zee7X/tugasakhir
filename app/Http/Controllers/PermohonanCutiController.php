@@ -18,16 +18,11 @@ class PermohonanCutiController extends Controller
         $id = Auth()->user()->id;
         $data = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
         ->where('hak_cuti.user_id', '=', $id)->get();
-
         $sisaCuti =$data[0]->hak_cuti; 
-
         $tglMulai = date_create($request->tgl_mulai);
         $tglAkhir = date_create($request->tgl_akhir);
         $durasi = date_diff($tglMulai,$tglAkhir);
-
         $jumlahCuti = $sisaCuti - $durasi->days;
-
-
         if($jumlahCuti < 0){
             return redirect()->route('permohonan')->with(['error' => 'Maaf sisa cuti anda sudah habis']);
         }else{

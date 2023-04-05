@@ -30,11 +30,11 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Dashboard
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
-    //Route Data Pegawai/Admin Side 
+    
     Route::middleware('auth','role:pegawai')->group(function () {
         Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpegawai');
     });
