@@ -21,8 +21,8 @@
                                             <th class="text-center">Jabatan</th>
                                             <th class="text-center">Unit</th>
                                             <th class="text-center">Alasan Cuti</th>
-                                            <th class="text-center">Mulai Cuti</th>
-                                            <th class="text-center">Berakhir Cuti</th>
+                                            <th class="text-truncate">Mulai Cuti</th>
+                                            <th class="text-truncate">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
@@ -32,14 +32,14 @@
                                                 <tr>
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $p->name }}</td>
-                                                    <td>{{ $p->nip }}</td>
-                                                    <td>{{ $p->jabatan }}</td>
-                                                    <td>{{ $p->name_unit }}</td>
+                                                    <td class="text-truncate">{{ $p->nip }}</td>
+                                                    <td  class="align-center">{{ $p->jabatan }}</td>
+                                                    <td  class="align-center">{{ $p->name_unit }}</td>
                                                     <td>{{ $p->alasan_cuti }}</td>
-                                                    <td>
+                                                    <td class="text-truncate">
                                                         {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                     </td>
-                                                    <td>
+                                                    <td class="align-center">
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
                                                     @if ($p->status == 'Disetujui')

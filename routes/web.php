@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PermohonanCutiController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function () {
     
     Route::middleware('auth','role:pegawai')->group(function () {
         Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpegawai');
+        Route::get('/unit', [UnitController::class, 'view_unit'])->name('unit');
     });
     Route::middleware('auth','check:admin')->group(function () {
         Route::get('/formedit/{id}', [KaryawanController::class, 'edit'])->name('formedit');

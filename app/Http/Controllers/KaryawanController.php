@@ -120,17 +120,11 @@ class KaryawanController extends Controller
     public function destroy (User $user, $id)
     {
         $hak_cuti = HakCuti::where('user_id', '=', $id);
-
         $hak_cuti->delete();
-
         $permohonan = PermohonanModel::where('user_id', '=', $id);
-
         $permohonan->delete();
-
         $user = User::findOrFail($id);
-
         $user->delete();
-
         return redirect()->back()->with(['success' => 'Data Pegawai Berhasil Dihapus!']);
     }
 }

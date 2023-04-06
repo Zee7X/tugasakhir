@@ -34,14 +34,14 @@
                         background="transparent" speed="1" style="width: 360px; height: 140px;" loop autoplay>
                     </lottie-player>
                 </div>
-                <h4 style="font-size: 2em">Login Here</h4>
+                <h4 style="font-size: 2em">Login</h4>
 
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="div">
-                        <h5>NIP</h5>
+                        <h5>NIP / NPAK</h5>
                         <input type="text" class="input" name="nip">
                     </div>
                 </div>
@@ -68,7 +68,7 @@
         $(document).ready(function() {
             const flashData = $("#flash-data").data('flashdata');
             console.log(flashData);
-            if (flashData == "Login Gagal") {
+            if (flashData == "NIP atau Password Invalid") {
                 iziToast.error({
                     title: 'Error!',
                     message: flashData,

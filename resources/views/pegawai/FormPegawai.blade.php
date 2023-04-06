@@ -24,15 +24,9 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                     </div>
-                                    {{-- <input type="search" class="form-control rounded" placeholder="Pencarian"
-                                        aria-label="Pencarian" aria-describedby="search-addon" /> --}}
-                                    {{-- <button type="button" class="btn btn-primary">
-                                        <i class="fas fa-search"></i>
-                                    </button> --}}
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-body">
                             <div class="row">
                                 <div class="table-responsive table-invoice">
@@ -56,11 +50,11 @@
                                                     <td class="p-0 text-center">{{ $i + 1 }}</td>
                                                     <td class="font-weight-600">{{ $k->name }}</td>
                                                     <td class="text-truncate">{{ $k->nip }}</td>
-                                                    <td class="align-middle">{{ $k->jabatan }}</td>
-                                                    <td class="align-middle">{{ $k->name_unit }}</td>
-                                                    <td class="align-middle">{{ $k->hak_cuti }} Hari</td>
+                                                    <td class="align-center">{{ $k->jabatan }}</td>
+                                                    <td class="align-center">{{ $k->name_unit }}</td>
+                                                    <td class="align-center">{{ $k->hak_cuti }} Hari</td>
                                                     @if (auth()->user()->role_id == 4)
-                                                    <td class="align-middle">
+                                                    <td class="text-truncate">
                                                         <a class="btn btn-action bg-purple mr-1"
                                                             href="{{ route('formedit', ['id' => Crypt::encryptString($k->id)]) }}"
                                                             style="display: inline-block;">Edit</a>

@@ -30,12 +30,12 @@
                                             @endif
                                             <th class="text-center">Unit</th>
                                             <th class="text-center">Alasan Cuti</th>
-                                            <th class="text-center">Mulai Cuti</th>
-                                            <th class="text-center">Berakhir Cuti</th>
+                                            <th class="text-truncate">Mulai Cuti</th>
+                                            <th class="text-truncate">Berakhir Cuti</th>
                                             @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4 )
                                                 <th class="text-center">Status</th>
                                             @endif
-                                            @if (auth()->user()->role_id == 2 || auth()->user()->role_id ==3 )
+                                            @if (auth()->user()->role_id != 4 )
                                             <th class="text-center">Opsi</th>
                                             @endif
                                         </tr>
@@ -51,27 +51,27 @@
                                                 @endif
                                                 <td>{{ $p->name_unit }}</td>
                                                 <td>{{ $p->alasan_cuti }}</td>
-                                                <td class="text-center">
+                                                <td class="text-truncate">
                                                     {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                 </td>
-                                                <td class="text-center">
-                                                    {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
+                                                <td class="text-truncate">
+                                                    {{ date('d-M-Y', strtotime($p->tgl_akhir))  }}
                                                 </td>
                                                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                     @if ($p->status == 'Pending')
-                                                        <td>
+                                                        <td class="text-truncate">
                                                             <span class="badge badge-warning">{{ $p->status }}</span>
                                                         </td>
                                                     @endif
                                                 @endif
                                                 @if (auth()->user()->role_id == 2 || auth()->user()->role_id ==3)
-                                                    <td>
+                                                    <td class="text-truncate">
                                                         <a class="btn btn-action bg-green mr-1" href="">Setuju</a>
                                                         <a class="btn btn-danger btn-action" href="">Tolak</a>
                                                     </td>
-                                                {{-- @elseif (auth()->user()->role_id == 1)
-                                                    <td><a class="btn btn-action bg-primary mr-1" href="">Edit</a>
-                                                    </td> --}}
+                                                @elseif (auth()->user()->role_id == 1)
+                                                    <td class="text-truncate"><a class="btn btn-action bg-purple mr-1" href="">Edit</a>
+                                                    </td>
                                                 @endif
                                             </tr>
                                         @endforeach
@@ -120,7 +120,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Berakhir Cuti</label>
-                                <input type="text" name="tgl_akhir" value="{{ old('tgl_akhir', date('Y-m-d')) }}" required class="form-control datepicker"
+                                <input type="text" name="tgl_akhir" value="{{ old('tgl_akhir', date('Y-m-d', strtotime('+1 day'))) }}" required class="form-control datepicker"
                                     value="{{ date('Y-m-d', strtotime('+1 day')) }}" required>
                             </div>
                             <div class="form-group">
