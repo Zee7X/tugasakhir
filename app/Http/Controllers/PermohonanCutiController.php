@@ -146,4 +146,13 @@ class PermohonanCutiController extends Controller
         return view('permohonancuti.ditolak', compact('permohonan_ditolak'));
     }
 
+    //Acc Permohonan
+    // public function setuju($id){
+    //     $setuju = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+    //     ->select('permohonan_cuti.id', 'permohonan_cuti.user_id','permohonan_cuti.alasan_cuti', 
+    //     'permohonan_cuti.tgl_mulai', 'permohonan_cuti.tgl_akhir', 'permohonan_cuti.status',
+    //     'users.id', 'users.nip', 'users.name', 'users.jabatan')
+    //     ->where('permohonan_cuti.id',$id)
+    //     ->get();
+    // }
 }

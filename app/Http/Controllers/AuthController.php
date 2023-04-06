@@ -48,11 +48,11 @@ class AuthController extends Controller
             if (auth()->attempt($credential)){
                 return redirect()->route('dashboard');
             }else{
-                return redirect()->back()->withErrors(['msg' => 'NIP/Password Salah']);
+                return redirect()->route('login')->with(['error' => 'NIP atau Password Salah']);
             }
         }
         else{
-            return redirect()->back()->withErrors(['msg' => 'NIP/Password Salah']);
+            return redirect()->route('login')->with(['error' => 'Login Gagal']);
         }
     }
 
