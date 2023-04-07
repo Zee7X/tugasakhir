@@ -54,7 +54,9 @@ Route::middleware('auth')->group(function () {
 
     //Permohonan
     Route::post('/permohonancuti', [PermohonanCutiController::class , 'tambahPermohonan'])->name('permohonancuti');
+    Route::post('/editpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'editPermohonan'])->name('edit.permohonancuti');
     Route::get('/permohonan', [PermohonanCutiController::class, 'permohonan'])->name('permohonan');
+    Route::get('/riwayat-permohonan', [PermohonanCutiController::class, 'riwayat_permohonan'])->middleware('wadirku:recent')->name('riwayat.permohonan');
     Route::get('/permohonandisetujui', [PermohonanCutiController::class, 'permohonan_disetujui'])->name('permohonandisetujui');
     Route::get('/permohonanditolak', [PermohonanCutiController::class, 'permohonan_ditolak'])->name('permohonanditolak');
 });
