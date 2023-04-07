@@ -30,6 +30,9 @@ Route::get('/login', [AuthController::class, 'login_view'])->name('login.view');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+//Reset Password
+Route::get('/resetpassword', [AuthController::class, 'reset_password'])->name('reset.view');
+
 //Dashboard
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 

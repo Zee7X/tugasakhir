@@ -25,6 +25,11 @@ class AuthController extends Controller
         return view('Auth.login');
     }
 
+    //Reset Password Form
+    public function reset_password(){
+        return view('Auth.reset_password');
+    }
+
     //Login Function
     public function login(Request $request){
         $check = 0;
