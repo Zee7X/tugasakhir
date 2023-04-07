@@ -33,13 +33,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //Reset Password
 Route::get('/resetpassword', [AuthController::class, 'reset_password'])->name('reset.view');
 
+Route::get('/editprofile', [KaryawanController::class, 'editprofile'])->name('editprofile');
+
 //Dashboard
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
-    
-    Route::middleware('auth','role:pegawai')->group(function () {
+        Route::middleware('auth','role:pegawai')->group(function () {
         Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpegawai');
         Route::get('/unit', [UnitController::class, 'view_unit'])->name('unit');
     });

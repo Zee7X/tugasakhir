@@ -95,6 +95,11 @@ class KaryawanController extends Controller
         return view('pegawai.formedit', compact('users','unit','role'));
     }
 
+    //Edit Profile
+    public function editprofile(){
+        return view('pegawai.editprofile');
+    }
+
     //Update Pegawai
     public function update(Request $request)
     {

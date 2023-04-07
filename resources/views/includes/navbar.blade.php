@@ -16,8 +16,8 @@
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
               <div class="dropdown-title">Hello {{ Str::limit(Auth::user()->name) }}</div>
-              <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-                Settings
+              <a href="/editprofile" class="dropdown-item has-icon"> <i class="fas fa-id-card"></i>
+                Edit Profile
               </a>
               <div class="dropdown-divider"></div>
               <Form action="{{ route('logout') }}" method="POST" id="logout">
