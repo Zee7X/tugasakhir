@@ -61,7 +61,6 @@
         })
     });
 </script>
-
 <script>
     $('.delete-confirm').on('click', function(event) {
         event.preventDefault();
