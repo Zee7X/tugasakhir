@@ -39,7 +39,7 @@ Route::get('/editprofile', [KaryawanController::class, 'editprofile'])->name('ed
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
         Route::middleware('auth','role:pegawai')->group(function () {
         Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpegawai');
         Route::get('/unit', [UnitController::class, 'view_unit'])->name('unit');
@@ -55,6 +55,8 @@ Route::middleware('auth')->group(function () {
     //Permohonan
     Route::post('/permohonancuti', [PermohonanCutiController::class , 'tambahPermohonan'])->name('permohonancuti');
     Route::post('/editpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'editPermohonan'])->name('edit.permohonancuti');
+    Route::post('/setujuipermohonan/{id}', [PermohonanCutiController::class , 'setujui_permohonan'])->name('setujui.permohonancuti');
+    Route::post('/tolakpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'tolak_permohonan'])->name('tolak.permohonancuti');
     Route::get('/permohonan', [PermohonanCutiController::class, 'permohonan'])->name('permohonan');
     Route::get('/riwayat-permohonan', [PermohonanCutiController::class, 'riwayat_permohonan'])->middleware('wadirku:recent')->name('riwayat.permohonan');
     Route::get('/permohonandisetujui', [PermohonanCutiController::class, 'permohonan_disetujui'])->name('permohonandisetujui');

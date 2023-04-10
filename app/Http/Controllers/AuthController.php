@@ -51,7 +51,8 @@ class AuthController extends Controller
         }
         if($check == 1){
             if (auth()->attempt($credential)){
-                return redirect()->route('dashboard');
+
+                return redirect()->route('dashboard')->with(['success' => 'Selamat datang di dashboard']);
             }else{
                 return redirect()->route('login')->with(['error' => 'NIP atau Password Salah']);
             }

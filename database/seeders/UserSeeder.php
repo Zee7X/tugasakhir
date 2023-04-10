@@ -108,7 +108,7 @@ class UserSeeder extends Seeder
             'email'=> 'direktur@gmail.com',
             'password'=> Hash::make('test'),
             'jenis_kelamin'=> 'Laki-Laki',
-            'role_id'=> 4,
+            'role_id'=> 5,
             'jabatan'=> 'Direktur',
             'unit_id'=> 1,
         ]);

@@ -1,7 +1,13 @@
 @extends('layouts.index')
 
 @section('content')
+
     <div class="main-content">
+        @if (Session::has('error'))
+                            <div id="flash-data" data-flashdata="{{ Session::get('error') }}"></div>
+                        @elseif (Session::has('success'))
+                            <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
+                        @endif
         <section class="section">
             <div class="row ">
                 <div class="col-xl-4 col-lg-6">

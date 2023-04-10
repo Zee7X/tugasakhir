@@ -16,6 +16,7 @@ class PermohonanSeeder extends Seeder
     public function run()
     {
         // info status
+        // 0 - Dibatalkan
         // 1 - Pending Kepala unit
         // 2 - Pending Wakil Direktur
         // 3 - Pending Direktur

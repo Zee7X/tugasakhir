@@ -28,11 +28,12 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
-            'name'=> 'Direktur'
+            'name'=> 'Admin'
         ]);
 
         Role::create([
-            'name'=> 'Admin'
+            'name'=> 'Direktur'
         ]);
+
     }
 }

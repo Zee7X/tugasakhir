@@ -63,7 +63,7 @@
                                                     <td class="text-center"><span class="badge badge-danger"
                                                             style="padding: 10px 39px">Ditolak</span></td>
                                                 @endif
-                                                @if(Auth()->user()->role_id == 4 || Auth()->user()->role_id == 3)
+                                                @if (Auth()->user()->role_id == 4)
                                                     @if ($p->status == 1)
                                                         <td class="text-truncate">
                                                             <button type="button" class="btn btn-action bg-purple"
@@ -76,8 +76,21 @@
 
                                                         </td>
                                                     @endif
-                                                @elseif(Auth()->user()->role_id == 2 )
+                                                @elseif(Auth()->user()->role_id == 2)
                                                     @if ($p->status == 2)
+                                                        <td class="text-truncate">
+                                                            <button type="button" class="btn btn-action bg-purple"
+                                                                data-toggle="modal"
+                                                                data-target="#modal-edit{{ $p->id }}">Edit
+                                                            </button>
+                                                        </td>
+                                                    @else
+                                                        <td class="text-truncate">
+
+                                                        </td>
+                                                    @endif
+                                                @elseif(Auth()->user()->role_id == 3)
+                                                    @if ($p->status == 3)
                                                         <td class="text-truncate">
                                                             <button type="button" class="btn btn-action bg-purple"
                                                                 data-toggle="modal"
@@ -114,7 +127,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form class="" action="{{ route('edit.permohonancuti', $p->id) }}" method="post">
+                            <form class="" action="{{ route('edit.permohonancuti', $p->id) }}" method="post"
+                                id="edit">
                                 @csrf
                                 <div class="form-group">
                                     <label>Alasan Cuti</label>
@@ -154,14 +168,14 @@
                                 <div class="form-group">
                                     <label>Tanggal Mulai Cuti</label>
                                     <input type="text" name="tgl_mulai" value="{{ $p->tgl_mulai, date('Y-m-d') }}"
-                                        required class="form-control datepicker" required>
+                                        class="form-control datepicker" required id="start_date">
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Berakhir Cuti</label>
                                     <input type="text" name="tgl_akhir"
-                                        value="{{ $p->tgl_akhir, date('Y-m-d', strtotime('+1 day')) }}" required
+                                        value="{{ $p->tgl_akhir, date('Y-m-d', strtotime('+1 day')) }}"
                                         class="form-control datepicker" value="{{ date('Y-m-d', strtotime('+1 day')) }}"
-                                        required>
+                                        required id="end_date">
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat Selama Cuti</label>
@@ -176,4 +190,5 @@
             </div>
         @endforeach
     </div>
+
 @endsection
