@@ -42,17 +42,21 @@
                                                     <td class="text-truncate">
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
-                                                    @if ($p->status == 'Disetujui')
+                                                    @if ($p->status == 1)
                                                         <td class="text-center"><span
-                                                                class="badge badge-success">{{ $p->status }}</span></td>
-                                                    @endif
-                                                    @if ($p->status == 'Pending')
+                                                                class="badge badge-warning">Pending Kepala Unit </span></td>
+                                                    @elseif ($p->status == 2)
                                                         <td class="text-center"><span
-                                                                class="badge badge-warning">{{ $p->status }}</span></td>
-                                                    @endif
-                                                    @if ($p->status == 'Ditolak')
+                                                                class="badge badge-warning">Pending Wadir</span></td>
+                                                    @elseif ($p->status == 3)
                                                         <td class="text-center"><span
-                                                                class="badge badge-danger">{{ $p->status }}</span></td>
+                                                                class="badge badge-warning">Pending Direktur</span></td>
+                                                    @elseif ($p->status == 4)
+                                                        <td class="text-center"><span
+                                                                class="badge badge-success">Disetujui</span></td>
+                                                    @elseif ($p->status == 5)
+                                                        <td class="text-center"><span
+                                                                class="badge badge-danger">Ditolak</span></td>
                                                     @endif
                                                 </tr>
                                             @endforeach

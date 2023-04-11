@@ -15,13 +15,21 @@ class PermohonanSeeder extends Seeder
      */
     public function run()
     {
+        // info status
+        // 0 - Dibatalkan
+        // 1 - Pending Kepala unit
+        // 2 - Pending Wakil Direktur
+        // 3 - Pending Direktur
+        // 4 - Disetujui
+        // 5 - Ditolak
+
         PermohonanModel::create([
             'user_id' => 1,
             'alasan_cuti' => 'libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' =>  1,
         ]);
         PermohonanModel::create([
             'user_id' => 3,
@@ -29,7 +37,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 2,
         ]);
         PermohonanModel::create([
             'user_id' => 2,
@@ -37,15 +45,15 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 4,
         ]);
         PermohonanModel::create([
             'user_id' => 4,
-            'alasan_cuti' => 'Menonton Boku no Pico',
+            'alasan_cuti' => 'Ngarit',
             'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-22',
+            'tgl_akhir' => '2022-12-25',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Ditolak',
+            'status' => 4,
         ]);
         PermohonanModel::create([
             'user_id' => 1,
@@ -53,7 +61,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 5
         ]);
         PermohonanModel::create([
             'user_id' => 3,
@@ -61,7 +69,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 1,
         ]);
         PermohonanModel::create([
             'user_id' => 2,
@@ -69,7 +77,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 2,
         ]);
         PermohonanModel::create([
             'user_id' => 4,
@@ -77,7 +85,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Ditolak',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 1,
@@ -85,7 +93,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 4,
         ]);
         PermohonanModel::create([
             'user_id' => 3,
@@ -93,7 +101,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 5,
         ]);
         PermohonanModel::create([
             'user_id' => 2,
@@ -101,7 +109,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 4,
@@ -109,7 +117,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Ditolak',
+            'status' => 5,
         ]);
         PermohonanModel::create([
             'user_id' => 1,
@@ -117,7 +125,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 3,
@@ -125,7 +133,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 2,
@@ -133,7 +141,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 4,
@@ -141,7 +149,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Ditolak',
+            'status' => 5,
         ]);
         PermohonanModel::create([
             'user_id' => 1,
@@ -149,7 +157,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 3,
@@ -157,7 +165,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 2,
@@ -165,7 +173,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 4,
@@ -173,7 +181,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Ditolak',
+            'status' => 5,
         ]);
         PermohonanModel::create([
             'user_id' => 1,
@@ -181,7 +189,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 3,
@@ -189,7 +197,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 2,
@@ -197,7 +205,7 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Disetujui',
+            'status' => 3,
         ]);
         PermohonanModel::create([
             'user_id' => 4,
@@ -205,7 +213,32 @@ class PermohonanSeeder extends Seeder
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 'Ditolak',
+            'status' => 5,
+        ]);
+
+        PermohonanModel::create([
+            'user_id' => 5,
+            'alasan_cuti' => 'Membeli Kuaci',
+            'tgl_mulai' => '2022-12-12',
+            'tgl_akhir' => '2022-12-22',
+            'alamat_cuti'=> 'Jl. Mana',
+            'status' => 1,
+        ]);
+        PermohonanModel::create([
+            'user_id' => 5,
+            'alasan_cuti' => 'Pengen aja',
+            'tgl_mulai' => '2022-12-12',
+            'tgl_akhir' => '2022-12-22',
+            'alamat_cuti'=> 'Jl. Mana',
+            'status' => 5,
+        ]);
+        PermohonanModel::create([
+            'user_id' => 5,
+            'alasan_cuti' => 'Pengen healing',
+            'tgl_mulai' => '2022-12-13',
+            'tgl_akhir' => '2022-12-23',
+            'alamat_cuti'=> 'Jl. Mana',
+            'status' => 5,
         ]);
     }
 }

@@ -19,22 +19,27 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">No</th>
-                                                <th class="text-center">Nama Unit</th>
+                                                <th class="text-left" style="width: 20%">Nama Unit</th>
                                                 <th class="text-center">Total Pegawai</th>
                                                 <th class="text-center">Opsi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                        $i = 1;
+                                                    @endphp
+                                                    @foreach ($unit as $u)
                                                 <tr>
-                                                    <td class="p-0 text-center"></td>
-                                                    <td class="font-weight-600"></td>
-                                                    <td class="font-weight-600"></td>
+                                                    <td class="text-center" style="font-size: 16px">{{ $i++ }}</td>
+                                                    <td class="text-left" style="font-size: 16px">{{ $u->name_unit }}</td>
+                                                    <td class="text-center" style="font-size: 16px">10</td>
                                                     <td class="align-center">
                                                         <a class="btn btn-danger delete-confirm"
                                                             href=""
                                                             style="display: inline-block;">Hapus</a>
                                                     </td>
                                                 </tr>
+                                                @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -69,5 +74,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection
