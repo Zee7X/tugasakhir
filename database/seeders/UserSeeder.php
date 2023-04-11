@@ -36,10 +36,10 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'nip'=> '200302096',
+            'nip'=> '200102026',
             'name' => 'Muhamad Aldi',
             'email'=> 'aldot@gmail.com',
-            'password'=> Hash::make('aldot'),
+            'password'=> Hash::make('test'),
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 2,
             'jabatan'=> 'Kepala Bagian',
@@ -81,6 +81,40 @@ class UserSeeder extends Seeder
         HakCuti::create([
             'user_id' => 4,
             'hak_cuti' => 4,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        User::create([
+            'nip'=> '200102027',
+            'name' => 'Hafidz',
+            'email'=> 'hafidz@gmail.com',
+            'password'=> Hash::make('test'),
+            'jenis_kelamin'=> 'Laki-Laki',
+            'role_id'=> 1,
+            'jabatan'=> 'Bagian Kepegawaian',
+            'unit_id'=> 2,
+        ]);
+        HakCuti::create([
+            'user_id' => 5,
+            'hak_cuti' => 4,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        User::create([
+            'nip'=> '000000001',
+            'name' => 'Direktur',
+            'email'=> 'direktur@gmail.com',
+            'password'=> Hash::make('test'),
+            'jenis_kelamin'=> 'Laki-Laki',
+            'role_id'=> 5,
+            'jabatan'=> 'Direktur',
+            'unit_id'=> 1,
+        ]);
+        HakCuti::create([
+            'user_id' => 6,
+            'hak_cuti' => 12,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

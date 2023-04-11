@@ -20,15 +20,20 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
-            'name'=> 'Assesor1'
+            'name'=> 'Kepala Unit'
         ]);
 
         Role::create([
-            'name'=> 'Assesor2'
+            'name'=> 'Wakil Direktur 2'
         ]);
-        
+
         Role::create([
             'name'=> 'Admin'
         ]);
+
+        Role::create([
+            'name'=> 'Direktur'
+        ]);
+
     }
 }

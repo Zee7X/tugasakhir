@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{{asset('bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}">
   <link rel="stylesheet" href="{{asset('bundles/izitoast/css/iziToast.min.css')}}">
 
-  
+
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('css/style.css')}}">
   <link rel="stylesheet" href="{{asset('css/components.css')}}">

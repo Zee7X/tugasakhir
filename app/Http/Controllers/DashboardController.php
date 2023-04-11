@@ -66,27 +66,27 @@ class DashboardController extends Controller
             ->where('status', '=', 'Pending')
             ->count();
         }
-        
+
 
 
         if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
-            ->orderBy('permohonan_cuti.created_at', 'DESC')
+            ->orderBy('permohonan_cuti.updated_at', 'DESC')
             ->get();
         }
         if(auth()->user()->role_id == 1){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
             ->where('permohonan_cuti.user_id', '=', auth()->user()->id )
-            ->orderBy('permohonan_cuti.created_at', 'DESC')
+            ->orderBy('permohonan_cuti.updated_at', 'DESC')
             ->get();
         }
         if(auth()->user()->role_id == 2){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
             ->where('units.id', '=', auth()->user()->unit_id)
-            ->orderBy('permohonan_cuti.created_at', 'DESC')
+            ->orderBy('permohonan_cuti.updated_at', 'DESC')
             ->get();
         }
         return view('Dashboard.Dashboard', compact('dashboard','sisacuti','disetujui','ditolak','pending'));

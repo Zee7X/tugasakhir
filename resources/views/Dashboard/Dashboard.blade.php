@@ -1,7 +1,13 @@
 @extends('layouts.index')
 
 @section('content')
+
     <div class="main-content">
+        @if (Session::has('error'))
+                            <div id="flash-data" data-flashdata="{{ Session::get('error') }}"></div>
+                        @elseif (Session::has('success'))
+                            <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
+                        @endif
         <section class="section">
             <div class="row ">
                 <div class="col-xl-4 col-lg-6">
@@ -111,17 +117,21 @@
                                                     <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($d->tgl_akhir)) }}
                                                     </td>
-                                                    @if ($d->status == 'Disetujui')
+                                                    @if ($d->status == 1)
                                                         <td class="text-center"><span
-                                                                class="badge badge-success">{{ $d->status }}</span></td>
-                                                    @endif
-                                                    @if ($d->status == 'Pending')
+                                                                class="badge badge-warning">Pending Kepala Unit </span></td>
+                                                    @elseif ($d->status == 2)
                                                         <td class="text-center"><span
-                                                                class="badge badge-warning">{{ $d->status }}</span></td>
-                                                    @endif
-                                                    @if ($d->status == 'Ditolak')
+                                                                class="badge badge-warning">Pending Wadir</span></td>
+                                                    @elseif ($d->status == 3)
                                                         <td class="text-center"><span
-                                                                class="badge badge-danger">{{ $d->status }}</span></td>
+                                                                class="badge badge-warning">Pending Direktur</span></td>
+                                                    @elseif ($d->status == 4)
+                                                        <td class="text-center"><span
+                                                                class="badge badge-success">Disetujui</span></td>
+                                                    @elseif ($d->status == 5)
+                                                        <td class="text-center"><span
+                                                                class="badge badge-danger">Ditolak</span></td>
                                                     @endif
                                                 </tr>
                                             @endforeach
