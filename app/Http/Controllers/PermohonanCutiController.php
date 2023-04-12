@@ -159,33 +159,32 @@ class PermohonanCutiController extends Controller
                                 'updated_at' => Carbon::now(),
                             ]);
                         }
-                        if( $data_days ==  $requ_days)
-                        {
+                        if( $tglAkhir > $tglMulai){
+                            if( $data_days ==  $requ_days)
+                            {
 
-                        }elseif( $data_days >  $requ_days){
-                            // $today = new DateTime();
-                            // $today->add($durasi);
-                            // $today->add($data_db);
-                            // $diff_total = $today->diff(new DateTime());
-                            $tambah = $data_days - $requ_days;
-                            $hak_cuti = [
-                                'hak_cuti' => $sisaCuti + $tambah,
-                            ];
-
-                            HakCuti::whereId($id)->update($hak_cuti);
-                        }elseif( $data_days <  $requ_days){
-                            if( $tglAkhir < $tglMulai){
-                                $kurang = $requ_days - $data_days;
+                            }elseif( $data_days >  $requ_days){
+                                // $today = new DateTime();
+                                // $today->add($durasi);
+                                // $today->add($data_db);
+                                // $diff_total = $today->diff(new DateTime());
+                                $tambah = $data_days - $requ_days;
                                 $hak_cuti = [
-                                    'hak_cuti' => $sisaCuti - $kurang,
+                                    'hak_cuti' => $sisaCuti + $tambah,
                                 ];
+
                                 HakCuti::whereId($id)->update($hak_cuti);
+                            }elseif( $data_days <  $requ_days){
+                                    $kurang = $requ_days - $data_days;
+                                    $hak_cuti = [
+                                        'hak_cuti' => $sisaCuti - $kurang,
+                                    ];
+                                    HakCuti::whereId($id)->update($hak_cuti);
 
-                            }else{
-                                return back()->withInput()->with(['error' => 'Silahkan periksa tanggal cuti!']);
                             }
-
-                        }
+                    }else{
+                        return back()->with(['error' => 'Tanggal cuti salah!']);
+                    }
                         PermohonanModel::whereId($id_permohonan)->update($data);
                         // HakCuti::whereId($id)->update($hak_cuti);
                         if(Auth()->user()->role_id != 1){
