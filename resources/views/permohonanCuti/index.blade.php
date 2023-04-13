@@ -14,10 +14,12 @@
                         <div class="card-header">
                             <h4>Data Permohonan Cuti </h4>
                         </div>
-                            <div class="ml-4 mt-3">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat
-                                    Permohonan Cuti</button>
-                            </div>
+                        @if (auth()->user()->role_id != 5)
+                        <div class="ml-4 mt-3">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat
+                                Permohonan Cuti</button>
+                        </div>
+                        @endif
                         <div class="card-body">
                             <div class="table-responsive table-invoice">
                                 <table class="table table-striped" id="dt-dashboard">
@@ -32,11 +34,11 @@
                                             <th class="text-center">Alasan Cuti</th>
                                             <th class="text-truncate">Mulai Cuti</th>
                                             <th class="text-truncate">Berakhir Cuti</th>
-                                            @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4 )
+                                            @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                 <th class="text-center">Status</th>
                                             @endif
-                                            @if (auth()->user()->role_id != 4 )
-                                            <th class="text-center">Opsi</th>
+                                            @if (auth()->user()->role_id != 4)
+                                                <th class="text-center">Opsi</th>
                                             @endif
                                         </tr>
                                     </thead>
@@ -55,12 +57,12 @@
                                                     {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                 </td>
                                                 <td class="text-truncate">
-                                                    {{ date('d-M-Y', strtotime($p->tgl_akhir))  }}
+                                                    {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                 </td>
                                                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                     @if ($p->status == 1)
-                                                    <td class="text-center"><span class="badge badge-warning"
-                                                            style="padding: 10px 9px">Pending Kepala Unit </span></td>
+                                                        <td class="text-center"><span class="badge badge-warning"
+                                                                style="padding: 10px 9px">Pending Kepala Unit </span></td>
                                                     @elseif ($p->status == 2)
                                                         <td class="text-center"><span class="badge badge-warning"
                                                                 style="padding: 10px 24px">Pending Wadir</span></td>
@@ -75,19 +77,23 @@
                                                                 style="padding: 10px 47px">Ditolak</span></td>
                                                     @endif
                                                 @endif
-                                                @if (auth()->user()->role_id == 2 || auth()->user()->role_id ==3)
+                                                @if (auth()->user()->role_id == 2 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5)
                                                     <td class="text-truncate">
-                                                        <form action="{{ route('setujui.permohonancuti', ['id'=>$p->id]) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-action bg-green mr-1 text-truncate">Setuju</button>
+                                                        <form
+                                                            action="{{ route('setujui.permohonancuti', ['id' => $p->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-action bg-green mr-1 text-truncate">Setuju</button>
                                                         </form>
-                                                        <button class="btn btn-danger btn-action" data-toggle="modal" data-target="#tolak-modal{{ $p->id }}">Tolak</button>
+                                                        <button class="btn btn-danger btn-action" data-toggle="modal"
+                                                            data-target="#tolak-modal{{ $p->id }}">Tolak</button>
                                                     </td>
                                                 @elseif (auth()->user()->role_id == 1)
-                                                    <td class="text-truncate"> <button type="button" class="btn btn-action bg-purple"
-                                                        data-toggle="modal"
-                                                        data-target="#modal-edit{{ $p->id }}">Edit
-                                                    </button>
+                                                    <td class="text-truncate"> <button type="button"
+                                                            class="btn btn-action bg-purple" data-toggle="modal"
+                                                            data-target="#modal-edit{{ $p->id }}">Edit
+                                                        </button>
                                                     </td>
                                                 @endif
                                             </tr>
@@ -194,31 +200,49 @@
                                 <select class="form-control" name="alasan_cuti" id="alasan_cuti" required>
                                     <option disabled selected>Pilih Alasan Permohonan Cuti</option>
                                     @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
-                                        <option name="alasan_cuti" value="Cuti Bersalin" {{ (old("alasan_cuti") == "Cuti Bersalin" ? "selected" : "") }}>Cuti Bersalin</option>
-                                        <option name="alasan_cuti" value="Gugur Kandungan" {{ (old("alasan_cuti") == "Gugur Kandungan" ? "selected" : "") }}>Gugur Kandungan</option>
+                                        <option name="alasan_cuti" value="Cuti Bersalin"
+                                            {{ old('alasan_cuti') == 'Cuti Bersalin' ? 'selected' : '' }}>Cuti Bersalin
+                                        </option>
+                                        <option name="alasan_cuti" value="Gugur Kandungan"
+                                            {{ old('alasan_cuti') == 'Gugur Kandungan' ? 'selected' : '' }}>Gugur
+                                            Kandungan</option>
                                     @endif
-                                    <option name="alasan_cuti" value="Cuti Besar" {{ (old("alasan_cuti") == "Cuti Besar" ? "selected" : "") }}>Cuti Besar</option>
-                                    <option name="alasan_cuti" value="Cuti Diluar Tanggungan" {{ (old("alasan_cuti") == "Cuti Diluar Tanggungan" ? "selected" : "") }}>Cuti Diluar Tanggungan
+                                    <option name="alasan_cuti" value="Cuti Besar"
+                                        {{ old('alasan_cuti') == 'Cuti Besar' ? 'selected' : '' }}>Cuti Besar</option>
+                                    <option name="alasan_cuti" value="Cuti Diluar Tanggungan"
+                                        {{ old('alasan_cuti') == 'Cuti Diluar Tanggungan' ? 'selected' : '' }}>Cuti
+                                        Diluar Tanggungan
                                     </option>
-                                    <option name="alasan_cuti" value="Cuti Tahunan" {{ (old("alasan_cuti") == "Cuti Tahunan" ? "selected" : "") }}>Cuti Tahunan</option>
-                                    <option name="alasan_cuti" value="Cuti Ibadah Keagamaan" {{ (old("alasan_cuti") == "Cuti Ibadah Keagamaan" ? "selected" : "") }}>Cuti Ibadah Keagamaan</option>
-                                    <option name="alasan_cuti" value="Cuti Karena Alasan Penting" {{ (old("alasan_cuti") == "Cuti Karena Alasan Penting" ? "selected" : "") }}>Cuti Karena Alasan Penting
+                                    <option name="alasan_cuti" value="Cuti Tahunan"
+                                        {{ old('alasan_cuti') == 'Cuti Tahunan' ? 'selected' : '' }}>Cuti Tahunan
                                     </option>
-                                    <option name="alasan_cuti" value="Lain - Lain" {{ (old("alasan_cuti") == "Lain - Lain" ? "selected" : "") }}>Lain - Lain</option>
+                                    <option name="alasan_cuti" value="Cuti Ibadah Keagamaan"
+                                        {{ old('alasan_cuti') == 'Cuti Ibadah Keagamaan' ? 'selected' : '' }}>Cuti Ibadah
+                                        Keagamaan</option>
+                                    <option name="alasan_cuti" value="Cuti Karena Alasan Penting"
+                                        {{ old('alasan_cuti') == 'Cuti Karena Alasan Penting' ? 'selected' : '' }}>Cuti
+                                        Karena Alasan Penting
+                                    </option>
+                                    <option name="alasan_cuti" value="Lain - Lain"
+                                        {{ old('alasan_cuti') == 'Lain - Lain' ? 'selected' : '' }}>Lain - Lain</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Mulai Cuti</label>
-                                <input type="text" name="tgl_mulai" value="{{ old('tgl_mulai', date('Y-m-d')) }}" required class="form-control datepicker" required>
+                                <input type="text" name="tgl_mulai" value="{{ old('tgl_mulai', date('Y-m-d')) }}"
+                                    required class="form-control datepicker" required>
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Berakhir Cuti</label>
-                                <input type="text" name="tgl_akhir" value="{{ old('tgl_akhir', date('Y-m-d', strtotime('+1 day'))) }}" required class="form-control datepicker"
-                                    value="{{ date('Y-m-d', strtotime('+1 day')) }}" required>
+                                <input type="text" name="tgl_akhir"
+                                    value="{{ old('tgl_akhir', date('Y-m-d', strtotime('+1 day'))) }}" required
+                                    class="form-control datepicker" value="{{ date('Y-m-d', strtotime('+1 day')) }}"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label>Alamat Selama Cuti</label>
-                                <input type="text" class="form-control" value="{{ old("alamat_cuti") }}" name="alamat_cuti" required>
+                                <input type="text" class="form-control" value="{{ old('alamat_cuti') }}"
+                                    name="alamat_cuti" required>
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                         </form>
@@ -227,29 +251,29 @@
             </div>
         </div>
         @foreach ($permohonan as $p)
-        <div class="modal fade " id="tolak-modal{{ $p->id }}" tabindex="-1" role="dialog" aria-labelledby="formModal"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">Konfirmasi Tolak Permohonan Cuti {{ $p->id }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('tolak.permohonancuti', ['id_permohonan'=>$p->id]) }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label>Alasan Ditolak</label>
-                            <textarea class="form-control" name="alasan_ditolak"></textarea>
+            <div class="modal fade " id="tolak-modal{{ $p->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="formModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="formModal">Konfirmasi Tolak Permohonan Cuti</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
-                    </form>
+                        <div class="modal-body">
+                            <form action="{{ route('tolak.permohonancuti', ['id_permohonan' => $p->id]) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Alasan Ditolak</label>
+                                    <textarea class="form-control" name="alasan_ditolak"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    @endforeach
+        @endforeach
     </div>
 @endsection

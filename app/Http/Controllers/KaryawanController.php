@@ -43,7 +43,7 @@ class KaryawanController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'jabatan' => $request->jabatan,
             'unit_id' => $request->unit_id,
-            'password' => Hash::make('sipeti123'),
+            'password' => Hash::make('sicute'),
             'role_id' => 1,
         ];
         $user = User::create($data);
@@ -65,7 +65,7 @@ class KaryawanController extends Controller
     //Menampilkan Pegawai
     public function index()
     {
-        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3){
+        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5){
         $users = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
         ->Join('units', 'users.unit_id', '=', 'units.id')
         ->select('units.name_unit','users.id','users.name','users.jabatan','users.nip','hak_cuti.hak_cuti')

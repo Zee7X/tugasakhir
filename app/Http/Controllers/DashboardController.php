@@ -9,72 +9,97 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function dashboard(Request $request){
+
+        //Sisa Cuti
         $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
         ->where('hak_cuti.user_id', '=', auth()->user()->id)
         ->get();
 
-        //Disetujui Status
+        //Disetujui Status Pegawai
         if(auth()->user()->role_id == 1){
-            $disetujui = PermohonanModel::where('status', '=', 'Disetujui')
+            $disetujui = PermohonanModel::where('status', '=', '4')
             ->where('user_id', '=', auth()->user()->id)
             ->count();
         }
-        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3){
-            $disetujui = PermohonanModel::where('status', '=', 'Disetujui')
+        //Disetujui Status Wadir & Bagian Kepegawaian
+        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5){
+            $disetujui = PermohonanModel::where('status', '=', '4')
             ->count();
         }
+
+        //Disetujui Status Kepala Unit & Direktur
         if(auth()->user()->role_id == 2){
             $disetujui = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
             ->where('units.id', '=', auth()->user()->unit_id)
-            ->where('status', '=', 'Disetujui')
+            ->where('status', '=', '4')
             ->count();
         }
 
-        //Ditolak Status
+        //Ditolak Status Pegawai
         if(auth()->user()->role_id == 1){
-            $ditolak = PermohonanModel::where('status', '=', 'Ditolak')
+            $ditolak = PermohonanModel::where('status', '=', '5')
             ->where('user_id', '=', auth()->user()->id)
             ->count();
         }
-        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3){
-                $ditolak = PermohonanModel::where('status', '=', 'Ditolak')
+
+        //Ditolak Status Bagian Kepegawaian & Wadir
+        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3  || auth()->user()->role_id == 5){
+                $ditolak = PermohonanModel::where('status', '=', '5')
                 ->count();
         }
+
+        //Ditolak Status Kepala Unit & Direktur
         if(auth()->user()->role_id == 2){
             $ditolak = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
             ->where('units.id', '=', auth()->user()->unit_id)
-            ->where('status', '=', 'Ditolak')
+            ->where('status', '=', '5')
             ->count();
         }
 
-        //Pending Status
+        //Pending Status Pegawai
         if(auth()->user()->role_id == 1){
-            $pending = PermohonanModel::where('status', '=', 'Pending')
+            $pending = PermohonanModel::where('status', '=', '1')
             ->where('user_id', '=', auth()->user()->id)
             ->count();
         }
-        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3){
-                $pending = PermohonanModel::where('status', '=', 'Pending')
+
+        //Pending Status Admin
+        if(auth()->user()->role_id == 4){
+                $pending = PermohonanModel::where([
+                    ['status', '!=', "4"],
+                    ['status', '!=', "5"]
+                ])
                 ->count();
         }
+
+        //Pending Status Wadir
+        if(auth()->user()->role_id == 3){
+            $pending = PermohonanModel::where('status', '=', '2')
+            ->count();
+        }
+
+        //Pending Status Kepala Unit
         if(auth()->user()->role_id == 2){
             $pending = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
             ->where('units.id', '=', auth()->user()->unit_id)
-            ->where('status', '=', 'Pending')
+            ->where('status', '=', '1')
+            ->count();
+        }
+
+        //Pending Status Direktur
+        if(auth()->user()->role_id == 5){
+            $pending = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+            ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->where('units.id', '=', auth()->user()->unit_id)
+            ->where('status', '=', '3')
             ->count();
         }
 
 
-
-        if(auth()->user()->role_id == 4 || auth()->user()->role_id == 3){
-            $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
-            ->leftJoin('units', 'users.unit_id', '=', 'units.id')
-            ->orderBy('permohonan_cuti.updated_at', 'DESC')
-            ->get();
-        }
+        //Dashboard Permohonan Cuti Terbaru Pegawai
         if(auth()->user()->role_id == 1){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
@@ -82,13 +107,53 @@ class DashboardController extends Controller
             ->orderBy('permohonan_cuti.updated_at', 'DESC')
             ->get();
         }
+
+        //Dashboard Permohonan Cuti Terbaru Kepala Unit
         if(auth()->user()->role_id == 2){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
             ->where('units.id', '=', auth()->user()->unit_id)
+            ->where([
+                ['permohonan_cuti.status', '!=', "2"],
+                ['permohonan_cuti.status', '!=', "3"]
+            ])
             ->orderBy('permohonan_cuti.updated_at', 'DESC')
             ->get();
         }
+
+        //Dashboard Permohonan Cuti Terbaru Wadir
+        if(auth()->user()->role_id == 3){
+            $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+            ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->where([
+                ['permohonan_cuti.status', '!=', "1"],
+                ['permohonan_cuti.status', '!=', "3"]
+            ])
+            ->orderBy('permohonan_cuti.updated_at', 'DESC')
+            ->get();
+        }
+
+        //Dashboard Permohonan Cuti Terbaru Bagian Kepegawaian
+        if(auth()->user()->role_id == 4){
+            $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+            ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->orderBy('permohonan_cuti.updated_at', 'DESC')
+            ->get();
+        }
+
+        //Dashboard Permohonan Cuti Terbaru Direktur
+        if(auth()->user()->role_id == 5){
+            $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
+            ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->where('units.id', '=', auth()->user()->unit_id)
+            ->where([
+                ['permohonan_cuti.status', '!=', "1"],
+                ['permohonan_cuti.status', '!=', "2"]
+            ])
+            ->orderBy('permohonan_cuti.updated_at', 'DESC')
+            ->get();
+        }
+
         return view('Dashboard.Dashboard', compact('dashboard','sisacuti','disetujui','ditolak','pending'));
     }
 

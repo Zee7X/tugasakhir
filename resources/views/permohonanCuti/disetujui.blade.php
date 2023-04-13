@@ -42,18 +42,8 @@
                                                     <td class="align-center">
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
-                                                    @if ($p->status == 'Disetujui')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-success">{{ $p->status }}</span></td>
-                                                    @endif
-                                                    @if ($p->status == 'Pending')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-warning">{{ $p->status }}</span></td>
-                                                    @endif
-                                                    @if ($p->status == 'Ditolak')
-                                                        <td class="text-center"><span
-                                                                class="badge badge-danger">{{ $p->status }}</span></td>
-                                                    @endif
+                                                        <td class="text-center"><span style="padding: 8px 54px"
+                                                                class="badge badge-success">Disetujui</span></td>
                                                 </tr>
                                             @endforeach
                                     </tbody>

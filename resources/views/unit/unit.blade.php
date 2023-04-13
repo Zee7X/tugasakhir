@@ -30,9 +30,9 @@
                                                     @endphp
                                                     @foreach ($unit as $u)
                                                 <tr>
-                                                    <td class="text-center" style="font-size: 16px">{{ $i++ }}</td>
-                                                    <td class="text-left" style="font-size: 16px">{{ $u->name_unit }}</td>
-                                                    <td class="text-center" style="font-size: 16px">10</td>
+                                                    <td class="text-center">{{ $i++ }}</td>
+                                                    <td class="text-left">{{ $u->name_unit }}</td>
+                                                    <td class="text-center">10</td>
                                                     <td class="align-center">
                                                         <a class="btn btn-danger delete-confirm"
                                                             href=""
