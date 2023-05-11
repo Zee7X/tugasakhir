@@ -24,6 +24,9 @@
                                             <th class="text-truncate">Mulai Cuti</th>
                                             <th class="text-truncate">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
+                                            @if (auth()->user()->role_id == 4)
+                                            <th class="text-center">Opsi</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -43,7 +46,15 @@
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
                                                         <td class="text-center"><span style="padding: 8px 54px"
-                                                                class="badge badge-success">Disetujui</span></td>
+                                                                class="badge badge-success">Disetujui</span>
+                                                        </td>
+                                                    @if (auth()->user()->role_id == 4)
+                                                    <td class="text-truncate">
+                                                        <a class="btn btn-danger"
+                                                            href=""
+                                                            style="display: inline-block;">Batal</a>
+                                                    </td>
+                                                    @endif    
                                                 </tr>
                                             @endforeach
                                     </tbody>

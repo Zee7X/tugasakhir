@@ -72,10 +72,9 @@
                                                             </button>
                                                         </td>
                                                     @else
-                                                        <td class="text-truncate">
-
+                                                        <td class="text-truncate">                                                  
                                                         </td>
-                                                    @endif
+                                                    @endif      
                                                 @elseif(Auth()->user()->role_id == 2)
                                                     @if ($p->status == 2)
                                                         <td class="text-truncate">
@@ -86,7 +85,6 @@
                                                         </td>
                                                     @else
                                                         <td class="text-truncate">
-
                                                         </td>
                                                     @endif
                                                 @elseif(Auth()->user()->role_id == 3)
@@ -99,7 +97,6 @@
                                                         </td>
                                                     @else
                                                         <td class="text-truncate">
-
                                                         </td>
                                                     @endif
                                                 @endif
@@ -121,7 +118,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="formModal">Form Permohonan Cuti</h5>
+                            <h5 class="modal-title" id="formModal">Form Edit Permohonan Cuti</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

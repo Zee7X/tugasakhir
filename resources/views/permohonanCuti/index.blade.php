@@ -61,21 +61,21 @@
                                                 </td>
                                                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                     @if ($p->status == 1)
-                                                        <td class="text-center"><span class="badge badge-warning"
-                                                                style="padding: 10px 9px">Pending Kepala Unit </span></td>
+                                                    <td class="text-center"><span class="badge badge-warning"
+                                                            style="padding: 8px 20px">Pending Kepala Unit </span></td>
                                                     @elseif ($p->status == 2)
-                                                        <td class="text-center"><span class="badge badge-warning"
-                                                                style="padding: 10px 24px">Pending Wadir</span></td>
+                                                    <td class="text-center"><span class="badge badge-warning"
+                                                            style="padding: 8px 37px">Pending Wadir</span></td>
                                                     @elseif ($p->status == 3)
-                                                        <td class="text-center"><span class="badge badge-warning"
-                                                                style="padding: 10px 16px">Pending Direktur</span></td>
+                                                    <td class="text-center"><span class="badge badge-warning"
+                                                            style="padding: 8px 31px">Pending Direktur</span></td>
                                                     @elseif ($p->status == 4)
-                                                        <td class="text-center"><span class="badge badge-success"
-                                                                style="padding: 10px 41px">Disetujui</span></td>
+                                                    <td class="text-center"><span class="badge badge-success"
+                                                            style="padding: 8px 54px">Disetujui</span></td>
                                                     @elseif ($p->status == 5)
-                                                        <td class="text-center"><span class="badge badge-danger"
-                                                                style="padding: 10px 47px">Ditolak</span></td>
-                                                    @endif
+                                                    <td class="text-center"><span class="badge badge-danger"
+                                                            style="padding: 8px 58px">Ditolak</span></td>
+                                                @endif
                                                 @endif
                                                 @if (auth()->user()->role_id == 2 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5)
                                                     <td class="text-truncate">
@@ -84,9 +84,9 @@
                                                             method="POST">
                                                             @csrf
                                                             <button type="submit"
-                                                                class="btn btn-action bg-green mr-1 text-truncate">Setuju</button>
+                                                                class="btn btn-action bg-green mr-1 text-truncate" style="width: 80px; height: 30px;">Setuju</button>
                                                         </form>
-                                                        <button class="btn btn-danger btn-action" data-toggle="modal"
+                                                        <button class="btn btn-danger btn-action " style="width: 80px; height: 30px; margin-top: 10px;" data-toggle="modal"
                                                             data-target="#tolak-modal{{ $p->id }}">Tolak</button>
                                                     </td>
                                                 @elseif (auth()->user()->role_id == 1)

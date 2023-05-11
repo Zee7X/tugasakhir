@@ -16,11 +16,11 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Nama Karyawan</th>
+                                            <th class="text-center">Nama Pegawai</th>
                                             <th class="text-center">NIP</th>
                                             <th class="text-center">Jabatan</th>
                                             <th class="text-center">Unit</th>
-                                            <th class="text-center">Alasan Cuti</th>
+                                            <th class="text-truncate">Alasan Ditolak</th>
                                             <th class="text-truncate">Mulai Cuti</th>
                                             <th class="text-truncate">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
@@ -35,7 +35,7 @@
                                                     <td>{{ $p->nip }}</td>
                                                     <td>{{ $p->jabatan }}</td>
                                                     <td>{{ $p->name_unit }}</td>
-                                                    <td>{{ $p->alasan_cuti }}</td>
+                                                    <td>{{ $p->alasan_ditolak }}</td>
                                                     <td class="text-truncate">
                                                         {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                     </td>
