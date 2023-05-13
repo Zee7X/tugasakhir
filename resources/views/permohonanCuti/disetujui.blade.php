@@ -45,14 +45,13 @@
                                                     <td class="align-center">
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
-                                                        <td class="text-center"><span style="padding: 8px 54px"
+                                                        <td class="text-center"><span style="padding: 8px 45px"
                                                                 class="badge badge-success">Disetujui</span>
                                                         </td>
                                                     @if (auth()->user()->role_id == 4)
                                                     <td class="text-truncate">
-                                                        <a class="btn btn-danger"
-                                                            href=""
-                                                            style="display: inline-block;">Batal</a>
+                                                        <button class="btn btn-danger btn-action " data-toggle="modal"
+                                                            data-target="#tolak-modal{{ $p->id }}">Batal</button>
                                                     </td>
                                                     @endif    
                                                 </tr>
@@ -65,7 +64,31 @@
                 </div>
             </div>
         </section>
-
+        @foreach ($permohonan_disetujui as $p)
+            <div class="modal fade " id="tolak-modal{{ $p->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="formModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="formModal">Konfirmasi Batal Permohonan Cuti</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('batal.permohonancuti', ['id_permohonan' => $p->id]) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Alasan Dibatalkan</label>
+                                    <textarea class="form-control" name="alasan_ditolak"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
 
     </div>
 @endsection

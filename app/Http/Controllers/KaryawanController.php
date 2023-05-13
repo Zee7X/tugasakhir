@@ -27,7 +27,6 @@ class KaryawanController extends Controller
             'jabatan' => 'required',
             'unit_id' => 'required',
             'hak_cuti' => 'required',
-            
         ]);
         $messages = [
             'nip'      => 'NIP Sudah Ada!',
@@ -81,7 +80,7 @@ class KaryawanController extends Controller
         return view('pegawai.FormPegawai', compact('users'));
     }
 
-    //Edit Pegawai By ID
+    //View Edit Pegawai By ID(Admin)
     public function edit($id)
     {
         $unit = Unit::all();
@@ -95,7 +94,7 @@ class KaryawanController extends Controller
         return view('pegawai.formedit', compact('users','unit','role'));
     }
 
-    //Edit Profile
+    //View Edit Profile (User)
     public function editprofile(){
         return view('pegawai.editprofile');
     }

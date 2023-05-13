@@ -75,6 +75,9 @@
                                                     @elseif ($p->status == 5)
                                                     <td class="text-center"><span class="badge badge-danger"
                                                             style="padding: 8px 58px">Ditolak</span></td>
+                                                    @elseif ($p->status == 0)
+                                                    <td class="text-center"><span class="badge badge-danger"
+                                                            style="padding: 8px 48px">Dibatalkan</span></td>
                                                 @endif
                                                 @endif
                                                 @if (auth()->user()->role_id == 2 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5)

@@ -6,6 +6,17 @@
             <div class="row">
                 <div class="col-12 col-sm-12 col-lg-12">
                     <div class="card">
+                        @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    @if ($errors->has('name_unit'))
+                                    @endif
+                                </div>
+                        @endif
                         <div class="card-header">
                             <h4>Data Unit</h4>
                         </div>
@@ -25,8 +36,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                                        $i = 1;
+                                                @php
+                                                    $i = 1;
                                                     @endphp
                                                     @foreach ($unit as $u)
                                                 <tr>
@@ -34,9 +45,11 @@
                                                     <td class="text-left">{{ $u->name_unit }}</td>
                                                     <td class="text-center">10</td>
                                                     <td class="align-center">
-                                                        <a class="btn btn-danger delete-confirm"
-                                                            href=""
-                                                            style="display: inline-block;">Hapus</a>
+                                                        <a class="btn btn-action bg-purple mr-1"
+                                                        href=""
+                                                        style="display: inline-block;">Edit</a>
+                                                        <button class="btn btn-danger delete-confirm" data-id="{{ $u->id }}" data-url="hapusunit"
+                                                            style="display: inline-block;">Hapus</button>
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -61,11 +74,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="" action="" method="">
+                        <form class="" action="tambahunit" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Nama Unit</label>
-                                <input type="text" class="form-control" value="" name="" required>
+                                <input type="text" class="form-control" value="" name="name_unit" required>
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Tambah</button>
                         </form>
@@ -74,5 +87,4 @@
             </div>
         </div>
     </div>
-
 @endsection

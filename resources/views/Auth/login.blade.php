@@ -19,8 +19,8 @@
             <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_owjvnmzr.json" background="transparent"
                 speed="1" style="width: 500px; height: 500px;" loop autoplay></lottie-player>
         </div>
-
-        <div class="login-content">
+    
+        <div class="login-content" >
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 @if (Session::has('error'))
@@ -29,11 +29,14 @@
                     <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
                 @endif
                 <h4 style="font-size: 2em">Politeknik Negeri Cilacap</h4>
-                <div class="lottie-player">
+                <div class="lottie-player"  style="width: 100px; margin: 0 auto; padding-top:10px; padding-bottom:10px">
+                    <img alt="image" src="{{ asset('img/PNC.jpg') }}" style="width: 100px; height:100px;">
+                </div>
+                {{-- <div class="lottie-player">
                     <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_y1vgaq1e.json"
                         background="transparent" speed="1" style="width: 360px; height: 140px;" loop autoplay>
                     </lottie-player>
-                </div>
+                </div> --}}
                 <h4 style="font-size: 2em">Login</h4>
 
                 <div class="input-div one">

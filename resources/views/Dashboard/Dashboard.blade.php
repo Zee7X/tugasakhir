@@ -132,6 +132,9 @@
                                                     @elseif ($d->status == 5)
                                                         <td class="text-center"><span class="badge badge-danger"
                                                                 style="padding: 8px 58px">Ditolak</span></td>
+                                                    @elseif ($d->status == 0)
+                                                    <td class="text-center"><span class="badge badge-danger"
+                                                            style="padding: 8px 48px">Dibatalkan</span></td>
                                                     @endif
                                                 </tr>
                                             @endforeach

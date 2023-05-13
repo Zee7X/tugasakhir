@@ -69,7 +69,8 @@ class DashboardController extends Controller
         if(auth()->user()->role_id == 4){
                 $pending = PermohonanModel::where([
                     ['status', '!=', "4"],
-                    ['status', '!=', "5"]
+                    ['status', '!=', "5"],
+                    ['status', '!=', "0"]
                 ])
                 ->count();
         }

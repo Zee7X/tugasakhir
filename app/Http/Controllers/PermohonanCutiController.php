@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PermohonanCutiController extends Controller
 {
+    
     //Tambah Permohonan Cuti
     public function tambahPermohonan(Request $request)
     {
@@ -28,7 +29,7 @@ class PermohonanCutiController extends Controller
         if ($jumlahCuti < 0) {
             return redirect()
                 ->route('permohonan')
-                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                ->with(['error' => 'Maaf sisa cuti anda tidak mencukupi']);
         } else {
             if ($durasi->days <= 0) {
                 return redirect()
@@ -124,27 +125,37 @@ class PermohonanCutiController extends Controller
         $tglAkhir = date_create($request->tgl_akhir);
         $durasi = date_diff($tglMulai, $tglAkhir);
         $requ_days = $durasi->days;
-        // dd($requ_days);
-
-        // $jumlahCuti = $sisaCuti - $durasi->days;
 
         $a = date_create($permohonan->tgl_mulai);
         $b = date_create($permohonan->tgl_akhir);
         $data_db = date_diff($a, $b);
         $data_days = $data_db->days;
-        // dd($requ_days);
         if($permohonan){
             if ($sisaCuti < 0) {
-                return redirect()
+                if(Auth()->user()->role_id !=1){
+                    return redirect()
                     ->route('riwayat.permohonan')
                     ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                }
+                else{
+                    return redirect()
+                    ->route('permohonan')
+                    ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                }        
             } else {
                 if ($durasi->days <= 0) {
-                    return redirect()
-                        ->route('riwayat.permohonan')
+                    if(Auth()->user()->role_id !=1){
+                        return redirect()
+                        ->route('permohonan')
                         ->with([
                             'error' => 'Silahkan periksa kembali tanggal cuti',
                         ]);
+                    }
+                    else{
+                        return redirect()
+                        ->route('permohonan')
+                        ->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
+                    } 
                 } else {
                     $validasiData = Validator::make($request->all(), [
                         'alasan_cuti' => 'required',
@@ -223,7 +234,8 @@ class PermohonanCutiController extends Controller
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
                 ->where([
                     ['permohonan_cuti.status', '!=', "4"],
-                    ['permohonan_cuti.status', '!=', "5"]
+                    ['permohonan_cuti.status', '!=', "5"],
+                    ['permohonan_cuti.status', '!=', "0"],
                 ])
                 ->select(
                     'permohonan_cuti.id',
@@ -510,6 +522,85 @@ class PermohonanCutiController extends Controller
         return view('permohonancuti.ditolak', compact('permohonan_ditolak'));
     }
 
+    //View Cuti Dibatalkan
+    public function permohonan_dibatalkan()
+    {
+        //Bagian Kepegawaian & Direktur & Wakill Direktur II
+        if (auth()->user()->role_id == 4 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5) {
+            $permohonan_dibatalkan = User::join(
+                'permohonan_cuti',
+                'users.id',
+                '=',
+                'permohonan_cuti.user_id'
+            )
+                ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->where('permohonan_cuti.status', '=', 0)
+                ->orderBy('permohonan_cuti.updated_at', 'DESC')
+                ->get();
+        }
+        
+        //Pegawai
+        if (auth()->user()->role_id == 1) {
+            $permohonan_dibatalkan = User::join(
+                'permohonan_cuti',
+                'users.id',
+                '=',
+                'permohonan_cuti.user_id'
+            )
+                ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->where('permohonan_cuti.status', '=', 0)
+                ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
+                ->orderBy('permohonan_cuti.updated_at', 'DESC')
+                ->get();
+        }
+
+        //Kepala Unit
+        if (auth()->user()->role_id == 2) {
+            $permohonan_dibatalkan = User::join(
+                'permohonan_cuti',
+                'users.id',
+                '=',
+                'permohonan_cuti.user_id'
+            )
+                ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->where('units.id', '=', auth()->user()->unit_id)
+                ->where('permohonan_cuti.status', '=', 0)
+                ->orderBy('permohonan_cuti.updated_at', 'DESC')
+                ->get();
+        }
+        return view('permohonancuti.dibatalkan', compact('permohonan_dibatalkan'));
+    }
+
+     //Batalkan Permohonan
+     public function batalkan_permohonan(Request $request ,$id_permohonan){
+        $permohonan = PermohonanModel::findorFail($id_permohonan);
+        $user_id = $permohonan->user_id;
+        $data = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
+            ->where('hak_cuti.user_id', '=', $user_id)
+            ->get();
+        $sisaCuti = $data[0]->hak_cuti;
+        $a = date_create($permohonan->tgl_mulai);
+        $b = date_create($permohonan->tgl_akhir);
+        $data_db = date_diff($a, $b);
+        $data_days = $data_db->days;
+        $data = ([
+            'alasan_cuti' => $permohonan->alasan_cuti,
+            'tgl_mulai' => $permohonan->tgl_mulai,
+            'tgl_akhir' => $permohonan->tgl_akhir,
+            'alamat_cuti' => $permohonan->alamat_cuti,
+            'status' => 0,
+            'alasan_ditolak' => $request->alasan_ditolak,
+            'updated_at' => Carbon::now(),
+        ]);
+        PermohonanModel::whereId($id_permohonan)->update($data);
+        $hak_cuti = [
+            'hak_cuti' => $sisaCuti + $data_days,
+        ];
+        HakCuti::whereId($user_id)->update($hak_cuti);
+        return back()->with([ 'success' => 'Permohonan Cuti Berhasil Dibatalkan!',]);
+    }
+    
+    //Riwayat Cuti Wadir, Bagian Kepegawaian, Kepala Unit
     public function riwayat_permohonan()
     {
         $riwayat = User::join(

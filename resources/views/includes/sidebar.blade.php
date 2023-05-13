@@ -6,10 +6,10 @@
             </a>
           </div>
           <div class="sidebar-user">
-            <div class="sidebar-user-picture">
-              <img alt="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcZsL6PVn0SNiabAKz7js0QknS2ilJam19QQ&usqp=CAU">
+            <div class="sidebar-user-picture" style="margin: 0 auto;">
+              <img alt="image" src="{{ asset('img/PNC.jpg') }}">
             </div>
-            <div class="sidebar-user-details">
+            <div class="sidebar-user-details" style="margin: 0 auto;">
               <div class="user-name">{{Auth::user()->name}}</div>
               <div class="user-jabatan">{{Auth::user()->jabatan}}</div>
             </div>
@@ -46,6 +46,7 @@
                     @endif
                     <li><a href="/permohonandisetujui">Permohonan Disetujui</a></li>
                     <li><a href="/permohonanditolak">Permohonan Ditolak</a></li>
+                    <li><a href="/permohonandibatalkan">Permohonan Dibatalkan</a></li>
                 </ul>
                 </li>
         </ul>

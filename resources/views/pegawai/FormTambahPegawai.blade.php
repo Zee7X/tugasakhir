@@ -52,7 +52,6 @@
                                                 <option name="unit_id" value="{{ $u->id }}">{{ $u->name_unit }}
                                                 </option>
                                             @endforeach
-
                                         </select>
                                     </div>
                                     <div class="form-group">

@@ -41,8 +41,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardCon
 
 Route::middleware('auth:sanctum')->group(function () {
         Route::middleware('auth','role:pegawai')->group(function () {
-        Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpegawai');
-        Route::get('/unit', [UnitController::class, 'view_unit'])->name('unit');
+        Route::get('/formpegawai', [KaryawanController::class, 'index'])->name('formpegawai');    
     });
     Route::middleware('auth','check:admin')->group(function () {
         Route::get('/formedit/{id}', [KaryawanController::class, 'edit'])->name('formedit');
@@ -50,6 +49,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/hapuspegawai/{id}', [KaryawanController::class, 'destroy'])->name('hapuspegawai');
         Route::get('/formtambah', [KaryawanController::class , 'formtambahpegawai'])->name('tambahpegawai');
         Route::post('/tambahpegawai', [KaryawanController::class , 'tambah'])->name('tambah');
+        Route::get('/unit', [UnitController::class, 'view_unit'])->name('unit');
+        Route::post('/tambahunit', [UnitController::class , 'tambahunit'])->name('tambahunit');
+        Route::delete('/hapusunit/{id}', [UnitController::class, 'hapusunit'])->name('hapusunit');
     });
 
     //Permohonan
@@ -57,8 +59,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/editpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'editPermohonan'])->name('edit.permohonancuti');
     Route::post('/setujuipermohonan/{id}', [PermohonanCutiController::class , 'setujui_permohonan'])->name('setujui.permohonancuti');
     Route::post('/tolakpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'tolak_permohonan'])->name('tolak.permohonancuti');
+    Route::post('/batalkanpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'batalkan_permohonan'])->name('batal.permohonancuti');
     Route::get('/permohonan', [PermohonanCutiController::class, 'permohonan'])->name('permohonan');
     Route::get('/riwayat-permohonan', [PermohonanCutiController::class, 'riwayat_permohonan'])->middleware('wadirku:recent')->name('riwayat.permohonan');
     Route::get('/permohonandisetujui', [PermohonanCutiController::class, 'permohonan_disetujui'])->name('permohonandisetujui');
     Route::get('/permohonanditolak', [PermohonanCutiController::class, 'permohonan_ditolak'])->name('permohonanditolak');
+    Route::get('/permohonandibatalkan', [PermohonanCutiController::class, 'permohonan_dibatalkan'])->name('permohonandibatalkan');
 });
