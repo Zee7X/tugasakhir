@@ -79,10 +79,12 @@
                 window.location.href = url;
                 Swal.fire(
                     'Terhapus!',
-                    'Data Pegawai Berhasil Dihapus!',
+                    'Data Berhasil Dihapus!',
                     'success'
                 )
             }
         });
     });
 </script>
+
+

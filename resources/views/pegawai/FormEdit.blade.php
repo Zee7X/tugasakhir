@@ -65,8 +65,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Hak Cuti</label>
-                                        <input type="text" class="form-control" name="hak_cuti"
+                                        <input type="number" class="form-control" name="hak_cuti" min="0"
                                             value="{{ $k->hak_cuti }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Set Password Baru</label>
+                                        <input type="password" class="form-control" name="password" placeholder=""
+                                            >
                                     </div>
                                 </div>
                                 @endforeach

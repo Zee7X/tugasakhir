@@ -14,6 +14,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class KaryawanController extends Controller
 {
@@ -94,29 +95,114 @@ class KaryawanController extends Controller
         return view('pegawai.formedit', compact('users','unit','role'));
     }
 
+
     //View Edit Profile (User)
-    public function editprofile(){
-        return view('pegawai.editprofile');
+    public function viewprofile(){
+        $unit = Unit::all();
+        $users = User::join('units', 'users.unit_id', '=', 'units.id')
+            ->select('units.name_unit','users.id','users.unit_id','users.name','users.jenis_kelamin','users.jabatan','users.nip', 'users.email')
+            ->where('users.id', '=', auth()->user()->id)
+            ->get();
+        return view('pegawai.editprofile', compact('users', 'unit'));
+    }
+
+    //Update Profile(User)
+    public function editprofile(Request $request, $id)
+    {
+        $validated = Validator::make($request->all(),[
+            'nip' => 'required|unique:users,nip,'.$id,
+            'email'=>'required|unique:users,nip,'.$id,
+            'name' => 'required',
+            'jenis_kelamin' => 'required',
+            'jabatan' => 'required',
+            'unit_id' => 'required',
+            'password' => 'nullable',
+            'new_password' => 'nullable',
+        ],
+        [
+            'nip.required' => 'NIP wajib diisi.',
+            'nip.unique' => 'NIP sudah digunakan.',
+            'email.required' => 'Email wajib diisi.',
+            'email.unique' => 'Email sudah digunakan.',
+            'name.required' => 'Nama wajib diisi.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib diisi.',
+            'jabatan.required' => 'Jabatan wajib diisi.',
+            'unit_id.required' => 'Unit wajib diisi.',
+            'new_password.min' => 'Password minimal 8 karakter.',
+        ]
+    );
+        
+        if ($validated->fails()) {
+            return redirect()->back()->with(['error' => $validated->messages()->all()[0]])->withInput();
+        }
+
+        $user = User::find($id);
+
+        $user->nip = $request['nip'];
+        $user->email = $request['email'];
+        $user->name = $request['name'];
+        $user->jenis_kelamin = $request['jenis_kelamin'];
+        $user->jabatan = $request['jabatan'];
+        $user->unit_id = $request['unit_id'];
+
+        if ($request->password != null) {
+            // Check if old password is correct
+            if (!Hash::check($request->password, $user->password)) {
+                return redirect()->back()->with(['error' =>'Password lama salah'])->withInput();
+            }
+    
+            // Update password
+            $user->password = Hash::make($request->new_password);
+        }
+        $user->save();
+        return redirect()->back()->with(['success' => 'Profile Berhasil Diupdate!']);
     }
 
     //Update Pegawai
     public function update(Request $request)
     {
-        $validated = $request->validate([
-            'nip' => 'required',
+        $validated = Validator::make($request->all(),[
+            'nip' => 'required|unique:users,nip,'.$request->id,
             'name' => 'required',
             'jenis_kelamin' => 'required',
-            'role_id' => 'required',
             'jabatan' => 'required',
             'unit_id' => 'required',
-        ]);
+            'role_id' => 'required',
+            'hak_cuti' => 'required|numeric|min:0',
+            'password' => 'nullable|min:8',
+        ],
+        [
+            'nip.required' => 'NIP wajib diisi.',
+            'nip.unique' => 'NIP sudah digunakan.',
+            'name.required' => 'Nama wajib diisi.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib diisi.',
+            'jabatan.required' => 'Jabatan wajib diisi.',
+            'unit_id.required' => 'Unit wajib diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
+        ]
+    );
+
+        if ($validated->fails()) {
+            return redirect()->back()->with(['error' => $validated->messages()->all()[0]])->withInput();
+        }
 
         $hak_cuti = $request->validate([
             'hak_cuti' => 'required',
         ]);
 
-       User::whereId($request->id)->update($validated);
-       HakCuti::whereId($request->id)->update($hak_cuti);
+        $user = User::findorFail($request->id);
+        $user->nip = $request['nip'];
+        $user->name = $request['name'];
+        $user->jenis_kelamin = $request['jenis_kelamin'];
+        $user->jabatan = $request['jabatan'];
+        $user->role_id = $request['role_id'];
+        $user->unit_id = $request['unit_id'];
+        if ($request->password != null) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+    //    User::whereId($request->id)->update($validated);
+       HakCuti::where('user_id', '=', $request->id)->update($hak_cuti);
        return redirect()->route('formpegawai')->with(['success' => 'Data Pegawai Berhasil Diupdate!']);
     }
 

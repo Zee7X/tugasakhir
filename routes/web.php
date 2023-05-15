@@ -32,8 +32,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Reset Password
 Route::get('/resetpassword', [AuthController::class, 'reset_password'])->name('reset.view');
-
-Route::get('/editprofile', [KaryawanController::class, 'editprofile'])->name('editprofile');
+Route::get('/viewprofile', [KaryawanController::class, 'viewprofile'])->name('viewprofile');
+Route::post('/editprofile/{id}', [KaryawanController::class, 'editprofile'])->name('editprofile');
 
 //Dashboard
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -51,7 +51,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/tambahpegawai', [KaryawanController::class , 'tambah'])->name('tambah');
         Route::get('/unit', [UnitController::class, 'view_unit'])->name('unit');
         Route::post('/tambahunit', [UnitController::class , 'tambahunit'])->name('tambahunit');
-        Route::delete('/hapusunit/{id}', [UnitController::class, 'hapusunit'])->name('hapusunit');
+        Route::get('/hapusunit/{id}', [UnitController::class, 'hapusunit'])->name('hapusunit');
+        Route::post('/editunit/{id}', [UnitController::class , 'editunit'])->name('edit.unit');
     });
 
     //Permohonan
