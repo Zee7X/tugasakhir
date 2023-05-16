@@ -12,7 +12,7 @@
         </div>
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown"
-              class="dropdown-item has-icon"> <i class="fa fa-user"></i></a>
+              class="dropdown-item"> <i class="fa fa-user"></i></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
               <div class="dropdown-title">Hello {{ Str::limit(Auth::user()->name) }}</div>
               <a href="/viewprofile" class="dropdown-item has-icon"> <i class="fas fa-id-card"></i>

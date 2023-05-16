@@ -50,10 +50,15 @@ class PermohonanCutiController extends Controller
                         ->with(['error' => 'Silahkan periksa alasan cuti!']);
                 } else {
                     //Tambah Permohonan Pegawai & Bagian Kepegawaian
-                    if (Auth()->user()->role_id == 1 || Auth()->user()->role_id == 4) {
+                    if (Auth()->user()->role_id == 1 || Auth()->user()->role_id == 4) {   
+                        if($request->alasan_cuti_lainnya != null){
+                            $alesan = $request->alasan_cuti_lainnya;
+                        }else{
+                            $alesan = $request->alasan_cuti;
+                        }
                         PermohonanModel::insert([
                             'user_id' => Auth::id(),
-                            'alasan_cuti' => $request->alasan_cuti,
+                            'alasan_cuti' => $alesan,
                             'tgl_mulai' => $request->tgl_mulai,
                             'tgl_akhir' => $request->tgl_akhir,
                             'alamat_cuti' => $request->alamat_cuti,
@@ -70,9 +75,14 @@ class PermohonanCutiController extends Controller
                     } 
                     //Tambah Permohonan Kepala Unit
                     elseif (Auth()->user()->role_id == 2) {
+                        if($request->alasan_cuti_lainnya != null){
+                            $alesan = $request->alasan_cuti_lainnya;
+                        }else{
+                            $alesan = $request->alasan_cuti;
+                        }
                         PermohonanModel::insert([
                             'user_id' => Auth::id(),
-                            'alasan_cuti' => $request->alasan_cuti,
+                            'alasan_cuti' =>  $alesan,
                             'tgl_mulai' => $request->tgl_mulai,
                             'tgl_akhir' => $request->tgl_akhir,
                             'alamat_cuti' => $request->alamat_cuti,
@@ -89,9 +99,14 @@ class PermohonanCutiController extends Controller
                     } 
                     //Tambah Permohonan Wadir
                     elseif (Auth()->user()->role_id == 3) {
+                        if($request->alasan_cuti_lainnya != null){
+                            $alesan = $request->alasan_cuti_lainnya;
+                        }else{
+                            $alesan = $request->alasan_cuti;
+                        }
                         PermohonanModel::insert([
                             'user_id' => Auth::id(),
-                            'alasan_cuti' => $request->alasan_cuti,
+                            'alasan_cuti' => $alesan,
                             'tgl_mulai' => $request->tgl_mulai,
                             'tgl_akhir' => $request->tgl_akhir,
                             'alamat_cuti' => $request->alamat_cuti,
@@ -223,6 +238,8 @@ class PermohonanCutiController extends Controller
     //Function View Permohonan
     public function permohonan()
     {
+        $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
+        ->where('hak_cuti.user_id', '=', auth()->user()->id)->pluck('hak_cuti');
         //View Pending Bagian Kepegawaian
         if (auth()->user()->role_id == 4) {
             $permohonan = User::join(
@@ -355,7 +372,7 @@ class PermohonanCutiController extends Controller
                 ->orderBy('permohonan_cuti.created_at', 'DESC')
                 ->get();
         }
-        return view('permohonancuti.index', compact('permohonan'));
+        return view('permohonancuti.index', compact('permohonan', 'sisacuti'));
     }
 
     //Acc Permohonan
@@ -525,7 +542,7 @@ class PermohonanCutiController extends Controller
     //View Cuti Dibatalkan
     public function permohonan_dibatalkan()
     {
-        //Bagian Kepegawaian & Direktur & Wakill Direktur II
+        //Kepala Bagian
         if (auth()->user()->role_id == 4 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5) {
             $permohonan_dibatalkan = User::join(
                 'permohonan_cuti',
@@ -603,6 +620,7 @@ class PermohonanCutiController extends Controller
     //Riwayat Cuti Wadir, Bagian Kepegawaian, Kepala Unit
     public function riwayat_permohonan()
     {
+        if (auth()->user()->role_id == 2 || auth()->user()->role_id == 5) {
         $riwayat = User::join(
             'permohonan_cuti',
             'users.id',
@@ -625,6 +643,31 @@ class PermohonanCutiController extends Controller
                 'permohonan_cuti.status'
             )
             ->get();
+        }
+
+            if (auth()->user()->role_id == 4 || auth()->user()->role_id == 3) {
+                $riwayat = User::join(
+                    'permohonan_cuti',
+                    'users.id',
+                    '=',
+                    'permohonan_cuti.user_id'
+                )
+                    ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                    ->orderBy('permohonan_cuti.updated_at', 'DESC')
+                    ->select(
+                        'permohonan_cuti.id',
+                        'users.name',
+                        'users.jabatan',
+                        'units.name_unit',
+                        'permohonan_cuti.user_id',
+                        'permohonan_cuti.tgl_mulai',
+                        'permohonan_cuti.alasan_cuti',
+                        'permohonan_cuti.tgl_akhir',
+                        'permohonan_cuti.alamat_cuti',
+                        'permohonan_cuti.status'
+                    )
+                    ->get();
+            }    
         return view('permohonanCuti.riwayat', compact('riwayat'));
     }
 }

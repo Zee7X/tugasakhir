@@ -31,11 +31,8 @@ class UnitController extends Controller
             $validatedData = Validator::make($request->all(),[
                 'name_unit' => 'required|unique:units,name_unit',
             ]);
-            $messages = [
-                'name_unit' => 'Unit Sudah Ada!',
-            ];
             if ($validatedData->fails()) { 
-                return redirect()->route('unit')->withErrors($messages);
+                return redirect()->back()->with(['error' => 'Unit Sudah Ada!']);
             }
             $data = [
                 'name_unit' => $request->name_unit,

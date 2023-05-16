@@ -74,14 +74,10 @@
             cancelButtonColor: '#3085d6',
             reverseButtons: true,
             confirmButtonText: 'Hapus'
-        }).then((result) => {
+        })
+        .then((result) => {
             if (result.isConfirmed) {
                 window.location.href = url;
-                Swal.fire(
-                    'Terhapus!',
-                    'Data Berhasil Dihapus!',
-                    'success'
-                )
             }
         });
     });

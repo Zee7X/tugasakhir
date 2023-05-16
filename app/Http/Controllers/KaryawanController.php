@@ -21,20 +21,27 @@ class KaryawanController extends Controller
 
     //Tambah Pegawai
     public function tambah(Request $request){
-        $validatedData = Validator::make($request->all(), [
-            'name' => 'required',
+        $validated = Validator::make($request->all(),[
             'nip' => 'required|unique:users,nip',
+            'name' => 'required',
             'jenis_kelamin' => 'required',
             'jabatan' => 'required',
             'unit_id' => 'required',
             'hak_cuti' => 'required',
-        ]);
-        $messages = [
-            'nip'      => 'NIP Sudah Ada!',
-        ];
-
-        if ($validatedData->fails()) { 
-            return back()->withInput()->withErrors($messages);
+        ],
+        [
+            'nip.required' => 'NIP wajib diisi.',
+            'nip.unique' => 'NIP sudah digunakan.',
+            'name.required' => 'Nama wajib diisi.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib diisi.',
+            'jabatan.required' => 'Jabatan wajib diisi.',
+            'unit_id.required' => 'Unit wajib diisi.',
+            'hak_cuti.required' => 'Hak Cuti wajib diisi.',
+        ]
+    );
+        
+        if ($validated->fails()) {
+            return redirect()->back()->with(['error' => $validated->messages()->all()[0]])->withInput();
         }
 
         $data = [

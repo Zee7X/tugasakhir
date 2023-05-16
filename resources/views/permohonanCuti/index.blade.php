@@ -34,6 +34,7 @@
                                             <th class="text-center">Alasan Cuti</th>
                                             <th class="text-truncate">Mulai Cuti</th>
                                             <th class="text-truncate">Berakhir Cuti</th>
+                                            <th class="text-center">Alamat Cuti</th>
                                             @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                 <th class="text-center">Status</th>
                                             @endif
@@ -59,6 +60,7 @@
                                                 <td class="text-truncate">
                                                     {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                 </td>
+                                                <td>{{ $p->alamat_cuti }}</td>
                                                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                     @if ($p->status == 1)
                                                     <td class="text-center"><span class="badge badge-warning"
@@ -116,7 +118,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="formModal">Form Permohonan Cuti</h5>
+                            <h5 class="modal-title" id="formModal">Form Edit Permohonan Cuti</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -125,6 +127,10 @@
                             <form class="" action="{{ route('edit.permohonancuti', $p->id) }}" method="post"
                                 id="edit">
                                 @csrf
+                                <div class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px;">
+                                    <label>Sisa Cuti Anda</label><br>
+                                    <h6>{{ $sisacuti[0]}}</h6>
+                                </div><br>
                                 <div class="form-group">
                                     <label>Alasan Cuti</label>
                                     <select class="form-control" name="alasan_cuti" id="alasan_cuti" required>
@@ -185,6 +191,7 @@
             </div>
         @endforeach
 
+        {{-- modal permohonan --}}
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -198,9 +205,13 @@
                     <div class="modal-body">
                         <form class="" action="permohonancuti" method="post">
                             @csrf
+                            <div class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px;">
+                                <label>Sisa Cuti Anda</label><br>
+                                <h6>{{ $sisacuti[0]}}</h6>
+                            </div><br>
                             <div class="form-group">
                                 <label>Alasan Cuti</label>
-                                <select class="form-control" name="alasan_cuti" id="alasan_cuti" required>
+                                <select class="form-control" name="alasan_cuti" id="alasan_cutiku" onchange="showCutiLainnya()" required>
                                     <option disabled selected>Pilih Alasan Permohonan Cuti</option>
                                     @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
                                         <option name="alasan_cuti" value="Cuti Bersalin"
@@ -230,6 +241,10 @@
                                         {{ old('alasan_cuti') == 'Lain - Lain' ? 'selected' : '' }}>Lain - Lain</option>
                                 </select>
                             </div>
+                            <div class="form-group" id="form-cuti-lainnya" style="display:none;">
+                                <label for="alasan_cuti_lainnya">Alasan Cuti Lainnya:</label>
+                                <input class="form-control" type="text" id="alasan_cuti_lainnya" name="alasan_cuti_lainnya">
+                            </div>
                             <div class="form-group">
                                 <label>Tanggal Mulai Cuti</label>
                                 <input type="text" name="tgl_mulai" value="{{ old('tgl_mulai', date('Y-m-d')) }}"
@@ -253,6 +268,8 @@
                 </div>
             </div>
         </div>
+
+        {{-- modal tolak --}}
         @foreach ($permohonan as $p)
             <div class="modal fade " id="tolak-modal{{ $p->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="formModal" aria-hidden="true">
@@ -279,4 +296,20 @@
             </div>
         @endforeach
     </div>
+    
+@push('scrip')
+<script>
+    function showCutiLainnya() {
+    var alasanCuti = document.getElementById("alasan_cutiku").value;
+    var formCutiLainnya = document.getElementById("form-cuti-lainnya");
+    console.log(alasanCuti);
+    if (alasanCuti === "Lain - Lain") {
+        formCutiLainnya.style.display = "block";;
+    } else {
+        formCutiLainnya.style.display = "none";
+    }
+    }
+
+</script>
+@endpush
 @endsection

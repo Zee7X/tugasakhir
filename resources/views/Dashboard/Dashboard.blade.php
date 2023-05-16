@@ -87,7 +87,7 @@
                     <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Permohonan Cuti Terbaru</h4>
+                            <h4>Permohonan Cuti</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive table-invoice">

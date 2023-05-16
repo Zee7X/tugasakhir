@@ -17,6 +17,7 @@
   
   @yield('script')
   @include('includes.script')
+  @stack('scrip')
 </body>
 
 

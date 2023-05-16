@@ -37,7 +37,7 @@
                                         @foreach ($riwayat as $p)
                                             <tr>
                                                 <td class="text-center">{{ $i++ }}</td>
-                                                <td class="text-truncate text-center">{{ $p->name }}</td>
+                                                <td class="text-center">{{ $p->name }}</td>
                                                 <td>{{ $p->jabatan }}</td>
                                                 <td class="text-left">{{ $p->name_unit }}</td>
                                                 <td class="text-center">{{ $p->alasan_cuti }}</td>
@@ -73,37 +73,44 @@
                                                                 data-toggle="modal"
                                                                 data-target="#modal-edit{{ $p->id }}">Edit
                                                             </button>
-                                                        </td>
-                                                    @else
-                                                        <td class="text-truncate">                                                  
-                                                        </td>
-                                                    @endif      
-                                                @elseif(Auth()->user()->role_id == 2)
-                                                    @if ($p->status == 2)
-                                                        <td class="text-truncate">
-                                                            <button type="button" class="btn btn-action bg-purple"
-                                                                data-toggle="modal"
-                                                                data-target="#modal-edit{{ $p->id }}">Edit
-                                                            </button>
-                                                        </td>
-                                                    @else
-                                                        <td class="text-truncate">
-                                                        </td>
-                                                    @endif
-                                                @elseif(Auth()->user()->role_id == 3)
-                                                    @if ($p->status == 3)
-                                                        <td class="text-truncate">
-                                                            <button type="button" class="btn btn-action bg-purple"
-                                                                data-toggle="modal"
-                                                                data-target="#modal-edit{{ $p->id }}">Edit
-                                                            </button>
-                                                        </td>
-                                                    @else
-                                                        <td class="text-truncate">
-                                                        </td>
-                                                    @endif
+                                                    </td>
+                                                    @elseif ($p->status == 4)
+                                                    <td class="text-truncate">
+                                                        <button type="button" class="btn btn-action bg-red"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-batal{{ $p->id }}">Batal
+                                                        </button>
+                                                    </td>
+                                                @else
+                                                    <td class="text-truncate">
+                                                    </td>
+                                                @endif    
+                                            @elseif(Auth()->user()->role_id == 2)
+                                                @if ($p->status == 2)
+                                                    <td class="text-truncate">
+                                                        <button type="button" class="btn btn-action bg-purple"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-edit{{ $p->id }}">Edit
+                                                        </button>
+                                                    </td>
+                                                @else
+                                                    <td class="text-truncate">
+                                                    </td>
                                                 @endif
-                                            </tr>
+                                            @elseif(Auth()->user()->role_id == 3)
+                                                @if ($p->status == 3)
+                                                    <td class="text-truncate">
+                                                        <button type="button" class="btn btn-action bg-purple"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-edit{{ $p->id }}">Edit
+                                                        </button>
+                                                    </td>
+                                                @else
+                                                    <td class="text-truncate">
+                                                    </td>
+                                                @endif
+                                        @endif
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -113,6 +120,32 @@
                 </div>
             </div>
         </section>
+        {{-- modal batal --}}
+        @foreach ($riwayat as $p)
+        <div class="modal fade " id="modal-batal{{ $p->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="formModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="formModal">Konfirmasi Batal Permohonan Cuti</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('batal.permohonancuti', ['id_permohonan' => $p->id]) }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label>Alasan Dibatalkan</label>
+                                <textarea class="form-control" name="alasan_ditolak"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
 
         {{-- modal edit --}}
         @foreach ($riwayat as $p)
