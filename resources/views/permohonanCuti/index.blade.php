@@ -286,7 +286,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Alasan Ditolak</label>
-                                    <textarea class="form-control" name="alasan_ditolak"></textarea>
+                                    <textarea class="form-control" name="alasan_ditolak" required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                             </form>

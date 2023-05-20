@@ -20,10 +20,6 @@ class UnitSeeder extends Seeder
         ]);
 
         Unit::create([
-            'name_unit'=> 'SPI'
-        ]);
-
-        Unit::create([
             'name_unit'=> 'P4MP'
         ]);
 
@@ -31,10 +27,10 @@ class UnitSeeder extends Seeder
             'name_unit'=> 'PPM'
         ]);
 
-
         Unit::create([
             'name_unit'=> 'Teknik Informatika'
         ]);
+
 
         Unit::create([
             'name_unit'=> 'Teknik Mesin'
@@ -43,13 +39,17 @@ class UnitSeeder extends Seeder
         Unit::create([
             'name_unit'=> 'Teknik Elektronika'
         ]);
-        
+
         Unit::create([
             'name_unit'=> 'Teknik Pencemaran Pengendalian Lingkungan'
         ]);
+        
+        Unit::create([
+            'name_unit'=> 'Pengembangan Produk Agroindustri'
+        ]);
 
         Unit::create([
-            'name_unit'=> 'D4 PPA'
+            'name_unit'=> 'Akuntansi Lembaga Keuangan Syariah'
         ]);
 
         Unit::create([

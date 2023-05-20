@@ -20,6 +20,7 @@ class UnitController extends Controller
             foreach ($units as $unit) {
                 $users = User::where('unit_id', $unit->id)->get();
                 $totalPegawai = count($users);
+                
                 $totalPegawaiPerUnit[$unit->name_unit] = $totalPegawai;
             }
             return view('unit.unit', compact('units', 'totalPegawaiPerUnit'));

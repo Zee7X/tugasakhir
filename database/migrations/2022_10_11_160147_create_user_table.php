@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nip');
-            $table->string('name');
-            $table->string('email')->unique()->nullable();
+            $table->string('nip', 18);
+            $table->string('name', 50);
+            $table->string('email', 60)->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
             $table->foreignId('role_id')->constrained();
-            $table->string('jabatan')->nullable();
+            $table->string('jabatan', 60)->nullable();
             $table->foreignId('unit_id')->constrained();
             $table->rememberToken();
             $table->timestamp('created_at')->nullable();

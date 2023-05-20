@@ -50,7 +50,7 @@ class KaryawanController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'jabatan' => $request->jabatan,
             'unit_id' => $request->unit_id,
-            'password' => Hash::make('sicute'),
+            'password' => Hash::make('Sicute123'),
             'role_id' => 1,
         ];
         $user = User::create($data);

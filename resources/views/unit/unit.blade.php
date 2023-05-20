@@ -80,7 +80,7 @@
                             @csrf
                             <div class="form-group">
                                 <label>Nama Unit</label>
-                                <input type="text" class="form-control" value="" name="name_unit" required>
+                                <input type="text" class="form-control" value="" name="name_unit" oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" required oninput="setCustomValidity('')">
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Tambah</button>
                         </form>
@@ -108,7 +108,7 @@
                     @csrf
                     <div class="form-group">
                         <label>Nama Unit</label>
-                        <input type="text" class="form-control" value="{{ $u->name_unit }}" name="name_unit" required>
+                        <input type="text" class="form-control" value="{{ $u->name_unit }}" name="name_unit" oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" required oninput="setCustomValidity('')">
                     </div>
                     <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                 </form>

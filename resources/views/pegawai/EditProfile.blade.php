@@ -17,12 +17,12 @@
                                     <div class="form-group">
                                         <label>Nama</label>
                                         <input type="text" class="form-control" name="name"
-                                            value="{{ $k->name }}">
+                                            value="{{ $k->name }}" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label>NIP</label>
+                                        <label>NIP / NPAK</label>
                                         <input type="text" class="form-control" name="nip"
-                                            value="{{ $k->nip }}">
+                                            value="{{ $k->nip }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
@@ -49,7 +49,6 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Unit</label>
-                                        {{-- select --}}
                                         <select class="form-control" name="unit_id" id="unit_id" oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" required>
                                             <option disabled selected>Pilih Unit</option>
                                             @foreach($unit as $u)

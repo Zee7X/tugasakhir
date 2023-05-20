@@ -27,7 +27,7 @@
                                             <th class="text-truncate text-center">Mulai Cuti</th>
                                             <th class="text-truncate text-center">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
-                                            <th class="text-center">Opsi</th>
+                                            <th class="text-center">Opsi</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -137,7 +137,7 @@
                             @csrf
                             <div class="form-group">
                                 <label>Alasan Dibatalkan</label>
-                                <textarea class="form-control" name="alasan_ditolak"></textarea>
+                                <textarea class="form-control" name="alasan_ditolak" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                         </form>
