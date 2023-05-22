@@ -22,7 +22,7 @@
                                             value="{{ $k->name }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>NIP</label>
+                                        <label>NIP / NPAK</label>
                                         <input type="text" class="form-control" name="nip"
                                             value="{{ $k->nip }}">
                                     </div>

@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
 
         HakCuti::create([
             'user_id' => 2,
-            'hak_cuti' => 0,
+            'hak_cuti' => 12,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -64,7 +64,7 @@ class UserSeeder extends Seeder
         ]);
         HakCuti::create([
             'user_id' => 3,
-            'hak_cuti' => 1,
+            'hak_cuti' => 12,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -80,7 +80,7 @@ class UserSeeder extends Seeder
         ]);
         HakCuti::create([
             'user_id' => 4,
-            'hak_cuti' => 4,
+            'hak_cuti' => 12,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

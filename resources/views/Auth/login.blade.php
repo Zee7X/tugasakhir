@@ -57,7 +57,7 @@
                         <input type="password" class="input" name="password">
                     </div>
                 </div>
-                <a href="/resetpassword">Lupa Password?</a>
+                {{-- <a href="/resetpassword">Lupa Password?</a> --}}
                 <input type="submit" class="btn" value="Login" style="font-size: 20px">
             </form>
         </div>

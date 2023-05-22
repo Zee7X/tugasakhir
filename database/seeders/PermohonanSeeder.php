@@ -27,37 +27,37 @@ class PermohonanSeeder extends Seeder
             'user_id' => 1,
             'alasan_cuti' => 'libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-22',
+            'tgl_akhir' => '2022-12-13',
             'alamat_cuti'=> 'Jl.Buntu',
             'status' =>  1,
         ]);
         PermohonanModel::create([
             'user_id' => 3,
-            'alasan_cuti' => 'Kawin Lari',
+            'alasan_cuti' => 'Cuti Tahunan',
             'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-22',
+            'tgl_akhir' => '2022-12-14',
             'alamat_cuti'=> 'Jl.Buntu',
             'status' => 2,
         ]);
         PermohonanModel::create([
             'user_id' => 2,
-            'alasan_cuti' => 'Mendatangi event cosplay',
-            'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-22',
+            'alasan_cuti' => 'Cuti Ibadah',
+            'tgl_mulai' => '2022-12-10',
+            'tgl_akhir' => '2022-12-11',
             'alamat_cuti'=> 'Jl.Buntu',
             'status' => 4,
         ]);
         PermohonanModel::create([
             'user_id' => 4,
-            'alasan_cuti' => 'Ngarit',
-            'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-25',
+            'alasan_cuti' => 'Cuti Alasan Penting',
+            'tgl_mulai' => '2022-11-10',
+            'tgl_akhir' => '2022-11-12',
             'alamat_cuti'=> 'Jl.Buntu',
             'status' => 4,
         ]);
         PermohonanModel::create([
             'user_id' => 1,
-            'alasan_cuti' => 'libur Akhir Tahun',
+            'alasan_cuti' => 'Libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -65,7 +65,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 3,
-            'alasan_cuti' => 'Kawin Lari',
+            'alasan_cuti' => 'Cuti Alasan Penting',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -73,7 +73,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 2,
-            'alasan_cuti' => 'Mendatangi event cosplay',
+            'alasan_cuti' => 'Libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -81,7 +81,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 4,
-            'alasan_cuti' => 'Menonton Boku no Pico',
+            'alasan_cuti' => 'Cuti Alasan Penting',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -89,7 +89,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 1,
-            'alasan_cuti' => 'libur Akhir Tahun',
+            'alasan_cuti' => 'Libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -97,7 +97,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 3,
-            'alasan_cuti' => 'Kawin Lari',
+            'alasan_cuti' => 'Cuti Alasan Penting',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -105,7 +105,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 2,
-            'alasan_cuti' => 'Mendatangi event cosplay',
+            'alasan_cuti' => 'Cuti Ibadah Keagamaan',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -113,39 +113,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 4,
-            'alasan_cuti' => 'Menonton Boku no Pico',
-            'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-22',
-            'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 5,
-        ]);
-        PermohonanModel::create([
-            'user_id' => 1,
-            'alasan_cuti' => 'libur Akhir Tahun',
-            'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-22',
-            'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 3,
-        ]);
-        PermohonanModel::create([
-            'user_id' => 3,
-            'alasan_cuti' => 'Kawin Lari',
-            'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-22',
-            'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 3,
-        ]);
-        PermohonanModel::create([
-            'user_id' => 2,
-            'alasan_cuti' => 'Mendatangi event cosplay',
-            'tgl_mulai' => '2022-12-12',
-            'tgl_akhir' => '2022-12-22',
-            'alamat_cuti'=> 'Jl.Buntu',
-            'status' => 3,
-        ]);
-        PermohonanModel::create([
-            'user_id' => 4,
-            'alasan_cuti' => 'Menonton Boku no Pico',
+            'alasan_cuti' => 'Cuti Alasan Penting',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -153,7 +121,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 1,
-            'alasan_cuti' => 'libur Akhir Tahun',
+            'alasan_cuti' => 'Libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -161,7 +129,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 3,
-            'alasan_cuti' => 'Kawin Lari',
+            'alasan_cuti' => 'Cuti Alasan Penting',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -169,7 +137,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 2,
-            'alasan_cuti' => 'Mendatangi event cosplay',
+            'alasan_cuti' => 'Cuti Ibadah',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -177,7 +145,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 4,
-            'alasan_cuti' => 'Menonton Boku no Pico',
+            'alasan_cuti' => 'Cuti Melahirkan',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -185,7 +153,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 1,
-            'alasan_cuti' => 'libur Akhir Tahun',
+            'alasan_cuti' => 'Libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -193,7 +161,39 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 3,
-            'alasan_cuti' => 'Kawin Lari',
+            'alasan_cuti' => 'Mudik',
+            'tgl_mulai' => '2022-12-12',
+            'tgl_akhir' => '2022-12-22',
+            'alamat_cuti'=> 'Jl.Buntu',
+            'status' => 0,
+        ]);
+        PermohonanModel::create([
+            'user_id' => 2,
+            'alasan_cuti' => 'Cuti Tahunan',
+            'tgl_mulai' => '2022-12-12',
+            'tgl_akhir' => '2022-12-22',
+            'alamat_cuti'=> 'Jl.Buntu',
+            'status' => 0,
+        ]);
+        PermohonanModel::create([
+            'user_id' => 4,
+            'alasan_cuti' => 'Cuti Alasan Penting',
+            'tgl_mulai' => '2022-12-12',
+            'tgl_akhir' => '2022-12-22',
+            'alamat_cuti'=> 'Jl.Buntu',
+            'status' => 5,
+        ]);
+        PermohonanModel::create([
+            'user_id' => 1,
+            'alasan_cuti' => 'Libur Akhir Tahun',
+            'tgl_mulai' => '2022-12-12',
+            'tgl_akhir' => '2022-12-22',
+            'alamat_cuti'=> 'Jl.Buntu',
+            'status' => 3,
+        ]);
+        PermohonanModel::create([
+            'user_id' => 3,
+            'alasan_cuti' => 'Cuti Alasan Penting',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -201,7 +201,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 2,
-            'alasan_cuti' => 'Mendatangi event cosplay',
+            'alasan_cuti' => 'Libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -209,7 +209,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 4,
-            'alasan_cuti' => 'Menonton Boku no Pico',
+            'alasan_cuti' => 'Cuti Alasan Penting',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl.Buntu',
@@ -218,7 +218,7 @@ class PermohonanSeeder extends Seeder
 
         PermohonanModel::create([
             'user_id' => 5,
-            'alasan_cuti' => 'Membeli Kuaci',
+            'alasan_cuti' => 'Libur Akhir Tahun',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl. Mana',
@@ -226,7 +226,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 5,
-            'alasan_cuti' => 'Pengen aja',
+            'alasan_cuti' => 'Cuti Alasan Penting',
             'tgl_mulai' => '2022-12-12',
             'tgl_akhir' => '2022-12-22',
             'alamat_cuti'=> 'Jl. Mana',
@@ -234,7 +234,7 @@ class PermohonanSeeder extends Seeder
         ]);
         PermohonanModel::create([
             'user_id' => 5,
-            'alasan_cuti' => 'Pengen healing',
+            'alasan_cuti' => 'Libur Akhir Tahun',
             'tgl_mulai' => '2022-12-13',
             'tgl_akhir' => '2022-12-23',
             'alamat_cuti'=> 'Jl. Mana',
