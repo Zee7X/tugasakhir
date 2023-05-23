@@ -18,7 +18,7 @@
                             <div class="btn-toolbar justify-content-between">
                                 @if (auth()->user()->role_id == 4)
                                 <div class="btn-group">
-                                    <a class="btn btn-primary mr-1" href="/formtambah">Tambah Pegawai</a>
+                                    <a class="btn btn-primary mr-1" href="/tambah-pegawai">Tambah Pegawai</a>
                                 </div>
                                 @endif
                                 <div class="input-group">
@@ -56,7 +56,7 @@
                                                     @if (auth()->user()->role_id == 4)
                                                     <td class="text-truncate">
                                                         <a class="btn btn-action bg-purple mr-1"
-                                                            href="{{ route('formedit', ['id' => Crypt::encryptString($k->id)]) }}"
+                                                            href="{{ route('edit.pegawai', ['id' => Crypt::encryptString($k->id)]) }}"
                                                             style="display: inline-block;">Edit</a>
                                                         <a class="btn btn-danger delete-confirm"
                                                             href="{{ route('hapuspegawai', ['id' => $k->id]) }}"

@@ -60,7 +60,7 @@ class KaryawanController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        return redirect()->route('formpegawai')->with(['success' => 'Data Pegawai Berhasil Ditambah!']);
+        return redirect()->route('pegawai')->with(['success' => 'Data Pegawai Berhasil Ditambah!']);
     }
 
     //Menampilkan Form Tambah Pegawai
@@ -162,7 +162,7 @@ class KaryawanController extends Controller
             $user->password = Hash::make($request->new_password);
         }
         $user->save();
-        return redirect()->back()->with(['success' => 'Profile Berhasil Diupdate!']);
+        return redirect()->route('dashboard')->with(['success' => 'Profile Berhasil Diupdate!']);
     }
 
     //Update Pegawai
@@ -210,7 +210,7 @@ class KaryawanController extends Controller
         $user->save();
     //    User::whereId($request->id)->update($validated);
        HakCuti::where('user_id', '=', $request->id)->update($hak_cuti);
-       return redirect()->route('formpegawai')->with(['success' => 'Data Pegawai Berhasil Diupdate!']);
+       return redirect()->route('pegawai')->with(['success' => 'Data Pegawai Berhasil Diupdate!']);
     }
 
     //Delete Pegawai

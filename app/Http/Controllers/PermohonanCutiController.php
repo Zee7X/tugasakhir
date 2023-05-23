@@ -614,7 +614,7 @@ class PermohonanCutiController extends Controller
             'hak_cuti' => $sisaCuti + $data_days,
         ];
         HakCuti::whereId($user_id)->update($hak_cuti);
-        return back()->with([ 'success' => 'Permohonan Cuti Berhasil Dibatalkan!',]);
+        return redirect()->route('permohonandibatalkan')->with([ 'success' => 'Permohonan Cuti Berhasil Dibatalkan!',]);
     }
     
     //Riwayat Cuti Wadir, Bagian Kepegawaian, Kepala Unit
