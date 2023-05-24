@@ -56,7 +56,7 @@
                                 </div>
                                 <p class="mb-0 text-sm">
                                     <span class="mr-1"><i class="fas fa-eye"></i></span>
-                                    <a href="/permohonandisetujui" class="text-white">Lihat Detail</a>
+                                    <a href="/permohonan-disetujui" class="text-white">Lihat Detail</a>
                                 </p>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                 </div>
                                 <p class="mb-0 text-sm">
                                     <span class="mr-1"><i class="fas fa-eye"></i></span>
-                                    <a href="/permohonanditolak" class="text-white">Lihat Detail</a>
+                                    <a href="/permohonan-ditolak" class="text-white">Lihat Detail</a>
                                 </p>
                             </div>
                         </div>

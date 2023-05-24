@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PermohonanCutiController;
+use App\Http\Controllers\RiwayatPermohonanController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
@@ -30,8 +31,9 @@ Route::get('/login', [AuthController::class, 'login_view'])->name('login.view');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-//Reset Password
-Route::get('/resetpassword', [AuthController::class, 'reset_password'])->name('reset.view');
+
+// Route::get('/resetpassword', [AuthController::class, 'reset_password'])->name('reset.view');
+//Profile
 Route::get('/profile', [KaryawanController::class, 'viewprofile'])->name('profile');
 Route::post('/editprofile/{id}', [KaryawanController::class, 'editprofile'])->name('editprofile');
 
@@ -62,8 +64,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tolakpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'tolak_permohonan'])->name('tolak.permohonancuti');
     Route::post('/batalkanpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'batalkan_permohonan'])->name('batal.permohonancuti');
     Route::get('/permohonan', [PermohonanCutiController::class, 'permohonan'])->name('permohonan');
-    Route::get('/riwayat-permohonan', [PermohonanCutiController::class, 'riwayat_permohonan'])->middleware('wadirku:recent')->name('riwayat.permohonan');
-    Route::get('/permohonan-disetujui', [PermohonanCutiController::class, 'permohonan_disetujui'])->name('permohonandisetujui');
-    Route::get('/permohonan-ditolak', [PermohonanCutiController::class, 'permohonan_ditolak'])->name('permohonanditolak');
-    Route::get('/permohonan-dibatalkan', [PermohonanCutiController::class, 'permohonan_dibatalkan'])->name('permohonandibatalkan');
+    //Riwayat Permohonan
+    Route::get('/riwayat-permohonan', [RiwayatPermohonanController::class, 'riwayat_permohonan'])->middleware('wadirku:recent')->name('riwayat.permohonan');
+    Route::get('/permohonan-disetujui', [RiwayatPermohonanController::class, 'permohonan_disetujui'])->name('permohonandisetujui');
+    Route::get('/permohonan-ditolak', [RiwayatPermohonanController::class, 'permohonan_ditolak'])->name('permohonanditolak');
+    Route::get('/permohonan-dibatalkan', [RiwayatPermohonanController::class, 'permohonan_dibatalkan'])->name('permohonandibatalkan');
 });
