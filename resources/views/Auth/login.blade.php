@@ -32,11 +32,6 @@
                 <div class="lottie-player"  style="width: 100px; margin: 0 auto; padding-top:10px; padding-bottom:10px">
                     <img alt="image" src="{{ asset('img/PNC.jpg') }}" style="width: 100px; height:100px;">
                 </div>
-                {{-- <div class="lottie-player">
-                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_y1vgaq1e.json"
-                        background="transparent" speed="1" style="width: 360px; height: 140px;" loop autoplay>
-                    </lottie-player>
-                </div> --}}
                 <h4 style="font-size: 2em">Login</h4>
 
                 <div class="input-div one">
@@ -66,26 +61,6 @@
     <script src="{{ asset('js/app.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script defer src="{{ asset('bundles/izitoast/js/iziToast.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            const flashData = $("#flash-data").data('flashdata');
-            console.log(flashData);
-            if (flashData == "NIP atau Password Invalid") {
-                iziToast.error({
-                    title: 'Error!',
-                    message: flashData,
-                    position: 'topRight'
-                });
-            } else if (flashData == "NIP atau Password Salah") {
-                iziToast.error({
-                    title: 'Error!',
-                    message: flashData,
-                    position: 'topRight'
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>

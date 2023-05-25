@@ -184,6 +184,7 @@ class KaryawanController extends Controller
             'name.required' => 'Nama wajib diisi.',
             'jenis_kelamin.required' => 'Jenis kelamin wajib diisi.',
             'jabatan.required' => 'Jabatan wajib diisi.',
+            'hak_cuti.required' => 'Hak Cuti wajib diisi.',
             'unit_id.required' => 'Unit wajib diisi.',
             'password.min' => 'Password minimal 8 karakter.',
         ]
