@@ -9,13 +9,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Riwayat Permohonan Cuti Disetujui</h4>
-                        </div>
-                        
+                        </div>                        
                         @if (auth()->user()->role_id == 4)
                         <div class="ml-4 mt-3">
                             <button class="btn btn-success" data-toggle="" data-target="">Export Laporan</button>
                         </div>
-
                         @endif
                         <div class="card-body">
                             <div class="table-responsive table-invoice">
