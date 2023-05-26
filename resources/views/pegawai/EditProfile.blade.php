@@ -66,11 +66,11 @@
                                             <input type="password" class="form-control" name="new_password" placeholder=""
                                                 >
                                         </div>
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <label>Konfirmasi Password Baru</label>
                                             <input type="password" class="form-control" name="new_password_confirmation" placeholder=""
                                                 >
-                                        </div>
+                                        </div> --}}
                                 </div>
                                 @endforeach
                                 <div class="card-footer text-right">

@@ -118,13 +118,13 @@ class KaryawanController extends Controller
     {
         $validated = Validator::make($request->all(),[
             'nip' => 'required|unique:users,nip,'.$id,
-            'email'=>'required|unique:users,nip,'.$id,
+            'email'=>'required|unique:users,email,'.$id,
             'name' => 'required',
             'jenis_kelamin' => 'required',
             'jabatan' => 'required',
             'unit_id' => 'required',
             'password' => 'nullable',
-            'new_password' => 'nullable',
+            'new_password' => 'nullable|min:8',
         ],
         [
             'nip.required' => 'NIP wajib diisi.',

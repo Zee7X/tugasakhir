@@ -84,9 +84,7 @@
                                                 @endif
                                                 @if (auth()->user()->role_id == 2 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5)
                                                     <td class="text-truncate">
-                                                        <form
-                                                            action="{{ route('setujui.permohonancuti', ['id' => $p->id]) }}"
-                                                            method="POST">
+                                                        <form action="{{ route('setujui.permohonancuti', ['id' => $p->id]) }}" method="POST">
                                                             @csrf
                                                             <button type="submit"
                                                                 class="btn btn-action bg-green mr-1 text-truncate" style="width: 80px; height: 30px;">Setuju</button>
