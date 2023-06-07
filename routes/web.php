@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PermohonanCutiController;
 use App\Http\Controllers\RiwayatPermohonanController;
@@ -43,7 +44,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardCon
 
 Route::middleware('auth:sanctum')->group(function () {
         Route::middleware('auth','role:pegawai')->group(function () {
-        Route::get('/pegawai', [KaryawanController::class, 'index'])->name('pegawai');    
+        Route::get('/pegawai', [KaryawanController::class, 'index'])->name('pegawai');
+        Route::post('/upload-pegawai', [ImportController::class, 'import_pegawai'])->name('import_pegawai');
     });
     Route::middleware('auth','check:admin')->group(function () {
         Route::get('/edit-pegawai/{id}', [KaryawanController::class, 'edit'])->name('edit.pegawai');

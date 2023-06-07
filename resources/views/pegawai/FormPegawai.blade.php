@@ -19,6 +19,7 @@
                                 @if (auth()->user()->role_id == 4)
                                 <div class="btn-group">
                                     <a class="btn btn-primary mr-1" href="/tambah-pegawai">Tambah Pegawai</a>
+                                    <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#modal-upload" >Upload Excel</button>
                                 </div>
                                 @endif
                                 <div class="input-group">
@@ -74,7 +75,32 @@
                 </div>
             </div>
     </div>
+
+    <div class="modal fade" id="modal-upload" tabindex="-1" role="dialog"
+        aria-labelledby="formModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModal">Upload</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('import_pegawai') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>File:</label>
+                                    <input type="file" class="form-control" name="file" required>
+                            </div>
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </section>
     </div>
-    
+
 @endsection
