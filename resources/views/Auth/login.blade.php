@@ -28,8 +28,8 @@
                 @elseif (Session::has('success'))
                     <div id="flash-data" data-flashdata="{{ Session::get('success') }}"></div>
                 @endif
-                <h4 style="font-size: 2em">Politeknik Negeri Cilacap</h4>
-                <div class="lottie-player"  style="width: 100px; margin: 0 auto; padding-top:10px; padding-bottom:10px">
+                <h4 style="font-size: 2em">Sistem Cuti Pegawai Politeknik Negeri Cilacap</h4>
+                <div class="lottie-player"  style="width: 100px; margin: 0 auto; padding-top:20px; padding-bottom:10px">
                     <img alt="image" src="{{ asset('img/PNC.jpg') }}" style="width: 100px; height:100px;">
                 </div>
                 <h4 style="font-size: 2em">Login</h4>
