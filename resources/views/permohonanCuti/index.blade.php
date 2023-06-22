@@ -208,7 +208,7 @@
                                 <h6>{{ $sisacuti[0]}}</h6>
                             </div><br>
                             <div class="form-group">
-                                <label>Alasan Cuti</label>
+                                <label>Jenis Cuti</label>
                                 <select class="form-control" name="alasan_cuti" id="alasan_cutiku" onchange="showCutiLainnya()" required>
                                     <option disabled selected>Pilih Alasan Permohonan Cuti</option>
                                     @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
@@ -240,7 +240,7 @@
                                 </select>
                             </div>
                             <div class="form-group" id="form-cuti-lainnya" style="display:none;">
-                                <label for="alasan_cuti_lainnya">Alasan Cuti Lainnya:</label>
+                                <label for="alasan_cuti_lainnya">Alasan Cuti:</label>
                                 <input class="form-control" type="text" id="alasan_cuti_lainnya" name="alasan_cuti_lainnya">
                             </div>
                             <div class="form-group">

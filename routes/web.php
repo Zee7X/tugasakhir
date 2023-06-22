@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/formedit', [KaryawanController::class, 'update'])->name('updatepegawai');
         Route::get('/hapuspegawai/{id}', [KaryawanController::class, 'destroy'])->name('hapuspegawai');
         Route::get('/tambah-pegawai', [KaryawanController::class , 'formtambahpegawai'])->name('tambah.pegawai');
+        Route::get('/reset_tahunan', [KaryawanController::class , 'reset_tahunan'])->name('reset_tahunan');
         Route::post('/tambahpegawai', [KaryawanController::class , 'tambah'])->name('tambah');
         Route::get('/unit', [UnitController::class, 'view_unit'])->name('unit');
         Route::post('/tambahunit', [UnitController::class , 'tambahunit'])->name('tambahunit');
@@ -71,4 +72,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/permohonan-disetujui', [RiwayatPermohonanController::class, 'permohonan_disetujui'])->name('permohonandisetujui');
     Route::get('/permohonan-ditolak', [RiwayatPermohonanController::class, 'permohonan_ditolak'])->name('permohonanditolak');
     Route::get('/permohonan-dibatalkan', [RiwayatPermohonanController::class, 'permohonan_dibatalkan'])->name('permohonandibatalkan');
+    Route::get('/permohonan-disetujui/export_excel', [RiwayatPermohonanController::class, 'export_excel'])->name('export_excel');
 });

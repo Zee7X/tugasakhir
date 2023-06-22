@@ -20,6 +20,7 @@
                                 <div class="btn-group">
                                     <a class="btn btn-primary mr-1" href="/tambah-pegawai">Tambah Pegawai</a>
                                     <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#modal-upload" >Upload Excel</button>
+                                    <a class="btn btn-primary mr-1 acction-confirm" href="/reset_tahunan">Reset Tahunan</a>
                                 </div>
                                 @endif
                                 <div class="input-group">

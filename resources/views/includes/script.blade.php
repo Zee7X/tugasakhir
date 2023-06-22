@@ -82,5 +82,25 @@
         });
     });
 </script>
-
+<script>
+    $('.acction-confirm').on('click', function(event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        Swal.fire({
+            title: 'Apakah Anda Yakin Ingin Reset Tahunan?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            reverseButtons: true,
+            confirmButtonText: 'Ya'
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    });
+</script>
 

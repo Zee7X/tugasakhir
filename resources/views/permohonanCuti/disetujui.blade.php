@@ -12,7 +12,7 @@
                         </div>                        
                         @if (auth()->user()->role_id == 4)
                         <div class="ml-4 mt-3">
-                            <button class="btn btn-success" data-toggle="" data-target="">Export Laporan</button>
+                            <a href="/permohonan-disetujui/export_excel" class="btn btn-success my-3" target="_blank">Export Laporan</a>
                         </div>
                         @endif
                         <div class="card-body">
