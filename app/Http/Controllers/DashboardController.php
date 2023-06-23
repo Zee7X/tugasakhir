@@ -104,6 +104,7 @@ class DashboardController extends Controller
         if(auth()->user()->role_id == 1){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
             ->where('permohonan_cuti.user_id', '=', auth()->user()->id )
             ->orderBy('permohonan_cuti.updated_at', 'DESC')
             ->get();
@@ -113,6 +114,7 @@ class DashboardController extends Controller
         if(auth()->user()->role_id == 2){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
             ->where('units.id', '=', auth()->user()->unit_id)
             ->where([
                 ['permohonan_cuti.status', '!=', "2"],
@@ -126,6 +128,7 @@ class DashboardController extends Controller
         if(auth()->user()->role_id == 3){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
             ->where([
                 ['permohonan_cuti.status', '!=', "1"],
                 ['permohonan_cuti.status', '!=', "3"]
@@ -138,6 +141,7 @@ class DashboardController extends Controller
         if(auth()->user()->role_id == 4){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
             ->orderBy('permohonan_cuti.updated_at', 'DESC')
             ->get();
         }
@@ -146,6 +150,7 @@ class DashboardController extends Controller
         if(auth()->user()->role_id == 5){
             $dashboard = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
             ->where('units.id', '=', auth()->user()->unit_id)
             ->where([
                 ['permohonan_cuti.status', '!=', "1"],

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('permohonan_cuti', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('jenis_cuti_id')->constrained();
             $table->string('alasan_cuti', 50);
             $table->date('tgl_mulai');
             $table->date('tgl_akhir');

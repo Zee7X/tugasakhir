@@ -13,6 +13,8 @@ class RiwayatPermohonanController extends Controller
     //Riwayat Cuti Wadir, Bagian Kepegawaian, Kepala Unit
     public function riwayat_permohonan()
     {
+        $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
+            ->where('hak_cuti.user_id', '=', auth()->user()->id)->pluck('hak_cuti');
         if (auth()->user()->role_id == 2 || auth()->user()->role_id == 5) {
             $riwayat = User::join(
                 'permohonan_cuti',
@@ -21,6 +23,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
                 ->select(
@@ -30,6 +33,7 @@ class RiwayatPermohonanController extends Controller
                     'units.name_unit',
                     'permohonan_cuti.user_id',
                     'permohonan_cuti.tgl_mulai',
+                    'jenis_cutis.jenis_cuti',
                     'permohonan_cuti.alasan_cuti',
                     'permohonan_cuti.tgl_akhir',
                     'permohonan_cuti.alamat_cuti',
@@ -46,6 +50,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
                 ->select(
                     'permohonan_cuti.id',
@@ -54,6 +59,7 @@ class RiwayatPermohonanController extends Controller
                     'units.name_unit',
                     'permohonan_cuti.user_id',
                     'permohonan_cuti.tgl_mulai',
+                    'jenis_cutis.jenis_cuti',
                     'permohonan_cuti.alasan_cuti',
                     'permohonan_cuti.tgl_akhir',
                     'permohonan_cuti.alamat_cuti',
@@ -61,7 +67,7 @@ class RiwayatPermohonanController extends Controller
                 )
                 ->get();
         }
-        return view('permohonanCuti.riwayat', compact('riwayat'));
+        return view('permohonanCuti.riwayat', compact('riwayat', 'sisacuti'));
     }
     //Function View Acc Cuti
     public function permohonan_disetujui()
@@ -75,6 +81,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('permohonan_cuti.status', '=', '4')
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
                 ->get();
@@ -89,6 +96,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('permohonan_cuti.status', '=', '4')
                 ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
@@ -104,6 +112,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('units.id', '=', auth()->user()->unit_id)
                 ->where('permohonan_cuti.status', '=', '4')
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
@@ -127,6 +136,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('permohonan_cuti.status', '=', 5)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
                 ->get();
@@ -141,6 +151,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('permohonan_cuti.status', '=', 5)
                 ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
@@ -156,6 +167,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('units.id', '=', auth()->user()->unit_id)
                 ->where('permohonan_cuti.status', '=', 5)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
@@ -176,6 +188,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('permohonan_cuti.status', '=', 0)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
                 ->get();
@@ -190,6 +203,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('permohonan_cuti.status', '=', 0)
                 ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
@@ -205,6 +219,7 @@ class RiwayatPermohonanController extends Controller
                 'permohonan_cuti.user_id'
             )
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->where('units.id', '=', auth()->user()->unit_id)
                 ->where('permohonan_cuti.status', '=', 0)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')

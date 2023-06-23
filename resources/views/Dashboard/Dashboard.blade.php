@@ -97,6 +97,7 @@
                                             <th class="text-center">No</th>
                                             <th>Nama Karyawan</th>
                                             <th>Unit</th>
+                                            <th>Jenis Cuti</th>
                                             <th>Alasan Cuti</th>
                                             <th class="text-center">Mulai Cuti</th>
                                             <th class="text-center">Berakhir Cuti</th>
@@ -110,6 +111,7 @@
                                                     <td class="text-center">{{ $i++ }}</td>
                                                     <td>{{ $d->name }}</td>
                                                     <td>{{ $d->name_unit }}</td>
+                                                    <td>{{ $d->jenis_cuti }}</td>
                                                     <td>{{ $d->alasan_cuti }}</td>
                                                     <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($d->tgl_mulai)) }}

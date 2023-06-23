@@ -25,6 +25,7 @@
                                             <th class="text-center">NIP</th>
                                             <th class="text-center">Jabatan</th>
                                             <th class="text-center">Unit</th>
+                                            <th class="text-center">Jenis Cuti</th>
                                             <th class="text-center">Alasan Cuti</th>
                                             <th class="text-truncate">Mulai Cuti</th>
                                             <th class="text-truncate">Berakhir Cuti</th>
@@ -43,6 +44,7 @@
                                                     {{-- @if (auth()->user()->role_id == 4)
                                                     <td class="align-center">{{ $p->hak_cuti }}</td>
                                                     @endif --}}
+                                                    <td>{{ $p->jenis_cuti }}</td>
                                                     <td>{{ $p->alasan_cuti }}</td>
                                                     <td class="text-truncate">
                                                         {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}

@@ -31,6 +31,7 @@
                                                 <th class="text-center">Jabatan</th>
                                             @endif
                                             <th class="text-center">Unit</th>
+                                            <th class="text-center">Jenis Cuti</th>
                                             <th class="text-center">Alasan Cuti</th>
                                             <th class="text-truncate">Mulai Cuti</th>
                                             <th class="text-truncate">Berakhir Cuti</th>
@@ -53,6 +54,7 @@
                                                     <td>{{ $p->jabatan }}</td>
                                                 @endif
                                                 <td>{{ $p->name_unit }}</td>
+                                                <td>{{ $p->jenis_cuti }}</td>
                                                 <td>{{ $p->alasan_cuti }}</td>
                                                 <td class="text-truncate">
                                                     {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
@@ -95,7 +97,7 @@
                                                 @elseif (auth()->user()->role_id == 1)
                                                     <td class="text-truncate"> <button type="button"
                                                             class="btn btn-action bg-purple" data-toggle="modal"
-                                                            data-target="#modal-edit{{ $p->id }}">Edit
+                                                            data-target="#modal-edit{{ $p->id }}" data-id="{{ $p->id }}">Edit
                                                         </button>
                                                     </td>
                                                 @endif
@@ -125,44 +127,59 @@
                             <form class="" action="{{ route('edit.permohonancuti', $p->id) }}" method="post"
                                 id="edit">
                                 @csrf
-                                <div class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px;">
+
+                                @if ($p->jenis_cuti == 'Cuti Tahunan')
+                                <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px; display: block;">
                                     <label>Sisa Cuti Anda</label><br>
                                     <h6>{{ $sisacuti[0]}}</h6>
+                                @else
+                                <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
+                                    <label>Sisa Cuti Anda</label><br>
+                                    <h6>{{ $sisacuti[0]}}</h6>
+                                @endif
+
+                                {{-- <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
+                                    <label>Sisa Cuti Anda</label><br>
+                                    <h6>{{ $sisacuti[0]}}</h6> --}}
                                 </div><br>
                                 <div class="form-group">
-                                    <label>Alasan Cuti</label>
-                                    <select class="form-control" name="alasan_cuti" id="alasan_cuti" required>
+                                    <label>Jenis Cuti</label>
+                                    <select class="form-control" name="alasan_cuti" id="alasan_cuti_edit{{ $p->id }}" data-id="{{ $p->id }}" required>
                                         <option disabled selected>Pilih Alasan Permohonan
                                             Cuti</option>
                                         @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
                                             <option name="alasan_cuti" value="Cuti Bersalin"
-                                                {{ $p->alasan_cuti == 'Cuti Bersalin' ? 'selected' : '' }}>
+                                                {{ $p->jenis_cuti == 'Cuti Bersalin' ? 'selected' : '' }}>
                                                 Cuti Bersalin</option>
                                             <option name="alasan_cuti" value="Gugur Kandungan"
-                                                {{ $p->alasan_cuti == 'Gugur Kandungan' ? 'selected' : '' }}>
+                                                {{ $p->jenis_cuti == 'Gugur Kandungan' ? 'selected' : '' }}>
                                                 Gugur Kandungan</option>
                                         @endif
                                         <option name="alasan_cuti" value="Cuti Besar"
-                                            {{ $p->alasan_cuti == 'Cuti Besar' ? 'selected' : '' }}>
+                                            {{ $p->jenis_cuti == 'Cuti Besar' ? 'selected' : '' }}>
                                             Cuti Besar</option>
                                         <option name="alasan_cuti" value="Cuti Diluar Tanggungan"
-                                            {{ $p->alasan_cuti == 'Cuti Diluar Tanggungan' ? 'selected' : '' }}>
+                                            {{ $p->jenis_cuti == 'Cuti Diluar Tanggungan' ? 'selected' : '' }}>
                                             Cuti Diluar Tanggungan
                                         </option>
                                         <option name="alasan_cuti" value="Cuti Tahunan"
-                                            {{ $p->alasan_cuti == 'Cuti Tahunan' ? 'selected' : '' }}>
+                                            {{ $p->jenis_cuti == 'Cuti Tahunan' ? 'selected' : '' }}>
                                             Cuti Tahunan</option>
                                         <option name="alasan_cuti" value="Cuti Ibadah Keagamaan"
-                                            {{ $p->alasan_cuti == 'Cuti Ibadah Keagamaan' ? 'selected' : '' }}>
+                                            {{ $p->jenis_cuti == 'Cuti Ibadah Keagamaan' ? 'selected' : '' }}>
                                             Cuti Ibadah Keagamaan</option>
                                         <option name="alasan_cuti" value="Cuti Karena Alasan Penting"
-                                            {{ $p->alasan_cuti == 'Cuti Karena Alasan Penting' ? 'selected' : '' }}>
+                                            {{ $p->jenis_cuti == 'Cuti Karena Alasan Penting' ? 'selected' : '' }}>
                                             Cuti Karena Alasan Penting
                                         </option>
-                                        <option name="alasan_cuti" value="Lain - Lain"
+                                        {{-- <option name="alasan_cuti" value="Lain - Lain"
                                             {{ $p->alasan_cuti == 'Lain - Lain' ? 'selected' : '' }}>
-                                            Lain - Lain</option>
+                                            Lain - Lain</option> --}}
                                     </select>
+                                </div>
+                                <div class="form-group" id="form-cuti-lainnya-edit">
+                                    <label for="alasan_cuti_lainnya">Alasan Cuti:</label>
+                                    <input class="form-control" type="text" id="alasan_cuti_lainnya" name="alasan_cuti_lainnya" value="{{ $p->alasan_cuti }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Mulai Cuti</label>
@@ -203,10 +220,11 @@
                     <div class="modal-body">
                         <form class="" action="permohonancuti" method="post">
                             @csrf
-                            <div class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px;">
+                            <div id="show-sisa-cuti" class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
                                 <label>Sisa Cuti Anda</label><br>
                                 <h6>{{ $sisacuti[0]}}</h6>
-                            </div><br>
+                            </div>
+                            <br>
                             <div class="form-group">
                                 <label>Jenis Cuti</label>
                                 <select class="form-control" name="alasan_cuti" id="alasan_cutiku" onchange="showCutiLainnya()" required>
@@ -235,8 +253,8 @@
                                         {{ old('alasan_cuti') == 'Cuti Karena Alasan Penting' ? 'selected' : '' }}>Cuti
                                         Karena Alasan Penting
                                     </option>
-                                    <option name="alasan_cuti" value="Lain - Lain"
-                                        {{ old('alasan_cuti') == 'Lain - Lain' ? 'selected' : '' }}>Lain - Lain</option>
+                                    {{-- <option name="alasan_cuti" value="Lain - Lain"
+                                        {{ old('alasan_cuti') == 'Lain - Lain' ? 'selected' : '' }}>Lain - Lain</option> --}}
                                 </select>
                             </div>
                             <div class="form-group" id="form-cuti-lainnya" style="display:none;">
@@ -300,14 +318,40 @@
     function showCutiLainnya() {
     var alasanCuti = document.getElementById("alasan_cutiku").value;
     var formCutiLainnya = document.getElementById("form-cuti-lainnya");
+    var ShowSisaCuti = document.getElementById("show-sisa-cuti");
     console.log(alasanCuti);
-    if (alasanCuti === "Lain - Lain") {
-        formCutiLainnya.style.display = "block";;
+    if (alasanCuti === "Cuti Besar" || alasanCuti === "Cuti Diluar Tanggungan" || alasanCuti === "Cuti Tahunan" || alasanCuti === "Cuti Ibadah Keagamaan" || alasanCuti === "Cuti Karena Alasan Penting" || alasanCuti === "Cuti Bersalin" || alasanCuti === "Gugur Kandungan") {
+        formCutiLainnya.style.display = "block";
     } else {
         formCutiLainnya.style.display = "none";
+    }
+    if (alasanCuti === "Cuti Besar" || alasanCuti === "Cuti Diluar Tanggungan" || alasanCuti === "Cuti Ibadah Keagamaan" || alasanCuti === "Cuti Karena Alasan Penting" || alasanCuti === "Cuti Bersalin" || alasanCuti === "Gugur Kandungan") {
+        ShowSisaCuti.style.display = "none";
+    } else {
+        ShowSisaCuti.style.display = "block";
     }
     }
 
 </script>
+
+<script>
+    $(document).ready(function() {
+        $("select[id^='alasan_cuti_edit']").on("change", function() {
+            var selectedValue = $(this).val();
+            var id = $(this).data('id');
+            var ShowSisaCutiEdit = document.getElementById("show-sisa-cuti-edit" + id);
+            console.log(selectedValue);
+            console.log(id);
+    
+            if (selectedValue == "Cuti Besar" || selectedValue == "Cuti Diluar Tanggungan" || selectedValue == "Cuti Ibadah Keagamaan" || selectedValue == "Cuti Karena Alasan Penting" || selectedValue == "Cuti Bersalin" || selectedValue == "Gugur Kandungan") {
+                ShowSisaCutiEdit.style.display = "none";
+            } else {
+                ShowSisaCutiEdit.style.display = "block";
+            }
+        });
+    });
+    </script>
+    
+
 @endpush
 @endsection
