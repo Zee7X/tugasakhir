@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
+use Carbon\Carbon;
+use App\Mail\sicute;
+use App\Models\User;
 use App\Models\HakCuti;
 use App\Models\JenisCuti;
-use App\Models\PermohonanModel;
-use App\Models\User;
-use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
+use App\Models\PermohonanModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class PermohonanCutiController extends Controller
@@ -27,12 +29,12 @@ class PermohonanCutiController extends Controller
         $tglAkhir = date_create($request->tgl_akhir);
         $durasi = date_diff($tglMulai, $tglAkhir);
         $jumlahCuti = $sisaCuti - $durasi->days;
-        if ($jumlahCuti < 0) {
+        if ($request->alasan_cuti == 'Cuti Tahunan' && $jumlahCuti < 0) {
             return redirect()
                 ->route('permohonan')
                 ->with(['error' => 'Maaf sisa cuti anda tidak mencukupi']);
         } else {
-            if ($durasi->days <= 0) {
+            if ($request->alasan_cuti == 'Cuti Tahunan' && $durasi->days <= 0) {
                 return redirect()
                     ->route('permohonan')
                     ->with([
@@ -83,6 +85,37 @@ class PermohonanCutiController extends Controller
                             ];
                             HakCuti::whereId($id)->update($hak_cuti);
                         }
+                        
+
+                        //email
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $jumlahCuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
+                        }else{
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $sisaCuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
+                        }
+
+                        // dd($mailData);
+
+                        Mail::to(Auth::user()->email)->send(new sicute($mailData));
+
 
 
 
@@ -117,6 +150,42 @@ class PermohonanCutiController extends Controller
                             ];
                             HakCuti::whereId($id)->update($hak_cuti);
                         }
+
+
+
+                        //email
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $jumlahCuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
+                        }else{
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $sisaCuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
+                        }
+
+                        // dd($mailData);
+
+                        Mail::to(Auth::user()->email)->send(new sicute($mailData));
+
+
+
+
+
                         return redirect()->route('riwayat.permohonan')
                             ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',]);
                     }
@@ -148,6 +217,43 @@ class PermohonanCutiController extends Controller
                             ];
                             HakCuti::whereId($id)->update($hak_cuti);
                         }
+
+
+
+                        //email
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $jumlahCuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
+                        }else{
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $sisaCuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
+                        }
+                        
+
+                        // dd($mailData);
+
+                        Mail::to(Auth::user()->email)->send(new sicute($mailData));
+
+
+
+
+
                         return redirect()->route('riwayat.permohonan')
                             ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',]);
                     }

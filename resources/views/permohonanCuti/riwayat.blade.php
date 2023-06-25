@@ -88,7 +88,7 @@
                                                         </td>
                                                     @endif
                                                 @elseif(Auth()->user()->role_id == 2)
-                                                    @if ($p->status == 2)
+                                                    @if ($p->status == 2 && Auth::user()->id == $p->user_id)
                                                         <td class="text-truncate"> <button type="button"
                                                                 class="btn btn-action bg-purple" data-toggle="modal"
                                                                 data-target="#modal-edit{{ $p->id }}"
@@ -100,7 +100,7 @@
                                                         </td>
                                                     @endif
                                                 @elseif(Auth()->user()->role_id == 3)
-                                                    @if ($p->status == 3)
+                                                    @if ($p->status == 3 && Auth::user()->id == $p->user_id)
                                                         <td class="text-truncate"> <button type="button"
                                                                 class="btn btn-action bg-purple" data-toggle="modal"
                                                                 data-target="#modal-edit{{ $p->id }}"
