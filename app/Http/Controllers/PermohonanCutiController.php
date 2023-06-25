@@ -225,24 +225,31 @@ class PermohonanCutiController extends Controller
                                 'updated_at' => Carbon::now(),
                             ]);
                         }
-                        if ($tglAkhir > $tglMulai) {
-                            if ($data_days ==  $requ_days) {
-                            } elseif ($data_days >  $requ_days) {
-                                $tambah = $data_days - $requ_days;
-                                $hak_cuti = [
-                                    'hak_cuti' => $sisaCuti + $tambah,
-                                ];
-                                HakCuti::whereId($id)->update($hak_cuti);
-                            } elseif ($data_days <  $requ_days) {
-                                $kurang = $requ_days - $data_days;
-                                $hak_cuti = [
-                                    'hak_cuti' => $sisaCuti - $kurang,
-                                ];
-                                HakCuti::whereId($id)->update($hak_cuti);
+
+                        //untuk tahunan
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+
+                            if ($tglAkhir > $tglMulai) {
+                                if ($data_days ==  $requ_days) {
+                                } elseif ($data_days >  $requ_days) {
+                                    $tambah = $data_days - $requ_days;
+                                    $hak_cuti = [
+                                        'hak_cuti' => $sisaCuti + $tambah,
+                                    ];
+                                    HakCuti::whereId($id)->update($hak_cuti);
+                                } elseif ($data_days <  $requ_days) {
+                                    $kurang = $requ_days - $data_days;
+                                    $hak_cuti = [
+                                        'hak_cuti' => $sisaCuti - $kurang,
+                                    ];
+                                    HakCuti::whereId($id)->update($hak_cuti);
+                                }
+                            } else {
+                                return back()->with(['error' => 'Tanggal cuti salah!']);
                             }
-                        } else {
-                            return back()->with(['error' => 'Tanggal cuti salah!']);
                         }
+
+
                         PermohonanModel::whereId($id_permohonan)->update($data);
                         if (Auth()->user()->role_id != 1) {
                             return redirect()

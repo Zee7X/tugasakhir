@@ -69,7 +69,7 @@
                                                             style="padding: 8px 48px">Dibatalkan</span></td>
                                                 @endif
                                                 @if (Auth()->user()->role_id == 4)
-                                                    @if ($p->status == 1)
+                                                    @if ($p->status == 1 && Auth::user()->id == $p->user_id)
                                                         <td class="text-truncate"> <button type="button"
                                                                 class="btn btn-action bg-purple" data-toggle="modal"
                                                                 data-target="#modal-edit{{ $p->id }}"

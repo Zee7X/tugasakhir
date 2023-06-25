@@ -16,4 +16,8 @@ class PermohonanModel extends Model
         'tgl_akhir',
         'alamat_cuti',
     ];
+
+    public function user(){
+        return $this->hasmany(User::class);
+    }
 }
