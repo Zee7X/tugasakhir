@@ -20,6 +20,8 @@ class PermohonanCutiController extends Controller
     //Tambah Permohonan Cuti
     public function tambahPermohonan(Request $request)
     {
+        // $kepala_unit = User::where('unit_id', Auth::user()->unit_id)->where('role_id', 2)->first();
+        // dd($kepala_unit->email);
         $id = Auth()->user()->id;
         $data = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
             ->where('hak_cuti.user_id', '=', $id)
@@ -64,9 +66,9 @@ class PermohonanCutiController extends Controller
                         $name_cuti = $request->alasan_cuti;
                         $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
                         // dd($id_cuti);
-
-                        PermohonanModel::insert([
-                            'user_id' => Auth::id(),
+                        
+                       $pengajuan_permohonan = PermohonanModel::insert([
+                            'user_id' =>  Auth::id(),
                             'alasan_cuti' => $request->alasan_cuti_lainnya,
                             'jenis_cuti_id' => $id_cuti,
                             'tgl_mulai' => $request->tgl_mulai,
@@ -94,6 +96,7 @@ class PermohonanCutiController extends Controller
                                 'body' => 'Assalamualaikum',
                                 'name' => Auth::user()->name,
                                 'sisa_cuti' => $jumlahCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
@@ -105,6 +108,7 @@ class PermohonanCutiController extends Controller
                                 'body' => 'Assalamualaikum',
                                 'name' => Auth::user()->name,
                                 'sisa_cuti' => $sisaCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
@@ -113,8 +117,17 @@ class PermohonanCutiController extends Controller
                         }
 
                         // dd($mailData);
+                        //mail to kepala unit
+                        $cekemail = PermohonanModel::all()->first();
+                        // dd($cekemail->status == 1);
+                        if ($cekemail->status == 1) {
+                            $kepala_unit = User::where('unit_id', Auth::user()->unit_id)->where('role_id', 2)->get();
+                            foreach($kepala_unit as $p){
 
-                        Mail::to(Auth::user()->email)->send(new sicute($mailData));
+                                Mail::to($p->email)->send(new sicute($mailData));
+                            }
+                        }
+                        
 
 
 
@@ -160,6 +173,7 @@ class PermohonanCutiController extends Controller
                                 'body' => 'Assalamualaikum',
                                 'name' => Auth::user()->name,
                                 'sisa_cuti' => $jumlahCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
@@ -171,6 +185,7 @@ class PermohonanCutiController extends Controller
                                 'body' => 'Assalamualaikum',
                                 'name' => Auth::user()->name,
                                 'sisa_cuti' => $sisaCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
@@ -180,7 +195,15 @@ class PermohonanCutiController extends Controller
 
                         // dd($mailData);
 
-                        Mail::to(Auth::user()->email)->send(new sicute($mailData));
+                        $cekemail = PermohonanModel::latest()->first();
+                        // dd($cekemail->status == 2);
+                        if ($cekemail->status == 2) {
+                            $wadir = User::where('role_id', 3)->get();
+                            foreach($wadir as $p){
+
+                                Mail::to($p->email)->send(new sicute($mailData));
+                            }
+                        }
 
 
 
@@ -227,6 +250,7 @@ class PermohonanCutiController extends Controller
                                 'body' => 'Assalamualaikum',
                                 'name' => Auth::user()->name,
                                 'sisa_cuti' => $jumlahCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
@@ -238,6 +262,7 @@ class PermohonanCutiController extends Controller
                                 'body' => 'Assalamualaikum',
                                 'name' => Auth::user()->name,
                                 'sisa_cuti' => $sisaCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
@@ -248,7 +273,15 @@ class PermohonanCutiController extends Controller
 
                         // dd($mailData);
 
-                        Mail::to(Auth::user()->email)->send(new sicute($mailData));
+                        $cekemail = PermohonanModel::latest()->first();
+                        // dd($cekemail->status == 3);
+                        if ($cekemail->status == 3) {
+                            $direktur = User::where('role_id', 5)->get();
+                            foreach($direktur as $p){
+
+                                Mail::to($p->email)->send(new sicute($mailData));
+                            }
+                        }
 
 
 
