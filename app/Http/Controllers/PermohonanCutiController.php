@@ -10,6 +10,7 @@ use App\Models\HakCuti;
 use App\Models\JenisCuti;
 use Illuminate\Http\Request;
 use App\Models\PermohonanModel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -66,8 +67,8 @@ class PermohonanCutiController extends Controller
                         $name_cuti = $request->alasan_cuti;
                         $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
                         // dd($id_cuti);
-                        
-                       $pengajuan_permohonan = PermohonanModel::insert([
+
+                        $pengajuan_permohonan = PermohonanModel::insert([
                             'user_id' =>  Auth::id(),
                             'alasan_cuti' => $request->alasan_cuti_lainnya,
                             'jenis_cuti_id' => $id_cuti,
@@ -87,7 +88,7 @@ class PermohonanCutiController extends Controller
                             ];
                             HakCuti::whereId($id)->update($hak_cuti);
                         }
-                        
+
 
                         //email
                         if ($request->alasan_cuti == 'Cuti Tahunan') {
@@ -102,7 +103,7 @@ class PermohonanCutiController extends Controller
                                 'tgl_akhir' => $request->tgl_akhir,
                                 'alamat_cuti' => $request->alamat_cuti,
                             ];
-                        }else{
+                        } else {
                             $mailData = [
                                 'title' => 'Mail from SICUTE',
                                 'body' => 'Assalamualaikum',
@@ -122,12 +123,12 @@ class PermohonanCutiController extends Controller
                         // dd($cekemail->status == 1);
                         if ($cekemail->status == 1) {
                             $kepala_unit = User::where('unit_id', Auth::user()->unit_id)->where('role_id', 2)->get();
-                            foreach($kepala_unit as $p){
+                            foreach ($kepala_unit as $p) {
 
                                 Mail::to($p->email)->send(new sicute($mailData));
                             }
                         }
-                        
+
 
 
 
@@ -179,7 +180,7 @@ class PermohonanCutiController extends Controller
                                 'tgl_akhir' => $request->tgl_akhir,
                                 'alamat_cuti' => $request->alamat_cuti,
                             ];
-                        }else{
+                        } else {
                             $mailData = [
                                 'title' => 'Mail from SICUTE',
                                 'body' => 'Assalamualaikum',
@@ -199,7 +200,7 @@ class PermohonanCutiController extends Controller
                         // dd($cekemail->status == 2);
                         if ($cekemail->status == 2) {
                             $wadir = User::where('role_id', 3)->get();
-                            foreach($wadir as $p){
+                            foreach ($wadir as $p) {
 
                                 Mail::to($p->email)->send(new sicute($mailData));
                             }
@@ -256,7 +257,7 @@ class PermohonanCutiController extends Controller
                                 'tgl_akhir' => $request->tgl_akhir,
                                 'alamat_cuti' => $request->alamat_cuti,
                             ];
-                        }else{
+                        } else {
                             $mailData = [
                                 'title' => 'Mail from SICUTE',
                                 'body' => 'Assalamualaikum',
@@ -269,7 +270,7 @@ class PermohonanCutiController extends Controller
                                 'alamat_cuti' => $request->alamat_cuti,
                             ];
                         }
-                        
+
 
                         // dd($mailData);
 
@@ -277,7 +278,7 @@ class PermohonanCutiController extends Controller
                         // dd($cekemail->status == 3);
                         if ($cekemail->status == 3) {
                             $direktur = User::where('role_id', 5)->get();
-                            foreach($direktur as $p){
+                            foreach ($direktur as $p) {
 
                                 Mail::to($p->email)->send(new sicute($mailData));
                             }
@@ -532,16 +533,14 @@ class PermohonanCutiController extends Controller
         }
         //View Pending Direktur
         if (auth()->user()->role_id == 5) {
-            $permohonan = User::join(
-                'permohonan_cuti',
-                'users.id',
-                '=',
-                'permohonan_cuti.user_id'
-            )
+            $permohonan = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
                 ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
-                ->where('units.id', '=', auth()->user()->unit_id)
-                ->where('permohonan_cuti.status', '=', 3)
+                ->where(function ($query) {
+                    $query->where('users.role_id', 2)
+                        ->orWhere('users.role_id', 3);
+                })
+                ->where('permohonan_cuti.status', 3)
                 ->select(
                     'permohonan_cuti.id',
                     'users.name',
@@ -578,10 +577,137 @@ class PermohonanCutiController extends Controller
                     'updated_at' => Carbon::now(),
                 ]);
                 PermohonanModel::whereId($id)->update($data);
+
+
+
+                //email
+                $cekemail = DB::table('permohonan_cuti')
+                    ->join('jenis_cutis', 'jenis_cutis.id', '=', 'permohonan_cuti.jenis_cuti_id')
+                    ->join('users', 'users.id', '=', 'permohonan_cuti.user_id')
+                    ->join('hak_cuti', 'hak_cuti.user_id', '=', 'permohonan_cuti.user_id')
+                    ->where('permohonan_cuti.id', $id)
+                    ->first();
+
+                // dd($cekemail);
+
+                $mailData = [
+                    'title' => 'Mail from SICUTE',
+                    'body' => 'Assalamualaikum',
+                    'name' => $cekemail->name,
+                    'sisa_cuti' => $cekemail->hak_cuti,
+                    'jenis_cuti' => $cekemail->jenis_cuti,
+                    'alasan_cuti' => $cekemail->alasan_cuti,
+                    'tgl_mulai' => $cekemail->tgl_mulai,
+                    'tgl_akhir' => $cekemail->tgl_akhir,
+                    'alamat_cuti' => $cekemail->alamat_cuti,
+                ];
+                // dd($mailData);
+
+                // dd($cekemail->alasan_cuti);
+                // if ($cekemail->status == 2) {
+                $wadir = User::where('role_id', 3)->get();
+                foreach ($wadir as $p) {
+
+                    Mail::to($p->email)->send(new sicute($mailData));
+                }
+                // }
+
+
+
+
+
                 return back()->with(['success' => 'Permohonan Cuti Berhasil Disetujui kepala bagian!',]);
             }
             //Acc Wakil Direktur II & Direktur
-            elseif (auth()->user()->role_id == 3 || auth()->user()->role_id == 5) {
+            elseif (auth()->user()->role_id == 3) {
+
+                $cekrole = DB::table('permohonan_cuti')
+                    ->join('jenis_cutis', 'jenis_cutis.id', '=', 'permohonan_cuti.jenis_cuti_id')
+                    ->join('users', 'users.id', '=', 'permohonan_cuti.user_id')
+                    ->join('hak_cuti', 'hak_cuti.user_id', '=', 'permohonan_cuti.user_id')
+                    ->where('permohonan_cuti.id', $id)
+                    ->first();
+
+                if ($cekrole->role_id == 2) {
+                    $data = ([
+                        'alasan_cuti' => $permohonan->alasan_cuti,
+                        'tgl_mulai' => $permohonan->tgl_mulai,
+                        'tgl_akhir' => $permohonan->tgl_akhir,
+                        'alamat_cuti' => $permohonan->alamat_cuti,
+                        'status' => 3,
+                        'updated_at' => Carbon::now(),
+                    ]);
+                } else {
+                    $data = ([
+                        'alasan_cuti' => $permohonan->alasan_cuti,
+                        'tgl_mulai' => $permohonan->tgl_mulai,
+                        'tgl_akhir' => $permohonan->tgl_akhir,
+                        'alamat_cuti' => $permohonan->alamat_cuti,
+                        'status' => 4,
+                        'updated_at' => Carbon::now(),
+                    ]);
+                }
+
+
+
+
+
+
+
+                PermohonanModel::whereId($id)->update($data);
+
+
+
+
+                if (auth()->user()->role_id == 3) {
+                    //email
+                    $cekemail = DB::table('permohonan_cuti')
+                        ->join('jenis_cutis', 'jenis_cutis.id', '=', 'permohonan_cuti.jenis_cuti_id')
+                        ->join('users', 'users.id', '=', 'permohonan_cuti.user_id')
+                        ->join('hak_cuti', 'hak_cuti.user_id', '=', 'permohonan_cuti.user_id')
+                        ->where('permohonan_cuti.id', $id)
+                        ->first();
+
+                    // dd($cekemail->role_id == 2);
+                    if ($cekemail->role_id == 2) {
+
+
+
+                        $mailData = [
+                            'title' => 'Mail from SICUTE',
+                            'body' => 'Assalamualaikum',
+                            'name' => $cekemail->name,
+                            'sisa_cuti' => $cekemail->hak_cuti,
+                            'jenis_cuti' => $cekemail->jenis_cuti,
+                            'alasan_cuti' => $cekemail->alasan_cuti,
+                            'tgl_mulai' => $cekemail->tgl_mulai,
+                            'tgl_akhir' => $cekemail->tgl_akhir,
+                            'alamat_cuti' => $cekemail->alamat_cuti,
+                        ];
+                        // dd($mailData);
+
+                        // dd($cekemail->alasan_cuti);
+                        // if ($cekemail->status == 2) {
+                        $direktur = User::where('role_id', 5)->get();
+                        // dd($direktur);
+                        foreach ($direktur as $p) {
+
+                            Mail::to($p->email)->send(new sicute($mailData));
+                        }
+                        // } 
+                    }
+                }
+
+
+
+
+
+
+
+                return back()->with(['success' => 'Permohonan Cuti Berhasil Disetujui!',]);
+            } elseif (auth()->user()->role_id == 5) {
+
+
                 $data = ([
                     'alasan_cuti' => $permohonan->alasan_cuti,
                     'tgl_mulai' => $permohonan->tgl_mulai,
@@ -590,7 +716,10 @@ class PermohonanCutiController extends Controller
                     'status' => 4,
                     'updated_at' => Carbon::now(),
                 ]);
+
                 PermohonanModel::whereId($id)->update($data);
+
+
                 return back()->with(['success' => 'Permohonan Cuti Berhasil Disetujui!',]);
             }
         }

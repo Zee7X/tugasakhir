@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         User::create([
             'nip'=> '200102026',
             'name' => 'Muhamad Aldi',
-            'email'=> 'aldot@gmail.com',
+            'email'=> 'rizickknotfest@gmail.com',
             'password'=> Hash::make('test'),
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 2,
@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
         User::create([
             'nip'=> '200102015',
             'name' => 'Imas Nurdianto',
-            'email'=> 'imas@gmail.com',
+            'email'=> 'nurdianto0001@gmail.com',
             'password'=> Hash::make('imas'),
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 3,
@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
         User::create([
             'nip'=> '200302094',
             'name' => 'Rizick Fimelyan Sabillah',
-            'email'=> 'rizickknotfest@gmail.com',
+            'email'=> 'rizick@gmail.com',
             'password'=> Hash::make('test'),
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 4,
@@ -105,7 +105,7 @@ class UserSeeder extends Seeder
         User::create([
             'nip'=> '000000001',
             'name' => 'Direktur',
-            'email'=> 'direktur@gmail.com',
+            'email'=> 'imasmultilaty2@gmail.com',
             'password'=> Hash::make('test'),
             'jenis_kelamin'=> 'Laki-Laki',
             'role_id'=> 5,
