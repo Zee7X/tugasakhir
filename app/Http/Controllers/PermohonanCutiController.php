@@ -315,101 +315,538 @@ class PermohonanCutiController extends Controller
         $b = date_create($permohonan->tgl_akhir);
         $data_db = date_diff($a, $b);
         $data_days = $data_db->days;
-        if ($permohonan) {
-            if ($sisaCuti < 0) {
-                if (Auth()->user()->role_id != 1) {
-                    return redirect()
-                        ->route('riwayat.permohonan')
-                        ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
-                } else {
-                    return redirect()
-                        ->route('permohonan')
-                        ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
-                }
-            } else {
-                if ($durasi->days <= 0) {
-                    if (Auth()->user()->role_id != 1) {
-                        return redirect()
-                            ->route('permohonan')
-                            ->with([
-                                'error' => 'Silahkan periksa kembali tanggal cuti',
-                            ]);
-                    } else {
-                        return redirect()
-                            ->route('permohonan')
-                            ->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
-                    }
-                } else {
-                    $validasiData = Validator::make($request->all(), [
-                        'alasan_cuti_lainnya' => 'required',
-                        'alasan_cuti' => 'required',
-                        'tgl_mulai' => 'required',
-                        'tgl_akhir' => 'required',
-                        'alamat_cuti' => 'required|max:255',
-                    ]);
-                    if ($validasiData->fails()) {
-                        return back()
-                            ->withInput()
-                            ->with(['error' => 'Silahkan periksa alasan cuti!']);
-                    } else {
-                        $name_cuti = $request->alasan_cuti;
-                        $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
-                        if (Auth()->user()->role_id != null) {
-                            $data = ([
-                                'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                'jenis_cuti_id' => $id_cuti,
-                                'tgl_mulai' => $request->tgl_mulai,
-                                'tgl_akhir' => $request->tgl_akhir,
-                                'alamat_cuti' => $request->alamat_cuti,
-                                'status' => $permohonan->status,
-                                'updated_at' => Carbon::now(),
-                            ]);
-                        }
-
-                        //untuk tahunan
-                        if ($request->alasan_cuti == 'Cuti Tahunan') {
-
-                            if ($tglAkhir > $tglMulai) {
-                                if ($data_days ==  $requ_days) {
-                                } elseif ($data_days >  $requ_days) {
-                                    $tambah = $data_days - $requ_days;
-                                    $hak_cuti = [
-                                        'hak_cuti' => $sisaCuti + $tambah,
-                                    ];
-                                    HakCuti::whereId($id)->update($hak_cuti);
-                                } elseif ($data_days <  $requ_days) {
-                                    $kurang = $requ_days - $data_days;
-                                    $hak_cuti = [
-                                        'hak_cuti' => $sisaCuti - $kurang,
-                                    ];
-                                    HakCuti::whereId($id)->update($hak_cuti);
-                                }
-                            } else {
-                                return back()->with(['error' => 'Tanggal cuti salah!']);
-                            }
-                        }
 
 
-                        PermohonanModel::whereId($id_permohonan)->update($data);
+        // dd($durasi->days);
+        // dd($requ_days);
+        // dd($sisaCuti - $requ_days);
+
+        if ($permohonan->jenis_cuti_id == 4) {
+            if ($request->alasan_cuti != 'Cuti Tahunan'){
+                // semua tanggal akhir - tanggal awal jadi + sisa cuti / dd($sisaCuti + $data_days);
+
+                if ($permohonan) {
+                    if ($sisaCuti < 0) {
                         if (Auth()->user()->role_id != 1) {
                             return redirect()
                                 ->route('riwayat.permohonan')
-                                ->with([
-                                    'success' => 'Berhasil Edit Permohonan Cuti',
-                                ]);
+                                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         } else {
                             return redirect()
                                 ->route('permohonan')
-                                ->with([
-                                    'success' => 'Berhasil Edit Permohonan Cuti',
-                                ]);
+                                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                        }
+                    } else {
+                        if ($durasi->days <= 0) {
+                            if (Auth()->user()->role_id != 1) {
+                                return redirect()
+                                    ->route('permohonan')
+                                    ->with([
+                                        'error' => 'Silahkan periksa kembali tanggal cuti',
+                                    ]);
+                            } else {
+                                return redirect()
+                                    ->route('permohonan')
+                                    ->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
+                            }
+                        } else {
+                            $validasiData = Validator::make($request->all(), [
+                                'alasan_cuti_lainnya' => 'required',
+                                'alasan_cuti' => 'required',
+                                'tgl_mulai' => 'required',
+                                'tgl_akhir' => 'required',
+                                'alamat_cuti' => 'required|max:255',
+                            ]);
+                            if ($validasiData->fails()) {
+                                return back()
+                                    ->withInput()
+                                    ->with(['error' => 'Silahkan periksa alasan cuti!']);
+                            } else {
+                                $name_cuti = $request->alasan_cuti;
+                                $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
+                                if (Auth()->user()->role_id != null) {
+                                    $data = ([
+                                        'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                        'jenis_cuti_id' => $id_cuti,
+                                        'tgl_mulai' => $request->tgl_mulai,
+                                        'tgl_akhir' => $request->tgl_akhir,
+                                        'alamat_cuti' => $request->alamat_cuti,
+                                        'status' => $permohonan->status,
+                                        'updated_at' => Carbon::now(),
+                                    ]);
+                                }
+                                
+                            
+        
+                                    if ($tglAkhir > $tglMulai) {
+                                        
+                                            $hak_cuti = [
+                                                'hak_cuti' => $sisaCuti + $requ_days,
+                                            ];
+        
+                                            HakCuti::whereId($id)->update($hak_cuti);
+        
+                                        
+                                        
+                                    } else {
+                                        return back()->with(['error' => 'Tanggal cuti salah!']);
+                                    }
+                                
+                                
+        
+                                PermohonanModel::whereId($id_permohonan)->update($data);
+                                if (Auth()->user()->role_id != 1) {
+                                    return redirect()
+                                        ->route('riwayat.permohonan')
+                                        ->with([
+                                            'success' => 'Berhasil Edit Permohonan Cuti',
+                                        ]);
+                                } else {
+                                    return redirect()
+                                        ->route('permohonan')
+                                        ->with([
+                                            'success' => 'Berhasil Edit Permohonan Cuti',
+                                        ]);
+                                }
+                            }
                         }
                     }
+                } else {
+                    return back()->with(['error' => 'Edit gagal!']);
                 }
+                
+            } else {
+                //biasa
+
+                if ($permohonan) {
+                    if ($sisaCuti < 0) {
+                        if (Auth()->user()->role_id != 1) {
+                            return redirect()
+                                ->route('riwayat.permohonan')
+                                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                        } else {
+                            return redirect()
+                                ->route('permohonan')
+                                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                        }
+                    } else {
+                        if ($durasi->days <= 0) {
+                            if (Auth()->user()->role_id != 1) {
+                                return redirect()
+                                    ->route('permohonan')
+                                    ->with([
+                                        'error' => 'Silahkan periksa kembali tanggal cuti',
+                                    ]);
+                            } else {
+                                return redirect()
+                                    ->route('permohonan')
+                                    ->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
+                            }
+                        } else {
+                            $validasiData = Validator::make($request->all(), [
+                                'alasan_cuti_lainnya' => 'required',
+                                'alasan_cuti' => 'required',
+                                'tgl_mulai' => 'required',
+                                'tgl_akhir' => 'required',
+                                'alamat_cuti' => 'required|max:255',
+                            ]);
+                            if ($validasiData->fails()) {
+                                return back()
+                                    ->withInput()
+                                    ->with(['error' => 'Silahkan periksa alasan cuti!']);
+                            } else {
+                                $name_cuti = $request->alasan_cuti;
+                                $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
+                                if (Auth()->user()->role_id != null) {
+                                    $data = ([
+                                        'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                        'jenis_cuti_id' => $id_cuti,
+                                        'tgl_mulai' => $request->tgl_mulai,
+                                        'tgl_akhir' => $request->tgl_akhir,
+                                        'alamat_cuti' => $request->alamat_cuti,
+                                        'status' => $permohonan->status,
+                                        'updated_at' => Carbon::now(),
+                                    ]);
+                                }
+                                
+                                //untuk tahunan
+                                if ($request->alasan_cuti == 'Cuti Tahunan') {
+        
+                                    if ($tglAkhir > $tglMulai) {
+                                        if ($data_days ==  $requ_days) {
+                                        } elseif ($data_days >  $requ_days) {
+                                            $tambah = $data_days - $requ_days;
+                                            $hak_cuti = [
+                                                'hak_cuti' => $sisaCuti + $tambah,
+                                            ];
+        
+                                            HakCuti::whereId($id)->update($hak_cuti);
+        
+                                        } elseif ($data_days <  $requ_days) {
+                                            $kurang = $requ_days - $data_days;
+                                            $hak_cuti = [
+                                                'hak_cuti' => $sisaCuti - $kurang,
+                                            ];
+                                                
+                                                if($sisaCuti - $kurang < 0){
+                                                    return back()->with(['error' => 'Sisa Cuti Kurang']);
+                                                } else{
+        
+                                                    HakCuti::whereId($id)->update($hak_cuti);
+                                                }
+                                        }
+                                        
+                                    } else {
+                                        return back()->with(['error' => 'Tanggal cuti salah!']);
+                                    }
+                                }
+                                
+        
+                                PermohonanModel::whereId($id_permohonan)->update($data);
+                                if (Auth()->user()->role_id != 1) {
+                                    return redirect()
+                                        ->route('riwayat.permohonan')
+                                        ->with([
+                                            'success' => 'Berhasil Edit Permohonan Cuti',
+                                        ]);
+                                } else {
+                                    return redirect()
+                                        ->route('permohonan')
+                                        ->with([
+                                            'success' => 'Berhasil Edit Permohonan Cuti',
+                                        ]);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    return back()->with(['error' => 'Edit gagal!']);
+                }
+
+
             }
         } else {
-            return back()->with(['error' => 'Edit gagal!']);
+            if ($request->alasan_cuti != 'Cuti Tahunan'){
+                // biasa
+
+
+                if ($permohonan) {
+                    if ($sisaCuti < 0) {
+                        if (Auth()->user()->role_id != 1) {
+                            return redirect()
+                                ->route('riwayat.permohonan')
+                                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                        } else {
+                            return redirect()
+                                ->route('permohonan')
+                                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                        }
+                    } else {
+                        if ($durasi->days <= 0) {
+                            if (Auth()->user()->role_id != 1) {
+                                return redirect()
+                                    ->route('permohonan')
+                                    ->with([
+                                        'error' => 'Silahkan periksa kembali tanggal cuti',
+                                    ]);
+                            } else {
+                                return redirect()
+                                    ->route('permohonan')
+                                    ->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
+                            }
+                        } else {
+                            $validasiData = Validator::make($request->all(), [
+                                'alasan_cuti_lainnya' => 'required',
+                                'alasan_cuti' => 'required',
+                                'tgl_mulai' => 'required',
+                                'tgl_akhir' => 'required',
+                                'alamat_cuti' => 'required|max:255',
+                            ]);
+                            if ($validasiData->fails()) {
+                                return back()
+                                    ->withInput()
+                                    ->with(['error' => 'Silahkan periksa alasan cuti!']);
+                            } else {
+                                $name_cuti = $request->alasan_cuti;
+                                $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
+                                if (Auth()->user()->role_id != null) {
+                                    $data = ([
+                                        'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                        'jenis_cuti_id' => $id_cuti,
+                                        'tgl_mulai' => $request->tgl_mulai,
+                                        'tgl_akhir' => $request->tgl_akhir,
+                                        'alamat_cuti' => $request->alamat_cuti,
+                                        'status' => $permohonan->status,
+                                        'updated_at' => Carbon::now(),
+                                    ]);
+                                }
+                                
+                                //untuk tahunan
+                                if ($request->alasan_cuti == 'Cuti Tahunan') {
+        
+                                    if ($tglAkhir > $tglMulai) {
+                                        if ($data_days ==  $requ_days) {
+                                        } elseif ($data_days >  $requ_days) {
+                                            $tambah = $data_days - $requ_days;
+                                            $hak_cuti = [
+                                                'hak_cuti' => $sisaCuti + $tambah,
+                                            ];
+        
+                                            HakCuti::whereId($id)->update($hak_cuti);
+        
+                                        } elseif ($data_days <  $requ_days) {
+                                            $kurang = $requ_days - $data_days;
+                                            $hak_cuti = [
+                                                'hak_cuti' => $sisaCuti - $kurang,
+                                            ];
+                                                
+                                                if($sisaCuti - $kurang < 0){
+                                                    return back()->with(['error' => 'Sisa Cuti Kurang']);
+                                                } else{
+        
+                                                    HakCuti::whereId($id)->update($hak_cuti);
+                                                }
+                                        }
+                                        
+                                    } else {
+                                        return back()->with(['error' => 'Tanggal cuti salah!']);
+                                    }
+                                }
+                                
+        
+                                PermohonanModel::whereId($id_permohonan)->update($data);
+                                if (Auth()->user()->role_id != 1) {
+                                    return redirect()
+                                        ->route('riwayat.permohonan')
+                                        ->with([
+                                            'success' => 'Berhasil Edit Permohonan Cuti',
+                                        ]);
+                                } else {
+                                    return redirect()
+                                        ->route('permohonan')
+                                        ->with([
+                                            'success' => 'Berhasil Edit Permohonan Cuti',
+                                        ]);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    return back()->with(['error' => 'Edit gagal!']);
+                }
+
+
+
+            } else {
+                // tanggal akhir - tanggal mulai ke sisa cuti / dd($sisacuti - $requ_days)
+
+
+                if ($permohonan) {
+                    if ($sisaCuti < 0) {
+                        if (Auth()->user()->role_id != 1) {
+                            return redirect()
+                                ->route('riwayat.permohonan')
+                                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                        } else {
+                            return redirect()
+                                ->route('permohonan')
+                                ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+                        }
+                    } else {
+                        if ($durasi->days <= 0) {
+                            if (Auth()->user()->role_id != 1) {
+                                return redirect()
+                                    ->route('permohonan')
+                                    ->with([
+                                        'error' => 'Silahkan periksa kembali tanggal cuti',
+                                    ]);
+                            } else {
+                                return redirect()
+                                    ->route('permohonan')
+                                    ->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
+                            }
+                        } else {
+                            $validasiData = Validator::make($request->all(), [
+                                'alasan_cuti_lainnya' => 'required',
+                                'alasan_cuti' => 'required',
+                                'tgl_mulai' => 'required',
+                                'tgl_akhir' => 'required',
+                                'alamat_cuti' => 'required|max:255',
+                            ]);
+                            if ($validasiData->fails()) {
+                                return back()
+                                    ->withInput()
+                                    ->with(['error' => 'Silahkan periksa alasan cuti!']);
+                            } else {
+                                $name_cuti = $request->alasan_cuti;
+                                $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
+                                if (Auth()->user()->role_id != null) {
+                                    $data = ([
+                                        'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                        'jenis_cuti_id' => $id_cuti,
+                                        'tgl_mulai' => $request->tgl_mulai,
+                                        'tgl_akhir' => $request->tgl_akhir,
+                                        'alamat_cuti' => $request->alamat_cuti,
+                                        'status' => $permohonan->status,
+                                        'updated_at' => Carbon::now(),
+                                    ]);
+                                }
+                                
+                               
+                                    if ($tglAkhir > $tglMulai) {
+                                        
+                                            
+        
+                                            if($sisaCuti - $requ_days < 0){
+                                                return back()->with(['error' => 'Sisa Cuti Kurang']);
+                                            } else{
+                                                $hak_cuti = [
+                                                    'hak_cuti' => $sisaCuti - $requ_days,
+                                                ];
+                                                HakCuti::whereId($id)->update($hak_cuti);
+                                            }
+        
+                                        
+                                    } else {
+                                        return back()->with(['error' => 'Tanggal cuti salah!']);
+                                    }
+                                
+                                
+        
+                                PermohonanModel::whereId($id_permohonan)->update($data);
+                                if (Auth()->user()->role_id != 1) {
+                                    return redirect()
+                                        ->route('riwayat.permohonan')
+                                        ->with([
+                                            'success' => 'Berhasil Edit Permohonan Cuti',
+                                        ]);
+                                } else {
+                                    return redirect()
+                                        ->route('permohonan')
+                                        ->with([
+                                            'success' => 'Berhasil Edit Permohonan Cuti',
+                                        ]);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    return back()->with(['error' => 'Edit gagal!']);
+                }
+
+
+            }
         }
+        
+
+
+
+
+
+        // if ($permohonan) {
+        //     if ($sisaCuti < 0) {
+        //         if (Auth()->user()->role_id != 1) {
+        //             return redirect()
+        //                 ->route('riwayat.permohonan')
+        //                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+        //         } else {
+        //             return redirect()
+        //                 ->route('permohonan')
+        //                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
+        //         }
+        //     } else {
+        //         if ($durasi->days <= 0) {
+        //             if (Auth()->user()->role_id != 1) {
+        //                 return redirect()
+        //                     ->route('permohonan')
+        //                     ->with([
+        //                         'error' => 'Silahkan periksa kembali tanggal cuti',
+        //                     ]);
+        //             } else {
+        //                 return redirect()
+        //                     ->route('permohonan')
+        //                     ->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
+        //             }
+        //         } else {
+        //             $validasiData = Validator::make($request->all(), [
+        //                 'alasan_cuti_lainnya' => 'required',
+        //                 'alasan_cuti' => 'required',
+        //                 'tgl_mulai' => 'required',
+        //                 'tgl_akhir' => 'required',
+        //                 'alamat_cuti' => 'required|max:255',
+        //             ]);
+        //             if ($validasiData->fails()) {
+        //                 return back()
+        //                     ->withInput()
+        //                     ->with(['error' => 'Silahkan periksa alasan cuti!']);
+        //             } else {
+        //                 $name_cuti = $request->alasan_cuti;
+        //                 $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
+        //                 if (Auth()->user()->role_id != null) {
+        //                     $data = ([
+        //                         'alasan_cuti' => $request->alasan_cuti_lainnya,
+        //                         'jenis_cuti_id' => $id_cuti,
+        //                         'tgl_mulai' => $request->tgl_mulai,
+        //                         'tgl_akhir' => $request->tgl_akhir,
+        //                         'alamat_cuti' => $request->alamat_cuti,
+        //                         'status' => $permohonan->status,
+        //                         'updated_at' => Carbon::now(),
+        //                     ]);
+        //                 }
+                        
+        //                 //untuk tahunan
+        //                 if ($request->alasan_cuti == 'Cuti Tahunan') {
+
+        //                     if ($tglAkhir > $tglMulai) {
+        //                         if ($data_days ==  $requ_days) {
+        //                         } elseif ($data_days >  $requ_days) {
+        //                             $tambah = $data_days - $requ_days;
+        //                             $hak_cuti = [
+        //                                 'hak_cuti' => $sisaCuti + $tambah,
+        //                             ];
+
+        //                             HakCuti::whereId($id)->update($hak_cuti);
+
+        //                         } elseif ($data_days <  $requ_days) {
+        //                             $kurang = $requ_days - $data_days;
+        //                             $hak_cuti = [
+        //                                 'hak_cuti' => $sisaCuti - $kurang,
+        //                             ];
+        //                                 
+        //                                 if($sisaCuti - $kurang < 0){
+        //                                     return back()->with(['error' => 'Sisa Cuti Kurang']);
+        //                                 } else{
+
+        //                                     HakCuti::whereId($id)->update($hak_cuti);
+        //                                 }
+        //                         }
+                                
+        //                     } else {
+        //                         return back()->with(['error' => 'Tanggal cuti salah!']);
+        //                     }
+        //                 }
+                        
+
+        //                 PermohonanModel::whereId($id_permohonan)->update($data);
+        //                 if (Auth()->user()->role_id != 1) {
+        //                     return redirect()
+        //                         ->route('riwayat.permohonan')
+        //                         ->with([
+        //                             'success' => 'Berhasil Edit Permohonan Cuti',
+        //                         ]);
+        //                 } else {
+        //                     return redirect()
+        //                         ->route('permohonan')
+        //                         ->with([
+        //                             'success' => 'Berhasil Edit Permohonan Cuti',
+        //                         ]);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // } else {
+        //     return back()->with(['error' => 'Edit gagal!']);
+        // }
     }
 
     //Function View Permohonan
