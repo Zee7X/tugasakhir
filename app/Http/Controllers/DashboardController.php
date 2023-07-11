@@ -95,7 +95,6 @@ class DashboardController extends Controller
         if (auth()->user()->role_id == 5) {
             $pending = User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
-                ->where('units.id', '=', auth()->user()->unit_id)
                 ->where('status', '=', '3')
                 ->count();
         }

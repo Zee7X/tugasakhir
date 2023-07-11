@@ -38,6 +38,9 @@ class JenisSeeder extends Seeder
         JenisCuti::create([
             'jenis_cuti'=> 'Cuti Karena Alasan Penting'
         ]);
+        JenisCuti::create([
+            'jenis_cuti'=> 'Cuti Diluar Tanggungan'
+        ]);
         
     }
 }

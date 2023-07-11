@@ -121,13 +121,13 @@ class PermohonanCutiController extends Controller
                         //mail to kepala unit
                         $cekemail = PermohonanModel::all()->first();
                         // dd($cekemail->status == 1);
-                        if ($cekemail->status == 1) {
+                        // if ($cekemail->status == 1) {
                             $kepala_unit = User::where('unit_id', Auth::user()->unit_id)->where('role_id', 2)->get();
                             foreach ($kepala_unit as $p) {
 
                                 Mail::to($p->email)->send(new sicute($mailData));
                             }
-                        }
+                        // }
 
 
 
@@ -198,13 +198,13 @@ class PermohonanCutiController extends Controller
 
                         $cekemail = PermohonanModel::latest()->first();
                         // dd($cekemail->status == 2);
-                        if ($cekemail->status == 2) {
+                        // if ($cekemail->status == 2) {
                             $wadir = User::where('role_id', 3)->get();
                             foreach ($wadir as $p) {
 
                                 Mail::to($p->email)->send(new sicute($mailData));
                             }
-                        }
+                        // }
 
 
 
@@ -276,13 +276,13 @@ class PermohonanCutiController extends Controller
 
                         $cekemail = PermohonanModel::latest()->first();
                         // dd($cekemail->status == 3);
-                        if ($cekemail->status == 3) {
+                        // if ($cekemail->status == 3) {
                             $direktur = User::where('role_id', 5)->get();
                             foreach ($direktur as $p) {
 
                                 Mail::to($p->email)->send(new sicute($mailData));
                             }
-                        }
+                        // }
 
 
 

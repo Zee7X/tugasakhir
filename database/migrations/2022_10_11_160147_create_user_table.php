@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
             $table->foreignId('role_id')->constrained();
-            $table->string('jabatan', 60)->nullable();
+            $table->string('jabatan', 90)->nullable();
             $table->foreignId('unit_id')->constrained();
             $table->rememberToken();
             $table->timestamp('created_at')->nullable();

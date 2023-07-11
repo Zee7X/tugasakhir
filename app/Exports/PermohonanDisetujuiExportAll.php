@@ -99,6 +99,7 @@ class PermohonanDisetujuiExportALL implements FromView
                 ->join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
                 ->where('permohonan_cuti.status', 4)
+                ->where('permohonan_cuti.jenis_cuti_id', $this->jenis_cuti)
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
                 ->select('users.name', 'users.nip', 'users.jabatan', 'units.name_unit', 'hak_cuti.hak_cuti')
                 ->groupBy('users.nip')
