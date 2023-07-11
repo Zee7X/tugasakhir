@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PermohonanDisetujuiExport;
-use App\Http\Controllers\Controller;
+use App\Exports\PermohonanDisetujuiExportAll;
+use App\Models\JenisCuti;
 
 class RiwayatPermohonanController extends Controller
 {
@@ -72,6 +74,7 @@ class RiwayatPermohonanController extends Controller
     //Function View Acc Cuti
     public function permohonan_disetujui()
     {
+        $jenis_cuti = JenisCuti::whereNotIn('id', [4])->get();
         //View Acc Bagian Kepegawaian & Wakil Direktur II
         if (auth()->user()->role_id == 4 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5) {
             $permohonan_disetujui = User::join(
@@ -120,7 +123,7 @@ class RiwayatPermohonanController extends Controller
         }
         return view(
             'permohonancuti.disetujui',
-            compact('permohonan_disetujui')
+            compact('permohonan_disetujui', 'jenis_cuti')
         );
     }
 
@@ -229,8 +232,19 @@ class RiwayatPermohonanController extends Controller
     }
 
     //export excel
-    public function export_excel()
+    public function export_excel(Request $request)
+{
+    $year = $request->tahun;
+    return Excel::download(new PermohonanDisetujuiExport($year), 'Laporan Cuti Tahun ' . $year . '.xlsx');
+}
+
+
+    public function export_excel_2(Request $request)
     {
-        return Excel::download(new PermohonanDisetujuiExport, 'PermohonanDisetujuiExport.xlsx');
+        $year = $request->tahun;
+        $jenis_cuti = $request->jenis;
+        $nama_cuti = JenisCuti::where('id', $jenis_cuti)->select('jenis_cuti')->first();
+        $nama_file = 'Laporan '. $nama_cuti->jenis_cuti .' '. $year .'.xlsx';
+        return Excel::download(new PermohonanDisetujuiExportAll($year, $jenis_cuti), $nama_file);
     }
 }

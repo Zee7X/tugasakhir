@@ -72,5 +72,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/permohonan-disetujui', [RiwayatPermohonanController::class, 'permohonan_disetujui'])->name('permohonandisetujui');
     Route::get('/permohonan-ditolak', [RiwayatPermohonanController::class, 'permohonan_ditolak'])->name('permohonanditolak');
     Route::get('/permohonan-dibatalkan', [RiwayatPermohonanController::class, 'permohonan_dibatalkan'])->name('permohonandibatalkan');
-    Route::get('/permohonan-disetujui/export_excel', [RiwayatPermohonanController::class, 'export_excel'])->name('export_excel');
+    Route::post('/permohonan-disetujui/export_excel', [RiwayatPermohonanController::class, 'export_excel'])->name('export_excel');
+    Route::post('/permohonan-disetujui/export_excel_2', [RiwayatPermohonanController::class, 'export_excel_2'])->name('export_excel_2');
 });

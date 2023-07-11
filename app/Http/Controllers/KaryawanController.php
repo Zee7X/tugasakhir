@@ -248,11 +248,11 @@ class KaryawanController extends Controller
             }
         }
         $resetpermohonan = PermohonanModel::all();
-        foreach ($resetpermohonan as $item) {
-            if ($item->status == 4 || $item->status == 5 || $item->status == 0) {
-                $item->delete();
-            }
-        }
+        // foreach ($resetpermohonan as $item) {
+        //     if ($item->status == 4 || $item->status == 5 || $item->status == 0) {
+        //         $item->delete();
+        //     }
+        // }
         return redirect()->back()->with(['success' => 'Reset Tahunan Berhasil']);
     }
 }
