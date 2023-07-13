@@ -12,12 +12,9 @@
                         </div>
                         @if (auth()->user()->role_id == 4)
                             <div class="ml-4 mt-3">
-                                {{-- <a href="/permohonan-disetujui/export_excel" class="btn btn-success my-3" target="_blank">Export Laporan Tahunan</a> --}}
-                                <button class="btn btn-success my-3" data-toggle="modal" data-target="#myModal">Export
+                                <button class="btn btn-success mr-2" data-toggle="modal" data-target="#myModal">Export
                                     Laporan Tahunan</button>
-                                {{-- <a href="/permohonan-disetujui/export_excel_2" class="btn btn-success my-3"
-                                    target="_blank">Export Laporan</a> --}}
-                                    <button class="btn btn-success my-3" data-toggle="modal" data-target="#myModal2">Export
+                                    <button class="btn btn-warning mr-2" data-toggle="modal" data-target="#myModal2">Export
                                         Laporan Jenis Cuti</button>
                             </div>
                         @endif
@@ -33,8 +30,8 @@
                                             <th class="text-center">Unit</th>
                                             <th class="text-center">Jenis Cuti</th>
                                             <th class="text-center">Alasan Cuti</th>
-                                            <th class="text-truncate">Mulai Cuti</th>
-                                            <th class="text-truncate">Berakhir Cuti</th>
+                                            <th class="text-center">Mulai Cuti</th>
+                                            <th class="text-center">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
@@ -43,22 +40,19 @@
                                         @foreach ($permohonan_disetujui as $p)
                                             <tr>
                                                 <td class="text-center">{{ $i++ }}</td>
-                                                <td>{{ $p->name }}</td>
-                                                <td class="text-truncate">{{ $p->nip }}</td>
-                                                <td class="align-center">{{ $p->jabatan }}</td>
-                                                <td class="align-center">{{ $p->name_unit }}</td>
-                                                {{-- @if (auth()->user()->role_id == 4)
-                                                    <td class="align-center">{{ $p->hak_cuti }}</td>
-                                                    @endif --}}
-                                                <td>{{ $p->jenis_cuti }}</td>
-                                                <td>{{ $p->alasan_cuti }}</td>
-                                                <td class="text-truncate">
+                                                <td class="text-center">{{ $p->name }}</td>
+                                                <td class="text-center">{{ $p->nip }}</td>
+                                                <td class="text-center">{{ $p->jabatan }}</td>
+                                                <td class="text-center">{{ $p->name_unit }}</td>
+                                                <td class="text-center">{{ $p->jenis_cuti }}</td>
+                                                <td class="text-center">{{ $p->alasan_cuti }}</td>
+                                                <td class="text-center">
                                                     {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                 </td>
-                                                <td class="align-center">
+                                                <td class="text-center">
                                                     {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                 </td>
-                                                <td class="text-center"><span style="padding: 8px 45px"
+                                                <td class="text-center"><span style="padding: 8px 30px"
                                                         class="badge badge-success">Disetujui</span>
                                                 </td>
                                             </tr>
@@ -106,7 +100,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button type="button" onclick="document.getElementById('tahunan').submit();"
                             class="btn btn-primary">Submit</button>
                     </div>
@@ -155,7 +149,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button type="button" onclick="document.getElementById('jenis_cuti').submit();"
                             class="btn btn-primary">Submit</button>
                     </div>

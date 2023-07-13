@@ -11,7 +11,7 @@
             </div>
             <div class="sidebar-user-details" style="margin: 0 auto;">
               <div class="user-name">{{Auth::user()->name}}</div>
-              <div class="user-jabatan">{{Auth::user()->jabatan}}</div>
+              <div class="user-name" style="overflow-wrap: break-word; color:rgba(0, 0, 0, 0.555)">{{Auth::user()->jabatan}}</div>
             </div>
           </div>
           <ul class="sidebar-menu">

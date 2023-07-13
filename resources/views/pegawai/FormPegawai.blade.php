@@ -18,9 +18,9 @@
                             <div class="btn-toolbar justify-content-between">
                                 @if (auth()->user()->role_id == 4)
                                 <div class="btn-group">
-                                    <a class="btn btn-primary mr-1" href="/tambah-pegawai">Tambah Pegawai</a>
-                                    <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#modal-upload" >Upload Excel</button>
-                                    <a class="btn btn-primary mr-1 acction-confirm" href="/reset_tahunan">Reset Tahunan</a>
+                                    <a class="btn btn-primary mr-2" href="/tambah-pegawai">Tambah Pegawai</a>
+                                    <button class="btn btn-warning mr-2" data-toggle="modal" data-target="#modal-upload" >Upload Data Pegawai</button>
+                                    <a class="btn btn-danger mr-2 acction-confirm" href="/reset_tahunan">Reset Tahunan</a>
                                 </div>
                                 @endif
                                 <div class="input-group">
@@ -40,7 +40,7 @@
                                                 <th class="text-center">NIP</th>
                                                 <th class="text-center">Jabatan</th>
                                                 <th class="text-center">Unit</th>
-                                                <th class="text-center">Sisa Cuti</th>
+                                                <th class="text-truncate">Sisa Cuti</th>
                                                 @if (auth()->user()->role_id == 4)
                                                 <th class="text-center">Opsi</th>
                                                 @endif
@@ -50,7 +50,7 @@
                                             @foreach ($users as $i => $k)
                                                 <tr>
                                                     <td class="p-0 text-center">{{ $i + 1 }}</td>
-                                                    <td class="font-weight-600">{{ $k->name }}</td>
+                                                    <td class="text-center">{{ $k->name }}</td>
                                                     <td class="text-truncate">{{ $k->nip }}</td>
                                                     <td class="align-center">{{ $k->jabatan }}</td>
                                                     <td class="align-center">{{ $k->name_unit }}</td>
@@ -88,7 +88,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('import_pegawai') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('import_pegawai') }}" method="post" enctype="multipart/form-data" onsubmit="showLoadingScreen()">
                         @csrf
                         <div class="form-group">
                             <div class="form-group">

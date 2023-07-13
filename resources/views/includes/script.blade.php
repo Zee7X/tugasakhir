@@ -25,8 +25,8 @@
 {{-- <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script> --}}
 <script src="{{ asset('bundles/izitoast/js/iziToast.min.js') }}"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
-    <!-- SweetAlert2 -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- SweetAlert2 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
@@ -37,7 +37,9 @@
     $(document).ready(function() {
         const flashData = $("#flash-data").data('flashdata');
         console.log(flashData);
-        if (flashData == "Berhasil Mengajukan Permohonan Cuti" || flashData == "Data Pegawai Berhasil Diupdate!" || flashData == "Data Pegawai Berhasil Ditambah!" || flashData == "Data Pegawai Berhasil Dihapus!") {
+        if (flashData == "Berhasil Mengajukan Permohonan Cuti" || flashData ==
+            "Data Pegawai Berhasil Diupdate!" || flashData == "Data Pegawai Berhasil Ditambah!" || flashData ==
+            "Data Pegawai Berhasil Dihapus!") {
             iziToast.success({
                 title: 'Success !!',
                 message: flashData,
@@ -66,20 +68,20 @@
         event.preventDefault();
         const url = $(this).attr('href');
         Swal.fire({
-            title: 'Apakah Anda Yakin?',
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: 'Batal',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            reverseButtons: true,
-            confirmButtonText: 'Hapus'
-        })
-        .then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = url;
-            }
-        });
+                title: 'Apakah Anda Yakin?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                reverseButtons: true,
+                confirmButtonText: 'Hapus'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
     });
 </script>
 <script>
@@ -87,20 +89,29 @@
         event.preventDefault();
         const url = $(this).attr('href');
         Swal.fire({
-            title: 'Apakah Anda Yakin Ingin Reset Tahunan?',
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: 'Batal',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            reverseButtons: true,
-            confirmButtonText: 'Ya'
-        })
-        .then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = url;
-            }
-        });
+                title: 'Apakah Anda Yakin Ingin Reset Tahunan?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                reverseButtons: true,
+                confirmButtonText: 'Ya'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
     });
 </script>
+<script>
+    // loading screen
+    function showLoadingScreen() {
+        document.getElementById('loading-screen').style.display = 'flex';
+    }
 
+    function hideLoadingScreen() {
+        document.getElementById('loading-screen').style.display = 'none';
+    }
+</script>

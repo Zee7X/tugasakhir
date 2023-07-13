@@ -247,7 +247,7 @@ class KaryawanController extends Controller
                 $item->update(['hak_cuti' => $item->hak_cuti + 12]);
             }
         }
-        $resetpermohonan = PermohonanModel::all();
+        // $resetpermohonan = PermohonanModel::all();
         // foreach ($resetpermohonan as $item) {
         //     if ($item->status == 4 || $item->status == 5 || $item->status == 0) {
         //         $item->delete();

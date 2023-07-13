@@ -16,7 +16,7 @@
                             <div class="card-icon card-icon-large"><i class="fa fa-briefcase"></i></div>
                             <div class="card-content">
                                 @if (auth()->user()->role_id == 1)
-                                    <h4 class="card-title">Sisa Cuti</h4>
+                                    <h4 class="card-title">Sisa Cuti Tahunan</h4>
                                     @foreach ($sisacuti as $d)
                                         <span>{{ $d->hak_cuti }} Hari</span>
                                     @endforeach
@@ -31,7 +31,7 @@
                                 @if (auth()->user()->role_id == 1)
                                     <p class="mb-0 text-sm">
                                         <span class="mr-1"><i class="far fa-calendar-plus"></i></span>
-                                        <a href="/permohonan" class="text-white">Permohonan</a>
+                                        <a href="/permohonan" class="text-white">Tambah Permohonan</a>
                                     </p>
                                 @else
                                     <p class="mb-0 text-sm">
@@ -95,12 +95,12 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th>Nama Karyawan</th>
-                                            <th>Unit</th>
-                                            <th>Jenis Cuti</th>
-                                            <th>Alasan Cuti</th>
-                                            <th class="text-center">Mulai Cuti</th>
-                                            <th class="text-center">Berakhir Cuti</th>
+                                            <th class="text-center">Nama Pegawai</th>
+                                            <th class="text-center">Unit</th>
+                                            <th class="text-center">Jenis Cuti</th>
+                                            <th class="text-center">Alasan Cuti</th>
+                                            <th class="text-truncate">Mulai Cuti</th>
+                                            <th class="text-truncate">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
@@ -109,10 +109,10 @@
                                             @foreach ($dashboard as $d)
                                                 <tr>
                                                     <td class="text-center">{{ $i++ }}</td>
-                                                    <td>{{ $d->name }}</td>
-                                                    <td>{{ $d->name_unit }}</td>
-                                                    <td>{{ $d->jenis_cuti }}</td>
-                                                    <td>{{ $d->alasan_cuti }}</td>
+                                                    <td class="text-center">{{ $d->name }}</td>
+                                                    <td class="text-center">{{ $d->name_unit }}</td>
+                                                    <td class="text-center">{{ $d->jenis_cuti }}</td>
+                                                    <td class="text-center">{{ $d->alasan_cuti }}</td>
                                                     <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($d->tgl_mulai)) }}
                                                     </td>

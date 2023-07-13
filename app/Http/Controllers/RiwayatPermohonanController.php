@@ -237,8 +237,6 @@ class RiwayatPermohonanController extends Controller
     $year = $request->tahun;
     return Excel::download(new PermohonanDisetujuiExport($year), 'Laporan Cuti Tahun ' . $year . '.xlsx');
 }
-
-
     public function export_excel_2(Request $request)
     {
         $year = $request->tahun;

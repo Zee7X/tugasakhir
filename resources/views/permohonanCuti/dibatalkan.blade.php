@@ -20,10 +20,10 @@
                                             <th class="text-center">NIP</th>
                                             <th class="text-center">Jabatan</th>
                                             <th class="text-center">Unit</th>
-                                            <th class="text-truncate">Jenis Cuti</th>
-                                            <th class="text-truncate">Alasan Dibatalkan</th>
-                                            <th class="text-truncate">Mulai Cuti</th>
-                                            <th class="text-truncate">Berakhir Cuti</th>
+                                            <th class="text-center">Jenis Cuti</th>
+                                            <th class="text-center">Alasan Dibatalkan</th>
+                                            <th class="text-center">Mulai Cuti</th>
+                                            <th class="text-center">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
@@ -32,19 +32,19 @@
                                             @foreach ($permohonan_dibatalkan as $p)
                                                 <tr>
                                                     <td class="text-center">{{ $i++ }}</td>
-                                                    <td>{{ $p->name }}</td>
-                                                    <td>{{ $p->nip }}</td>
-                                                    <td>{{ $p->jabatan }}</td>
-                                                    <td>{{ $p->name_unit }}</td>
-                                                    <td>{{ $p->jenis_cuti }}</td>
-                                                    <td>{{ $p->alasan_ditolak }}</td>
-                                                    <td class="text-truncate">
+                                                    <td class="text-center">{{ $p->name }}</td>
+                                                    <td class="text-center">{{ $p->nip }}</td>
+                                                    <td class="text-center">{{ $p->jabatan }}</td>
+                                                    <td class="text-center">{{ $p->name_unit }}</td>
+                                                    <td class="text-center">{{ $p->jenis_cuti }}</td>
+                                                    <td class="text-center">{{ $p->alasan_ditolak }}</td>
+                                                    <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                     </td>
-                                                    <td class="text-truncate">
+                                                    <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
-                                                        <td class="text-center"><span style="padding: 10px 40px"
+                                                        <td class="text-center"><span style="padding: 8px 30px"
                                                                 class="badge badge-danger">Dibatalkan</span></td>
                                                 </tr>
                                             @endforeach

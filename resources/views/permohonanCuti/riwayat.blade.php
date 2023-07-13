@@ -25,8 +25,8 @@
                                             <th class="text-center">Unit</th>
                                             <th class="text-center">Jenis Cuti</th>
                                             <th class="text-center">Alasan Cuti</th>
-                                            <th class="text-truncate text-center">Mulai Cuti</th>
-                                            <th class="text-truncate text-center">Berakhir Cuti</th>
+                                            <th class="text-center">Mulai Cuti</th>
+                                            <th class="text-center">Berakhir Cuti</th>
                                             <th class="text-center">Status</th>
                                             <th class="text-center">Opsi</th>
                                         </tr>
@@ -43,10 +43,10 @@
                                                 <td class="text-left">{{ $p->name_unit }}</td>
                                                 <td class="text-center">{{ $p->jenis_cuti }}</td>
                                                 <td class="text-center">{{ $p->alasan_cuti }}</td>
-                                                <td class="text-truncate text-center">
+                                                <td class="text-center">
                                                     {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                 </td>
-                                                <td class="text-truncate text-center">
+                                                <td class="text-center">
                                                     {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                 </td>
                                                 @if ($p->status == 1)
@@ -186,7 +186,7 @@
                             <label>Jenis Cuti</label>
                             <select class="form-control" name="alasan_cuti"
                                 id="alasan_cuti_edit{{ $p->id }}" data-id="{{ $p->id }}" required>
-                                <option disabled selected>Pilih Alasan Permohonan
+                                <option disabled selected>Pilih Jenis
                                     Cuti</option>
                                 @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
                                     <option name="alasan_cuti" value="Cuti Bersalin"

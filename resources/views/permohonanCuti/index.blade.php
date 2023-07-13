@@ -27,14 +27,14 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th class="text-center">Nama Pegawai</th>
-                                            @if (auth()->user()->role_id == 1)
+                                            {{-- @if (auth()->user()->role_id == 1)
                                                 <th class="text-center">Jabatan</th>
-                                            @endif
+                                            @endif --}}
                                             <th class="text-center">Unit</th>
                                             <th class="text-center">Jenis Cuti</th>
                                             <th class="text-center">Alasan Cuti</th>
-                                            <th class="text-truncate">Mulai Cuti</th>
-                                            <th class="text-truncate">Berakhir Cuti</th>
+                                            <th class="text-center">Mulai Cuti</th>
+                                            <th class="text-center">Berakhir Cuti</th>
                                             <th class="text-center">Alamat Cuti</th>
                                             @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                 <th class="text-center">Status</th>
@@ -49,20 +49,20 @@
                                         @foreach ($permohonan as $p)
                                             <tr>
                                                 <td class="text-center">{{ $i++ }}</td>
-                                                <td>{{ $p->name }}</td>
-                                                @if (auth()->user()->role_id == 1)
-                                                    <td>{{ $p->jabatan }}</td>
-                                                @endif
-                                                <td>{{ $p->name_unit }}</td>
-                                                <td>{{ $p->jenis_cuti }}</td>
-                                                <td>{{ $p->alasan_cuti }}</td>
-                                                <td class="text-truncate">
+                                                <td class="text-center">{{ $p->name }}</td>
+                                                {{-- @if (auth()->user()->role_id == 1)
+                                                    <td class="text-center">{{ $p->jabatan }}</td>
+                                                @endif --}}
+                                                <td class="text-center">{{ $p->name_unit }}</td>
+                                                <td class="text-center">{{ $p->jenis_cuti }}</td>
+                                                <td class="text-center">{{ $p->alasan_cuti }}</td>
+                                                <td class="text-center">
                                                     {{ date('d-M-Y', strtotime($p->tgl_mulai)) }}
                                                 </td>
-                                                <td class="text-truncate">
+                                                <td class="text-center">
                                                     {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                 </td>
-                                                <td>{{ $p->alamat_cuti }}</td>
+                                                <td class="text-center">{{ $p->alamat_cuti }}</td>
                                                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                     @if ($p->status == 1)
                                                         <td class="text-center"><span class="badge badge-warning"
@@ -88,7 +88,7 @@
                                                     <td class="text-truncate">
                                                         <form
                                                             action="{{ route('setujui.permohonancuti', ['id' => $p->id]) }}"
-                                                            method="POST">
+                                                            method="POST" onsubmit="showLoadingScreen()">
                                                             @csrf
                                                             <button type="submit"
                                                                 class="btn btn-action bg-green mr-1 text-truncate"
@@ -154,8 +154,7 @@
                             <label>Jenis Cuti</label>
                             <select class="form-control" name="alasan_cuti" id="alasan_cuti_edit{{ $p->id }}"
                                 data-id="{{ $p->id }}" required>
-                                <option disabled selected>Pilih Alasan Permohonan
-                                    Cuti</option>
+                                <option disabled selected>Pilih Jenis Cuti</option>
                                 @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
                                     <option name="alasan_cuti" value="Cuti Bersalin"
                                         {{ $p->jenis_cuti == 'Cuti Bersalin' ? 'selected' : '' }}>
@@ -206,7 +205,7 @@
                         <div class="form-group">
                             <label>Alamat Selama Cuti</label>
                             <input type="text" class="form-control" value="{{ $p->alamat_cuti }}" name="alamat_cuti"
-                                required>
+                            name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
                         </div>
                         <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                         </form>
@@ -228,7 +227,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="" action="permohonancuti" method="post">
+                    <form class="" action="permohonancuti" method="post" onsubmit="showLoadingScreen()">
                         @csrf
                         <div id="show-sisa-cuti" class="border py-1"
                             style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
@@ -240,7 +239,7 @@
                             <label>Jenis Cuti</label>
                             <select class="form-control" name="alasan_cuti" id="alasan_cutiku"
                                 onchange="showCutiLainnya()" required>
-                                <option disabled selected>Pilih Alasan Permohonan Cuti</option>
+                                <option disabled selected>Pilih Jenis Cuti</option>
                                 @if (auth()->user()->jenis_kelamin != 'Laki-Laki')
                                     <option name="alasan_cuti" value="Cuti Bersalin"
                                         {{ old('alasan_cuti') == 'Cuti Bersalin' ? 'selected' : '' }}>Cuti Bersalin
@@ -272,7 +271,7 @@
                         <div class="form-group" id="form-cuti-lainnya" style="display:none;">
                             <label for="alasan_cuti_lainnya">Alasan Cuti:</label>
                             <input class="form-control" type="text" id="alasan_cuti_lainnya"
-                                name="alasan_cuti_lainnya">
+                                name="alasan_cuti_lainnya" name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
                         </div>
                         <div class="form-group">
                             <label>Tanggal Mulai Cuti</label>
@@ -288,8 +287,8 @@
                         </div>
                         <div class="form-group">
                             <label>Alamat Selama Cuti</label>
-                            <input type="text" class="form-control" value="{{ old('alamat_cuti') }}"
-                                name="alamat_cuti" required>
+                            <input type="text" class="form-control" value=""
+                                name="alamat_cuti" name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
                         </div>
                         <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                     </form>
