@@ -707,7 +707,11 @@ class PermohonanCutiController extends Controller
                     'permohonan_cuti.alamat_cuti',
                     'permohonan_cuti.status'
                 )
-                ->where('permohonan_cuti.status', '=', 1)
+                ->where([
+                    ['permohonan_cuti.status', '!=', "4"],
+                    ['permohonan_cuti.status', '!=', "5"],
+                    ['permohonan_cuti.status', '!=', "0"],
+                ])
                 ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
                 ->orderBy('permohonan_cuti.created_at', 'DESC')
                 ->get();

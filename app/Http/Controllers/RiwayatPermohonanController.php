@@ -17,7 +17,7 @@ class RiwayatPermohonanController extends Controller
     {
         $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
             ->where('hak_cuti.user_id', '=', auth()->user()->id)->pluck('hak_cuti');
-        if (auth()->user()->role_id == 2 || auth()->user()->role_id == 5) {
+        if (auth()->user()->role_id == 2 || auth()->user()->role_id == 5 || auth()->user()->role_id == 3) {
             $riwayat = User::join(
                 'permohonan_cuti',
                 'users.id',
@@ -44,7 +44,7 @@ class RiwayatPermohonanController extends Controller
                 ->get();
         }
 
-        if (auth()->user()->role_id == 4 || auth()->user()->role_id == 3) {
+        if (auth()->user()->role_id == 4) {
             $riwayat = User::join(
                 'permohonan_cuti',
                 'users.id',
