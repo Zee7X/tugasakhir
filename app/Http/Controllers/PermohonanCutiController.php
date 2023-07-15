@@ -30,7 +30,7 @@ class PermohonanCutiController extends Controller
         $tglAkhir = date_create($request->tgl_akhir);
         $durasi = date_diff($tglMulai, $tglAkhir);
         $jumlahCuti = $sisaCuti - $durasi->days;
-        if ($tglAkhir < $tglMulai) {
+        if ($tglAkhir <= $tglMulai) {
             return redirect()
                         ->route('permohonan')
                         ->with([
@@ -278,7 +278,7 @@ class PermohonanCutiController extends Controller
                         if ($durasi->days <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
-                                    ->route('permohonan')
+                                    ->route('riwayat.permohonan')
                                     ->with([
                                         'error' => 'Silahkan periksa kembali tanggal cuti',
                                     ]);
@@ -358,7 +358,7 @@ class PermohonanCutiController extends Controller
                         if ($durasi->days <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
-                                    ->route('permohonan')
+                                    ->route('riwayat.permohonan')
                                     ->with([
                                         'error' => 'Silahkan periksa kembali tanggal cuti',
                                     ]);
@@ -442,12 +442,8 @@ class PermohonanCutiController extends Controller
             }
         } else {
             if ($request->alasan_cuti != 'Cuti Tahunan') {
-                if ($tglAkhir < $tglMulai) {
-                    return redirect()
-                                ->route('permohonan')
-                                ->with([
-                                    'error' => 'Silahkan periksa kembali tanggal cuti',
-                                ]);
+                if ($tglAkhir <= $tglMulai) {
+                    return back()->with(['error' => 'Silahkan periksa kembali tanggal cuti']);
                 }
                 // selain cuti tahunan
                 if ($permohonan) {
@@ -465,7 +461,7 @@ class PermohonanCutiController extends Controller
                         if ($durasi->days <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
-                                    ->route('permohonan')
+                                    ->route('riwayat.permohonan')
                                     ->with([
                                         'error' => 'Silahkan periksa kembali tanggal cuti',
                                     ]);
@@ -564,7 +560,7 @@ class PermohonanCutiController extends Controller
                         if ($durasi->days <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
-                                    ->route('permohonan')
+                                    ->route('riwayat.permohonan')
                                     ->with([
                                         'error' => 'Silahkan periksa kembali tanggal cuti',
                                     ]);
@@ -721,7 +717,12 @@ class PermohonanCutiController extends Controller
                     'permohonan_cuti.alamat_cuti',
                     'permohonan_cuti.status'
                 )
-                ->where('permohonan_cuti.status', '=', 1)
+                ->where([
+                    ['permohonan_cuti.status', '!=', "3"],
+                    ['permohonan_cuti.status', '!=', "4"],
+                    ['permohonan_cuti.status', '!=', "5"],
+                    ['permohonan_cuti.status', '!=', "0"],
+                ])
                 ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
                 ->orderBy('permohonan_cuti.created_at', 'DESC')
                 ->get();

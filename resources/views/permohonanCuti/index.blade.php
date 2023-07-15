@@ -99,14 +99,27 @@
                                                             data-toggle="modal"
                                                             data-target="#tolak-modal{{ $p->id }}">Tolak</button>
                                                     </td>
-                                                @elseif (auth()->user()->role_id == 1)
+                                                {{-- @elseif (auth()->user()->role_id == 1)
                                                     <td class="text-truncate"> <button type="button"
                                                             class="btn btn-action bg-purple" data-toggle="modal"
                                                             data-target="#modal-edit{{ $p->id }}"
                                                             data-id="{{ $p->id }}">Edit
                                                         </button>
                                                     </td>
+                                                @endif --}}
+                                                @elseif(Auth()->user()->role_id == 1)
+                                                @if ($p->status == 1 && Auth::user()->id == $p->user_id)
+                                                    <td class="text-truncate"> <button type="button"
+                                                            class="btn btn-action bg-purple" data-toggle="modal"
+                                                            data-target="#modal-edit{{ $p->id }}"
+                                                            data-id="{{ $p->id }}">Edit
+                                                        </button>
+                                                    </td>
+                                                @else
+                                                    <td class="text-truncate">
+                                                    </td>
                                                 @endif
+                                            @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
