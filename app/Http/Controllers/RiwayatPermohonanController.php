@@ -44,7 +44,7 @@ class RiwayatPermohonanController extends Controller
                 ->get();
         }
 
-        if (auth()->user()->role_id == 4 || auth()->user()->role_id == 3) {
+        if (auth()->user()->role_id == 4) {
             $riwayat = User::join(
                 'permohonan_cuti',
                 'users.id',
