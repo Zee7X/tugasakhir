@@ -44,7 +44,7 @@
                                                     <td class="text-center">
                                                         {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                     </td>
-                                                        <td class="text-center"><span style="padding: 8px 30px"
+                                                        <td class="text-center"><span style="padding: 8px 20px"
                                                                 class="badge badge-danger">Ditolak</span></td>
                                                 </tr>
                                             @endforeach

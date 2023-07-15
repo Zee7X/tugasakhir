@@ -99,12 +99,29 @@
                                                             data-toggle="modal"
                                                             data-target="#tolak-modal{{ $p->id }}">Tolak</button>
                                                     </td>
+<<<<<<< HEAD
                                                 {{-- @elseif (auth()->user()->role_id == 1)
                                                     <td class="text-truncate"> <button type="button"
+=======
+                                                @elseif (auth()->user()->role_id == 1)
+                                                @if ($p->status == 1 && Auth::user()->id == $p->user_id)
+                                                        <td class="text-truncate"> <button type="button"
+                                                                class="btn btn-action bg-purple" data-toggle="modal"
+                                                                data-target="#modal-edit{{ $p->id }}"
+                                                                data-id="{{ $p->id }}">Edit
+                                                            </button>
+                                                        </td>
+                                                    @else
+                                                        <td class="text-truncate">
+                                                        </td>
+                                                    @endif
+                                                    {{-- <td class="text-truncate"> <button type="button"
+>>>>>>> 3aad601c9a19e28e3898dab8b2605e26f76fb651
                                                             class="btn btn-action bg-purple" data-toggle="modal"
                                                             data-target="#modal-edit{{ $p->id }}"
                                                             data-id="{{ $p->id }}">Edit
                                                         </button>
+<<<<<<< HEAD
                                                     </td>
                                                 @endif --}}
                                                 @elseif(Auth()->user()->role_id == 1)
@@ -118,6 +135,9 @@
                                                 @else
                                                     <td class="text-truncate">
                                                     </td>
+=======
+                                                    </td> --}}
+>>>>>>> 3aad601c9a19e28e3898dab8b2605e26f76fb651
                                                 @endif
                                             @endif
                                             </tr>
