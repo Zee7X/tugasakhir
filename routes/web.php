@@ -68,6 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/batalkanpermohonan/{id_permohonan}', [PermohonanCutiController::class , 'batalkan_permohonan'])->name('batal.permohonancuti');
     Route::get('/permohonan', [PermohonanCutiController::class, 'permohonan'])->name('permohonan');
     //Riwayat Permohonan
+    Route::get('/permohonanku', [RiwayatPermohonanController::class, 'permohonanKu'])->name('tambah.permohonan');
     Route::get('/riwayat-permohonan', [RiwayatPermohonanController::class, 'riwayat_permohonan'])->middleware('wadirku:recent')->name('riwayat.permohonan');
     Route::get('/permohonan-disetujui', [RiwayatPermohonanController::class, 'permohonan_disetujui'])->name('permohonandisetujui');
     Route::get('/permohonan-ditolak', [RiwayatPermohonanController::class, 'permohonan_ditolak'])->name('permohonanditolak');

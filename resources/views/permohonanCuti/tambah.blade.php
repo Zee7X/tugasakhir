@@ -12,14 +12,12 @@
                     @endif
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Permohonan Cuti </h4>
+                            <h4>Permohonan Cuti </h4>
                         </div>
-                        @if (auth()->user()->role_id == 1 )
                             <div class="ml-4 mt-3">
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat
                                     Permohonan Cuti</button>
                             </div>
-                        @endif
                         <div class="card-body">
                             <div class="table-responsive table-invoice">
                                 <table class="table table-striped" id="dt-dashboard">
@@ -27,32 +25,22 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th class="text-center">Nama Pegawai</th>
-                                            {{-- @if (auth()->user()->role_id == 1)
-                                                <th class="text-center">Jabatan</th>
-                                            @endif --}}
                                             <th class="text-center">Unit</th>
                                             <th class="text-center">Jenis Cuti</th>
                                             <th class="text-center">Alasan Cuti</th>
                                             <th class="text-center">Mulai Cuti</th>
                                             <th class="text-center">Berakhir Cuti</th>
                                             <th class="text-center">Alamat Cuti</th>
-                                            @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
-                                                <th class="text-center">Status</th>
-                                            @endif
-                                            @if (auth()->user()->role_id != 4)
-                                                <th class="text-center">Opsi</th>
-                                            @endif
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Opsi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <input type="hidden" value="{{ $i = 1 }}">
-                                        @foreach ($permohonan as $p)
+                                        @foreach ($riwayat as $p)
                                             <tr>
                                                 <td class="text-center">{{ $i++ }}</td>
                                                 <td class="text-center">{{ $p->name }}</td>
-                                                {{-- @if (auth()->user()->role_id == 1)
-                                                    <td class="text-center">{{ $p->jabatan }}</td>
-                                                @endif --}}
                                                 <td class="text-center">{{ $p->name_unit }}</td>
                                                 <td class="text-center">{{ $p->jenis_cuti }}</td>
                                                 <td class="text-center">{{ $p->alasan_cuti }}</td>
@@ -63,7 +51,6 @@
                                                     {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                 </td>
                                                 <td class="text-center">{{ $p->alamat_cuti }}</td>
-                                                @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
                                                     @if ($p->status == 1)
                                                         <td class="text-center"><span class="badge badge-warning"
                                                                 style="padding: 8px 20px">Pending Kepala Unit </span></td>
@@ -83,24 +70,8 @@
                                                         <td class="text-center"><span class="badge badge-danger"
                                                                 style="padding: 8px 48px">Dibatalkan</span></td>
                                                     @endif
-                                                @endif
-                                                @if (auth()->user()->role_id == 2 || auth()->user()->role_id == 3 || auth()->user()->role_id == 5)
-                                                    <td class="text-truncate">
-                                                        <form
-                                                            action="{{ route('setujui.permohonancuti', ['id' => $p->id]) }}"
-                                                            method="POST" onsubmit="showLoadingScreen()">
-                                                            @csrf
-                                                            <button type="submit"
-                                                                class="btn btn-action bg-green mr-1 text-truncate"
-                                                                style="width: 80px; height: 30px;">Setuju</button>
-                                                        </form>
-                                                        <button class="btn btn-danger btn-action "
-                                                            style="width: 80px; height: 30px; margin-top: 10px;"
-                                                            data-toggle="modal"
-                                                            data-target="#tolak-modal{{ $p->id }}">Tolak</button>
-                                                    </td>
-                                                @elseif (auth()->user()->role_id == 1)
-                                                @if ($p->status == 1 && Auth::user()->id == $p->user_id)
+                                                @if (Auth()->user()->role_id == 4)
+                                                    @if ($p->status == 1 && Auth::user()->id == $p->user_id)
                                                         <td class="text-truncate"> <button type="button"
                                                                 class="btn btn-action bg-purple" data-toggle="modal"
                                                                 data-target="#modal-edit{{ $p->id }}"
@@ -111,7 +82,31 @@
                                                         <td class="text-truncate">
                                                         </td>
                                                     @endif
-                                            @endif
+                                                @elseif(Auth()->user()->role_id == 2)
+                                                    @if ($p->status == 2 && Auth::user()->id == $p->user_id)
+                                                        <td class="text-truncate"> <button type="button"
+                                                                class="btn btn-action bg-purple" data-toggle="modal"
+                                                                data-target="#modal-edit{{ $p->id }}"
+                                                                data-id="{{ $p->id }}">Edit
+                                                            </button>
+                                                        </td>
+                                                    @else
+                                                        <td class="text-truncate">
+                                                        </td>
+                                                    @endif
+                                                @elseif(Auth()->user()->role_id == 3)
+                                                    @if ($p->status == 3 && Auth::user()->id == $p->user_id)
+                                                        <td class="text-truncate"> <button type="button"
+                                                                class="btn btn-action bg-purple" data-toggle="modal"
+                                                                data-target="#modal-edit{{ $p->id }}"
+                                                                data-id="{{ $p->id }}">Edit
+                                                            </button>
+                                                        </td>
+                                                    @else
+                                                        <td class="text-truncate">
+                                                        </td>
+                                                    @endif
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -122,8 +117,9 @@
                 </div>
             </div>
         </section>
+
         {{-- modal edit --}}
-        @foreach ($permohonan as $p)
+        @foreach ($riwayat as $p)
             <div class="modal fade" id="modal-edit{{ $p->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="formModal" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -302,33 +298,7 @@
         </div>
     </div>
 
-    {{-- modal tolak --}}
-    @foreach ($permohonan as $p)
-        <div class="modal fade " id="tolak-modal{{ $p->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="formModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="formModal">Konfirmasi Tolak Permohonan Cuti</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('tolak.permohonancuti', ['id_permohonan' => $p->id]) }}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label>Alasan Ditolak</label>
-                                <textarea class="form-control" name="alasan_ditolak" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-    </div>
+  
 
     @push('scrip')
         <script>

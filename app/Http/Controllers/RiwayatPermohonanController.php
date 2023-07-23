@@ -17,32 +17,32 @@ class RiwayatPermohonanController extends Controller
     {
         $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
             ->where('hak_cuti.user_id', '=', auth()->user()->id)->pluck('hak_cuti');
-        if (auth()->user()->role_id == 2 || auth()->user()->role_id == 5 || auth()->user()->role_id == 3) {
-            $riwayat = User::join(
-                'permohonan_cuti',
-                'users.id',
-                '=',
-                'permohonan_cuti.user_id'
-            )
-                ->leftJoin('units', 'users.unit_id', '=', 'units.id')
-                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
-                ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
-                ->orderBy('permohonan_cuti.updated_at', 'DESC')
-                ->select(
-                    'permohonan_cuti.id',
-                    'users.name',
-                    'users.jabatan',
-                    'units.name_unit',
-                    'permohonan_cuti.user_id',
-                    'permohonan_cuti.tgl_mulai',
-                    'jenis_cutis.jenis_cuti',
-                    'permohonan_cuti.alasan_cuti',
-                    'permohonan_cuti.tgl_akhir',
-                    'permohonan_cuti.alamat_cuti',
-                    'permohonan_cuti.status'
-                )
-                ->get();
-        }
+        // if (auth()->user()->role_id == 2 || auth()->user()->role_id == 5 || auth()->user()->role_id == 3) {
+        //     $riwayat = User::join(
+        //         'permohonan_cuti',
+        //         'users.id',
+        //         '=',
+        //         'permohonan_cuti.user_id'
+        //     )
+        //         ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+        //         ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
+        //         ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
+        //         ->orderBy('permohonan_cuti.updated_at', 'DESC')
+        //         ->select(
+        //             'permohonan_cuti.id',
+        //             'users.name',
+        //             'users.jabatan',
+        //             'units.name_unit',
+        //             'permohonan_cuti.user_id',
+        //             'permohonan_cuti.tgl_mulai',
+        //             'jenis_cutis.jenis_cuti',
+        //             'permohonan_cuti.alasan_cuti',
+        //             'permohonan_cuti.tgl_akhir',
+        //             'permohonan_cuti.alamat_cuti',
+        //             'permohonan_cuti.status'
+        //         )
+        //         ->get();
+        // }
 
         if (auth()->user()->role_id == 4) {
             $riwayat = User::join(
@@ -54,10 +54,7 @@ class RiwayatPermohonanController extends Controller
                 ->leftJoin('units', 'users.unit_id', '=', 'units.id')
                 ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
                 ->orderBy('permohonan_cuti.updated_at', 'DESC')
-                ->where([
-                    ['permohonan_cuti.status', '!=', "0"],
-                    ['permohonan_cuti.status', '!=', "5"],
-                ])
+                ->where('permohonan_cuti.status', '=', '4')
                 ->select(
                     'permohonan_cuti.id',
                     'users.name',
@@ -74,6 +71,36 @@ class RiwayatPermohonanController extends Controller
                 ->get();
         }
         return view('permohonanCuti.riwayat', compact('riwayat', 'sisacuti'));
+    }
+
+    public function permohonanKu(){
+        $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
+            ->where('hak_cuti.user_id', '=', auth()->user()->id)->pluck('hak_cuti');
+            $riwayat = User::join(
+                'permohonan_cuti',
+                'users.id',
+                '=',
+                'permohonan_cuti.user_id'
+            )
+                ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
+                ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
+                ->orderBy('permohonan_cuti.status', 'ASC')
+                ->select(
+                    'permohonan_cuti.id',
+                    'users.name',
+                    'users.jabatan',
+                    'units.name_unit',
+                    'permohonan_cuti.user_id',
+                    'permohonan_cuti.tgl_mulai',
+                    'jenis_cutis.jenis_cuti',
+                    'permohonan_cuti.alasan_cuti',
+                    'permohonan_cuti.tgl_akhir',
+                    'permohonan_cuti.alamat_cuti',
+                    'permohonan_cuti.status'
+                )
+                ->get();
+        return view('permohonanCuti.tambah', compact('riwayat', 'sisacuti'));
     }
     //Function View Acc Cuti
     public function permohonan_disetujui()

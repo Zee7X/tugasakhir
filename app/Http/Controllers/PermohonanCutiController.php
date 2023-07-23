@@ -178,7 +178,7 @@ class PermohonanCutiController extends Controller
                             foreach ($wadir as $p) {
                                 Mail::to($p->email)->send(new sicute($mailData));
                             }
-                            return redirect()->route('riwayat.permohonan')
+                            return redirect()->route('tambah.permohonan')
                                 ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',]);
                         }
                         //Tambah Permohonan Wadir
@@ -234,7 +234,7 @@ class PermohonanCutiController extends Controller
                             foreach ($direktur as $p) {
                                 Mail::to($p->email)->send(new sicute($mailData));
                             }
-                            return redirect()->route('riwayat.permohonan')
+                            return redirect()->route('tambah.permohonan')
                                 ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',]);
                         }
                     }
@@ -267,7 +267,7 @@ class PermohonanCutiController extends Controller
                     if ($sisaCuti < 0) {
                         if (Auth()->user()->role_id != 1) {
                             return redirect()
-                                ->route('riwayat.permohonan')
+                                ->route('tambah.permohonan')
                                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         } else {
                             return redirect()
@@ -278,7 +278,7 @@ class PermohonanCutiController extends Controller
                         if ($durasi->days <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
-                                    ->route('riwayat.permohonan')
+                                    ->route('tambah.permohonan')
                                     ->with([
                                         'error' => 'Silahkan periksa kembali tanggal cuti',
                                     ]);
@@ -324,7 +324,7 @@ class PermohonanCutiController extends Controller
                                 PermohonanModel::whereId($id_permohonan)->update($data);
                                 if (Auth()->user()->role_id != 1) {
                                     return redirect()
-                                        ->route('riwayat.permohonan')
+                                        ->route('tambah.permohonan')
                                         ->with([
                                             'success' => 'Berhasil Edit Permohonan Cuti',
                                         ]);
@@ -347,7 +347,7 @@ class PermohonanCutiController extends Controller
                     if ($sisaCuti < 0) {
                         if (Auth()->user()->role_id != 1) {
                             return redirect()
-                                ->route('riwayat.permohonan')
+                                ->route('tambah.permohonan')
                                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         } else {
                             return redirect()
@@ -358,7 +358,7 @@ class PermohonanCutiController extends Controller
                         if ($durasi->days <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
-                                    ->route('riwayat.permohonan')
+                                    ->route('tambah.permohonan')
                                     ->with([
                                         'error' => 'Silahkan periksa kembali tanggal cuti',
                                     ]);
@@ -422,7 +422,7 @@ class PermohonanCutiController extends Controller
                                 PermohonanModel::whereId($id_permohonan)->update($data);
                                 if (Auth()->user()->role_id != 1) {
                                     return redirect()
-                                        ->route('riwayat.permohonan')
+                                        ->route('tambah.permohonan')
                                         ->with([
                                             'success' => 'Berhasil Edit Permohonan Cuti',
                                         ]);
@@ -450,7 +450,7 @@ class PermohonanCutiController extends Controller
                     if ($sisaCuti < 0) {
                         if (Auth()->user()->role_id != 1) {
                             return redirect()
-                                ->route('riwayat.permohonan')
+                                ->route('tambah.permohonan')
                                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         } else {
                             return redirect()
@@ -461,7 +461,7 @@ class PermohonanCutiController extends Controller
                         if ($durasi->days <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
-                                    ->route('riwayat.permohonan')
+                                    ->route('tambah.permohonan')
                                     ->with([
                                         'error' => 'Silahkan periksa kembali tanggal cuti',
                                     ]);
@@ -526,7 +526,7 @@ class PermohonanCutiController extends Controller
                                 PermohonanModel::whereId($id_permohonan)->update($data);
                                 if (Auth()->user()->role_id != 1) {
                                     return redirect()
-                                        ->route('riwayat.permohonan')
+                                        ->route('tambah.permohonan')
                                         ->with([
                                             'success' => 'Berhasil Edit Permohonan Cuti',
                                         ]);
@@ -549,7 +549,7 @@ class PermohonanCutiController extends Controller
                     if ($sisaCuti < 0) {
                         if (Auth()->user()->role_id != 1) {
                             return redirect()
-                                ->route('riwayat.permohonan')
+                                ->route('tambah.permohonan')
                                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         } else {
                             return redirect()
@@ -560,7 +560,7 @@ class PermohonanCutiController extends Controller
                         if ($durasi->days <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
-                                    ->route('riwayat.permohonan')
+                                    ->route('tambah.permohonan')
                                     ->with([
                                         'error' => 'Silahkan periksa kembali tanggal cuti',
                                     ]);
@@ -610,7 +610,7 @@ class PermohonanCutiController extends Controller
                                 PermohonanModel::whereId($id_permohonan)->update($data);
                                 if (Auth()->user()->role_id != 1) {
                                     return redirect()
-                                        ->route('riwayat.permohonan')
+                                        ->route('tambah.permohonan')
                                         ->with([
                                             'success' => 'Berhasil Edit Permohonan Cuti',
                                         ]);
