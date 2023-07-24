@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('hak_cuti', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained();
+            $table->integer('id')->autoIncrement();
+            $table->unsignedInteger('user_id'); 
+            $table->foreign('user_id')->references('id')->on('users'); 
             $table->integer('hak_cuti')->default(0);
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hak_cutis');
+        Schema::dropIfExists('hak_cuti');
     }
 };

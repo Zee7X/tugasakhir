@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('permohonan_cuti', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('jenis_cuti_id')->constrained();
+            $table->increments('id'); 
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('jenis_cuti_id');
             $table->string('alasan_cuti', 50);
             $table->date('tgl_mulai');
             $table->date('tgl_akhir');
@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('alasan_ditolak', 50)->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+
+            $table->foreign('user_id')->references('id')->on('users'); 
+            $table->foreign('jenis_cuti_id')->references('id')->on('jenis_cutis'); 
         });
     }
 
