@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h4>Data Permohonan Cuti </h4>
                         </div>
-                        @if (auth()->user()->role_id == 1 )
+                        @if (auth()->user()->role_id == 1)
                             <div class="ml-4 mt-3">
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat
                                     Permohonan Cuti</button>
@@ -100,7 +100,7 @@
                                                             data-target="#tolak-modal{{ $p->id }}">Tolak</button>
                                                     </td>
                                                 @elseif (auth()->user()->role_id == 1)
-                                                @if ($p->status == 1 && Auth::user()->id == $p->user_id)
+                                                    @if ($p->status == 1 && Auth::user()->id == $p->user_id)
                                                         <td class="text-truncate"> <button type="button"
                                                                 class="btn btn-action bg-purple" data-toggle="modal"
                                                                 data-target="#modal-edit{{ $p->id }}"
@@ -111,7 +111,7 @@
                                                         <td class="text-truncate">
                                                         </td>
                                                     @endif
-                                            @endif
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -175,9 +175,12 @@
                                     {{ $p->jenis_cuti == 'Cuti Diluar Tanggungan' ? 'selected' : '' }}>
                                     Cuti Diluar Tanggungan
                                 </option>
-                                <option name="alasan_cuti" value="Cuti Tahunan"
-                                    {{ $p->jenis_cuti == 'Cuti Tahunan' ? 'selected' : '' }}>
-                                    Cuti Tahunan</option>
+                                @if ($sisacuti[0] <= 0)
+                                @else
+                                    <option name="alasan_cuti" value="Cuti Tahunan"
+                                        {{ $p->jenis_cuti == 'Cuti Tahunan' ? 'selected' : '' }}>
+                                        Cuti Tahunan</option>
+                                @endif
                                 <option name="alasan_cuti" value="Cuti Ibadah Keagamaan"
                                     {{ $p->jenis_cuti == 'Cuti Ibadah Keagamaan' ? 'selected' : '' }}>
                                     Cuti Ibadah Keagamaan</option>
@@ -210,7 +213,8 @@
                         <div class="form-group">
                             <label>Alamat Selama Cuti</label>
                             <input type="text" class="form-control" value="{{ $p->alamat_cuti }}" name="alamat_cuti"
-                            name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
+                                name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')"
+                                oninput="this.setCustomValidity('')">
                         </div>
                         <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                         </form>
@@ -259,9 +263,12 @@
                                     {{ old('alasan_cuti') == 'Cuti Diluar Tanggungan' ? 'selected' : '' }}>Cuti
                                     Diluar Tanggungan
                                 </option>
-                                <option name="alasan_cuti" value="Cuti Tahunan"
-                                    {{ old('alasan_cuti') == 'Cuti Tahunan' ? 'selected' : '' }}>Cuti Tahunan
-                                </option>
+                                @if ($sisacuti[0] <= 0)
+                                @else
+                                    <option name="alasan_cuti" value="Cuti Tahunan"
+                                        {{ old('alasan_cuti') == 'Cuti Tahunan' ? 'selected' : '' }}>Cuti Tahunan
+                                    </option>
+                                @endif
                                 <option name="alasan_cuti" value="Cuti Ibadah Keagamaan"
                                     {{ old('alasan_cuti') == 'Cuti Ibadah Keagamaan' ? 'selected' : '' }}>Cuti Ibadah
                                     Keagamaan</option>
@@ -276,7 +283,9 @@
                         <div class="form-group" id="form-cuti-lainnya" style="display:none;">
                             <label for="alasan_cuti_lainnya">Alasan Cuti:</label>
                             <input class="form-control" type="text" id="alasan_cuti_lainnya"
-                                name="alasan_cuti_lainnya" name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
+                                name="alasan_cuti_lainnya" name="alamat_cuti" required
+                                oninvalid="this.setCustomValidity('Data tidak boleh kosong')"
+                                oninput="this.setCustomValidity('')">
                         </div>
                         <div class="form-group">
                             <label>Tanggal Mulai Cuti</label>
@@ -292,8 +301,9 @@
                         </div>
                         <div class="form-group">
                             <label>Alamat Selama Cuti</label>
-                            <input type="text" class="form-control" value=""
-                                name="alamat_cuti" name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control" value="" name="alamat_cuti"
+                                name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')"
+                                oninput="this.setCustomValidity('')">
                         </div>
                         <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                     </form>

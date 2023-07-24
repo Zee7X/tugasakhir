@@ -14,10 +14,10 @@
                         <div class="card-header">
                             <h4>Permohonan Cuti </h4>
                         </div>
-                            <div class="ml-4 mt-3">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat
-                                    Permohonan Cuti</button>
-                            </div>
+                        <div class="ml-4 mt-3">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buat
+                                Permohonan Cuti</button>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive table-invoice">
                                 <table class="table table-striped" id="dt-dashboard">
@@ -51,25 +51,25 @@
                                                     {{ date('d-M-Y', strtotime($p->tgl_akhir)) }}
                                                 </td>
                                                 <td class="text-center">{{ $p->alamat_cuti }}</td>
-                                                    @if ($p->status == 1)
-                                                        <td class="text-center"><span class="badge badge-warning"
-                                                                style="padding: 8px 20px">Pending Kepala Unit </span></td>
-                                                    @elseif ($p->status == 2)
-                                                        <td class="text-center"><span class="badge badge-warning"
-                                                                style="padding: 8px 37px">Pending Wadir</span></td>
-                                                    @elseif ($p->status == 3)
-                                                        <td class="text-center"><span class="badge badge-warning"
-                                                                style="padding: 8px 31px">Pending Direktur</span></td>
-                                                    @elseif ($p->status == 4)
-                                                        <td class="text-center"><span class="badge badge-success"
-                                                                style="padding: 8px 54px">Disetujui</span></td>
-                                                    @elseif ($p->status == 5)
-                                                        <td class="text-center"><span class="badge badge-danger"
-                                                                style="padding: 8px 58px">Ditolak</span></td>
-                                                    @elseif ($p->status == 0)
-                                                        <td class="text-center"><span class="badge badge-danger"
-                                                                style="padding: 8px 48px">Dibatalkan</span></td>
-                                                    @endif
+                                                @if ($p->status == 1)
+                                                    <td class="text-center"><span class="badge badge-warning"
+                                                            style="padding: 8px 20px">Pending Kepala Unit </span></td>
+                                                @elseif ($p->status == 2)
+                                                    <td class="text-center"><span class="badge badge-warning"
+                                                            style="padding: 8px 37px">Pending Wadir</span></td>
+                                                @elseif ($p->status == 3)
+                                                    <td class="text-center"><span class="badge badge-warning"
+                                                            style="padding: 8px 31px">Pending Direktur</span></td>
+                                                @elseif ($p->status == 4)
+                                                    <td class="text-center"><span class="badge badge-success"
+                                                            style="padding: 8px 54px">Disetujui</span></td>
+                                                @elseif ($p->status == 5)
+                                                    <td class="text-center"><span class="badge badge-danger"
+                                                            style="padding: 8px 58px">Ditolak</span></td>
+                                                @elseif ($p->status == 0)
+                                                    <td class="text-center"><span class="badge badge-danger"
+                                                            style="padding: 8px 48px">Dibatalkan</span></td>
+                                                @endif
                                                 @if (Auth()->user()->role_id == 4)
                                                     @if ($p->status == 1 && Auth::user()->id == $p->user_id)
                                                         <td class="text-truncate"> <button type="button"
@@ -171,9 +171,12 @@
                                     {{ $p->jenis_cuti == 'Cuti Diluar Tanggungan' ? 'selected' : '' }}>
                                     Cuti Diluar Tanggungan
                                 </option>
-                                <option name="alasan_cuti" value="Cuti Tahunan"
-                                    {{ $p->jenis_cuti == 'Cuti Tahunan' ? 'selected' : '' }}>
-                                    Cuti Tahunan</option>
+                                @if ($sisacuti[0] <= 0)
+                                @else
+                                    <option name="alasan_cuti" value="Cuti Tahunan"
+                                        {{ $p->jenis_cuti == 'Cuti Tahunan' ? 'selected' : '' }}>
+                                        Cuti Tahunan</option>
+                                @endif
                                 <option name="alasan_cuti" value="Cuti Ibadah Keagamaan"
                                     {{ $p->jenis_cuti == 'Cuti Ibadah Keagamaan' ? 'selected' : '' }}>
                                     Cuti Ibadah Keagamaan</option>
@@ -206,7 +209,8 @@
                         <div class="form-group">
                             <label>Alamat Selama Cuti</label>
                             <input type="text" class="form-control" value="{{ $p->alamat_cuti }}" name="alamat_cuti"
-                            name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
+                                name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')"
+                                oninput="this.setCustomValidity('')">
                         </div>
                         <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                         </form>
@@ -215,6 +219,7 @@
             </div>
     </div>
     @endforeach
+    </div>
 
     {{-- modal permohonan --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
@@ -255,9 +260,12 @@
                                     {{ old('alasan_cuti') == 'Cuti Diluar Tanggungan' ? 'selected' : '' }}>Cuti
                                     Diluar Tanggungan
                                 </option>
-                                <option name="alasan_cuti" value="Cuti Tahunan"
-                                    {{ old('alasan_cuti') == 'Cuti Tahunan' ? 'selected' : '' }}>Cuti Tahunan
-                                </option>
+                                @if ($sisacuti[0] <= 0)
+                                @else
+                                    <option name="alasan_cuti" value="Cuti Tahunan"
+                                        {{ old('alasan_cuti') == 'Cuti Tahunan' ? 'selected' : '' }}>Cuti Tahunan
+                                    </option>
+                                @endif
                                 <option name="alasan_cuti" value="Cuti Ibadah Keagamaan"
                                     {{ old('alasan_cuti') == 'Cuti Ibadah Keagamaan' ? 'selected' : '' }}>Cuti Ibadah
                                     Keagamaan</option>
@@ -272,7 +280,9 @@
                         <div class="form-group" id="form-cuti-lainnya" style="display:none;">
                             <label for="alasan_cuti_lainnya">Alasan Cuti:</label>
                             <input class="form-control" type="text" id="alasan_cuti_lainnya"
-                                name="alasan_cuti_lainnya" name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
+                                name="alasan_cuti_lainnya" name="alamat_cuti" required
+                                oninvalid="this.setCustomValidity('Data tidak boleh kosong')"
+                                oninput="this.setCustomValidity('')">
                         </div>
                         <div class="form-group">
                             <label>Tanggal Mulai Cuti</label>
@@ -288,8 +298,9 @@
                         </div>
                         <div class="form-group">
                             <label>Alamat Selama Cuti</label>
-                            <input type="text" class="form-control" value=""
-                                name="alamat_cuti" name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control" value="" name="alamat_cuti"
+                                name="alamat_cuti" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')"
+                                oninput="this.setCustomValidity('')">
                         </div>
                         <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
                     </form>
@@ -298,7 +309,7 @@
         </div>
     </div>
 
-  
+
 
     @push('scrip')
         <script>
