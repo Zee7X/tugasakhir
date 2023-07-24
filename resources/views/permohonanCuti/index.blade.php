@@ -143,12 +143,12 @@
                                     <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1"
                                         style="justify-content: center; text-align: center; border-radius: 10px; display: block;">
                                         <label>Sisa Cuti Anda</label><br>
-                                        <h6>{{ $sisacuti[0] }}</h6>
+                                        <h6>{{ $sisacuti[0] }} Hari</h6>
                                     @else
                                         <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1"
                                             style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
                                             <label>Sisa Cuti Anda</label><br>
-                                            <h6>{{ $sisacuti[0] }}</h6>
+                                            <h6>{{ $sisacuti[0] }} Hari</h6>
                                 @endif
 
                                 {{-- <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
@@ -241,7 +241,7 @@
                         <div id="show-sisa-cuti" class="border py-1"
                             style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
                             <label>Sisa Cuti Anda</label><br>
-                            <h6>{{ $sisacuti[0] }}</h6>
+                            <h6>{{ $sisacuti[0] }} Hari</h6>
                         </div>
                         <br>
                         <div class="form-group">
