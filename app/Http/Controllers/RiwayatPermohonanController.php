@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use DateInterval;
 use App\Models\User;
+use App\Models\JenisCuti;
 use Illuminate\Http\Request;
+use App\Models\PermohonanModel;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PermohonanDisetujuiExport;
 use App\Exports\PermohonanDisetujuiExportAll;
-use App\Models\JenisCuti;
 
 class RiwayatPermohonanController extends Controller
 {
@@ -270,6 +272,7 @@ class RiwayatPermohonanController extends Controller
 }
     public function export_excel_2(Request $request)
     {
+        
         $year = $request->tahun;
         $jenis_cuti = $request->jenis;
         $nama_cuti = JenisCuti::where('id', $jenis_cuti)->select('jenis_cuti')->first();

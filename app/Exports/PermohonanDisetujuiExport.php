@@ -37,23 +37,21 @@ class PermohonanDisetujuiExport implements FromView
                 ->groupBy('users.nip')
                 ->get();
 
-            foreach ($result as $row) {
-                $nip = $row->nip;
-                $totalDays = $row->rentang_hari ?? 0;
-
-                if (!isset($results[$nip])) {
-                    $results[$nip] = [];
-                    $total_rentang_hari[$nip] = 0;
+                foreach ($result as $row) {
+                    $nip = $row->nip;
+                    $totalDays = $row->rentang_hari ?? 0;
+    
+                    if (!isset($results[$nip])) {
+                        $results[$nip] = [];
+                        $total_rentang_hari[$nip] = 0;
+                    }
+    
+                    // Custom function to count weekdays (Monday to Friday)
+                    $currentTotalDays = $this->countWeekdays($month, $totalDays);
+    
+                    $results[$nip][$month] = $currentTotalDays+1;
+                    $total_rentang_hari[$nip] += $currentTotalDays+1;
                 }
-
-                // Menghitung jumlah cuti bulan sebelumnya
-                $previousMonth = $month - 1;
-                $previousTotalDays = $results[$nip][$previousMonth] ?? 0;
-                $currentTotalDays = $previousTotalDays + $totalDays;
-
-                $results[$nip][$month] = $currentTotalDays;
-                $total_rentang_hari[$nip] += $totalDays;
-            }
         }
         return view('permohonancuti.export_excel', [
             'permohonan_disetujui' => User::join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
@@ -70,5 +68,26 @@ class PermohonanDisetujuiExport implements FromView
             'months' => $months,
             'total_rentang_hari' => $total_rentang_hari
         ]);
+    }
+
+    private function countWeekdays($month, $totalDays)
+    {
+        $year = $this->year;
+
+        $weekdays = 0;
+        $day = 1;
+        while ($day <= $totalDays) {
+            $dateString = "$year-$month-$day";
+            $dayOfWeek = date('N', strtotime($dateString));
+
+            // Check if the day is Monday to Friday (1 to 5)
+            if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
+                $weekdays++;
+            }
+
+            $day++;
+        }
+
+        return $weekdays;
     }
 }

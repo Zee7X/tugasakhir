@@ -295,8 +295,8 @@
                         <div class="form-group">
                             <label>Tanggal Berakhir Cuti</label>
                             <input type="text" name="tgl_akhir"
-                                value="{{ old('tgl_akhir', date('Y-m-d', strtotime('+1 day'))) }}" required
-                                class="form-control datepicker" value="{{ date('Y-m-d', strtotime('+1 day')) }}"
+                                value="{{ old('tgl_akhir', date('Y-m-d')) }}" required
+                                class="form-control datepicker" value="{{ date('Y-m-d') }}"
                                 required>
                         </div>
                         <div class="form-group">
