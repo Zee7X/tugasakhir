@@ -63,7 +63,6 @@ class PermohonanDisetujuiExportALL implements FromView
                 $total_rentang_hari[$nip] += $currentTotalDays+1;
             }
         }
-        // dd($total_rentang_hari[$nip]);
 
 
 
