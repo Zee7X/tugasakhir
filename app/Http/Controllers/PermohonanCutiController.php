@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DateTime;
+use DateInterval;
 use Carbon\Carbon;
 use App\Mail\sicute;
 use App\Models\User;
@@ -21,6 +22,26 @@ class PermohonanCutiController extends Controller
     //Tambah Permohonan Cuti
     public function tambahPermohonan(Request $request)
     {
+
+        function countWeekdays($startDate, $endDate)
+        {
+            $currentDate = clone $startDate;
+            $count = 0;
+
+            while ($currentDate <= $endDate) {
+                $dayOfWeek = $currentDate->format('N');
+
+                // Hanya menghitung hari Senin - Jumat (kode 1 hingga 5)
+                if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
+                    $count++;
+                }
+
+                $currentDate->add(new DateInterval('P1D'));
+            }
+
+            return $count;
+        }
+
         $id = Auth()->user()->id;
         $data = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
             ->where('hak_cuti.user_id', '=', $id)
@@ -28,223 +49,273 @@ class PermohonanCutiController extends Controller
         $sisaCuti = $data[0]->hak_cuti;
         $tglMulai = date_create($request->tgl_mulai);
         $tglAkhir = date_create($request->tgl_akhir);
-        $durasi = date_diff($tglMulai, $tglAkhir);
-        $jumlahCuti = $sisaCuti - $durasi->days;
-        if ($tglAkhir <= $tglMulai) {
+        // $durasi = date_diff($tglMulai, $tglAkhir);
+        $durasi2 = countWeekdays($tglMulai, $tglAkhir);
+        // dd($durasi2);
+        $jumlahCuti = $sisaCuti - $durasi2;
+
+        $get_tgl = [
+            'tglMulai' => $tglMulai,
+            'tglAkhir' => $tglAkhir,
+        ];
+
+        $tgl1 = PermohonanModel::select('tgl_mulai')
+            ->join('users', 'users.id', '=', 'permohonan_cuti.user_id')
+            ->where('permohonan_cuti.user_id', '=', $id)
+            ->get()
+            ->pluck('tgl_mulai');
+
+        $tgl2 = PermohonanModel::select('tgl_akhir')
+            ->join('users', 'users.id', '=', 'permohonan_cuti.user_id')
+            ->where('permohonan_cuti.user_id', '=', $id)
+            ->get()
+            ->pluck('tgl_akhir');
+
+        // Check if the current submission dates already exist in the database
+        $areDatesEqual = $tgl1->contains($tglMulai->format('Y-m-d')) || $tgl2->contains($tglAkhir->format('Y-m-d'));
+        // dd($areDatesEqual);
+
+        if ($areDatesEqual) {
             return redirect()
-                        ->route('permohonan')
-                        ->with([
-                            'error' => 'Silahkan periksa kembali tanggal cuti',
-                        ]);
+                ->back()
+                ->with([
+                    'error' => 'Tanggal tidak boleh sama dengan pengajuan cuti sebelumnya',
+                ]);
         }
-            if ($request->alasan_cuti == 'Cuti Tahunan' && $jumlahCuti < 0) {
+
+        if ($tglAkhir < $tglMulai) {
+            return redirect()
+                ->route('permohonan')
+                ->with([
+                    'error' => 'Silahkan periksa kembali tanggal cuti',
+                ]);
+        }
+        if ($request->alasan_cuti == 'Cuti Tahunan' && $jumlahCuti < 0) {
+            return redirect()
+                ->route('permohonan')
+                ->with(['error' => 'Maaf sisa cuti anda tidak mencukupi']);
+        } else {
+            if ($request->alasan_cuti == 'Cuti Tahunan' && $durasi2 <= 0) {
                 return redirect()
                     ->route('permohonan')
-                    ->with(['error' => 'Maaf sisa cuti anda tidak mencukupi']);
-            } else {
-                if ($request->alasan_cuti == 'Cuti Tahunan' && $durasi->days <= 0) {
-                    return redirect()
-                        ->route('permohonan')
-                        ->with([
-                            'error' => 'Silahkan periksa kembali tanggal cuti',
-                        ]);
-                } else {
-                    $validasiData = Validator::make($request->all(), [
-                        'alasan_cuti_lainnya' => 'required',
-                        'alasan_cuti' => 'required',
-                        'tgl_mulai' => 'required',
-                        'tgl_akhir' => 'required',
-                        'alamat_cuti' => 'required|max:255',
+                    ->with([
+                        'error' => 'Silahkan periksa kembali tanggal cuti',
                     ]);
-                    if ($validasiData->fails()) {
-                        return back()
-                            ->withInput()
-                            ->with(['error' => 'Silahkan periksa alasan cuti!']);
-                    } else {
+            } else {
+                $validasiData = Validator::make($request->all(), [
+                    'alasan_cuti_lainnya' => 'required',
+                    'alasan_cuti' => 'required',
+                    'tgl_mulai' => 'required',
+                    'tgl_akhir' => 'required',
+                    'alamat_cuti' => 'required|max:255',
+                ]);
+                if ($validasiData->fails()) {
+                    return back()
+                        ->withInput()
+                        ->with(['error' => 'Silahkan periksa alasan cuti!']);
+                } else {
 
-                        //Tambah Permohonan Pegawai & Bagian Kepegawaian
-                        if (Auth()->user()->role_id == 1 || Auth()->user()->role_id == 4) {
-                            $name_cuti = $request->alasan_cuti;
-                            $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
-                            $pengajuan_permohonan = PermohonanModel::insert([
-                                'user_id' =>  Auth::id(),
+                    //Tambah Permohonan Pegawai & Bagian Kepegawaian
+                    if (Auth()->user()->role_id == 1 || Auth()->user()->role_id == 4) {
+                        $name_cuti = $request->alasan_cuti;
+                        $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
+                        $pengajuan_permohonan = PermohonanModel::insert([
+                            'user_id' =>  Auth::id(),
+                            'alasan_cuti' => $request->alasan_cuti_lainnya,
+                            'jenis_cuti_id' => $id_cuti,
+                            'tgl_mulai' => $request->tgl_mulai,
+                            'tgl_akhir' => $request->tgl_akhir,
+                            'alamat_cuti' => $request->alamat_cuti,
+                            'status' => 1,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+
+                        //pengurangan sisa cuti hanya untuk tahunan
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+                            $hak_cuti = [
+                                'hak_cuti' => $jumlahCuti,
+                            ];
+                            HakCuti::whereId($id)->update($hak_cuti);
+                        }
+
+                        //email
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $jumlahCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                'jenis_cuti_id' => $id_cuti,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
                                 'alamat_cuti' => $request->alamat_cuti,
-                                'status' => 1,
-                                'created_at' => Carbon::now(),
-                                'updated_at' => Carbon::now(),
-                            ]);
-
-                            //pengurangan sisa cuti hanya untuk tahunan
-                            if ($request->alasan_cuti == 'Cuti Tahunan') {
-                                $hak_cuti = [
-                                    'hak_cuti' => $jumlahCuti,
-                                ];
-                                HakCuti::whereId($id)->update($hak_cuti);
-                            }
-
-                            //email
-                            if ($request->alasan_cuti == 'Cuti Tahunan') {
-                                $mailData = [
-                                    'title' => 'Mail from SICUTE',
-                                    'body' => 'Assalamualaikum',
-                                    'name' => Auth::user()->name,
-                                    'sisa_cuti' => $jumlahCuti,
-                                    'jenis_cuti' => $request->alasan_cuti,
-                                    'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                    'tgl_mulai' => $request->tgl_mulai,
-                                    'tgl_akhir' => $request->tgl_akhir,
-                                    'alamat_cuti' => $request->alamat_cuti,
-                                ];
-                            } else {
-                                $mailData = [
-                                    'title' => 'Mail from SICUTE',
-                                    'body' => 'Assalamualaikum',
-                                    'name' => Auth::user()->name,
-                                    'sisa_cuti' => $sisaCuti,
-                                    'jenis_cuti' => $request->alasan_cuti,
-                                    'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                    'tgl_mulai' => $request->tgl_mulai,
-                                    'tgl_akhir' => $request->tgl_akhir,
-                                    'alamat_cuti' => $request->alamat_cuti,
-                                ];
-                            }
-
-                            //mail to kepala unit
-                            $cekemail = PermohonanModel::all()->first();
-                            $kepala_unit = User::where('unit_id', Auth::user()->unit_id)->where('role_id', 2)->get();
-                            foreach ($kepala_unit as $p) {
-                                Mail::to($p->email)->send(new sicute($mailData));
-                            }
-                            return redirect()->route('permohonan')
-                                ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',], compact('data'));
-                        }
-
-                        //Tambah Permohonan Kepala Unit
-                        elseif (Auth()->user()->role_id == 2) {
-                            $name_cuti = $request->alasan_cuti;
-                            $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
-                            PermohonanModel::insert([
-                                'user_id' => Auth::id(),
+                            ];
+                        } else {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $sisaCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                'jenis_cuti_id' => $id_cuti,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
                                 'alamat_cuti' => $request->alamat_cuti,
-                                'status' => 2,
-                                'created_at' => Carbon::now(),
-                                'updated_at' => Carbon::now(),
-                            ]);
-                            if ($request->alasan_cuti == 'Cuti Tahunan') {
-
-                                $hak_cuti = [
-                                    'hak_cuti' => $jumlahCuti,
-                                ];
-                                HakCuti::whereId($id)->update($hak_cuti);
-                            }
-
-                            //email
-                            if ($request->alasan_cuti == 'Cuti Tahunan') {
-                                $mailData = [
-                                    'title' => 'Mail from SICUTE',
-                                    'body' => 'Assalamualaikum',
-                                    'name' => Auth::user()->name,
-                                    'sisa_cuti' => $jumlahCuti,
-                                    'jenis_cuti' => $request->alasan_cuti,
-                                    'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                    'tgl_mulai' => $request->tgl_mulai,
-                                    'tgl_akhir' => $request->tgl_akhir,
-                                    'alamat_cuti' => $request->alamat_cuti,
-                                ];
-                            } else {
-                                $mailData = [
-                                    'title' => 'Mail from SICUTE',
-                                    'body' => 'Assalamualaikum',
-                                    'name' => Auth::user()->name,
-                                    'sisa_cuti' => $sisaCuti,
-                                    'jenis_cuti' => $request->alasan_cuti,
-                                    'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                    'tgl_mulai' => $request->tgl_mulai,
-                                    'tgl_akhir' => $request->tgl_akhir,
-                                    'alamat_cuti' => $request->alamat_cuti,
-                                ];
-                            }
-                            //mail to wadir
-                            $cekemail = PermohonanModel::latest()->first();
-                            $wadir = User::where('role_id', 3)->get();
-                            foreach ($wadir as $p) {
-                                Mail::to($p->email)->send(new sicute($mailData));
-                            }
-                            return redirect()->route('tambah.permohonan')
-                                ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',]);
+                            ];
                         }
-                        //Tambah Permohonan Wadir
-                        elseif (Auth()->user()->role_id == 3) {
-                            $name_cuti = $request->alasan_cuti;
-                            $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
-                            PermohonanModel::insert([
-                                'user_id' => Auth::id(),
+
+                        //mail to kepala unit
+                        $cekemail = PermohonanModel::all()->first();
+                        $kepala_unit = User::where('unit_id', Auth::user()->unit_id)->where('role_id', 2)->get();
+                        foreach ($kepala_unit as $p) {
+                            Mail::to($p->email)->send(new sicute($mailData));
+                        }
+                        return redirect()->route('permohonan')
+                            ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',], compact('data'));
+                    }
+
+                    //Tambah Permohonan Kepala Unit
+                    elseif (Auth()->user()->role_id == 2) {
+                        $name_cuti = $request->alasan_cuti;
+                        $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
+                        PermohonanModel::insert([
+                            'user_id' => Auth::id(),
+                            'alasan_cuti' => $request->alasan_cuti_lainnya,
+                            'jenis_cuti_id' => $id_cuti,
+                            'tgl_mulai' => $request->tgl_mulai,
+                            'tgl_akhir' => $request->tgl_akhir,
+                            'alamat_cuti' => $request->alamat_cuti,
+                            'status' => 2,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+
+                            $hak_cuti = [
+                                'hak_cuti' => $jumlahCuti,
+                            ];
+                            HakCuti::whereId($id)->update($hak_cuti);
+                        }
+
+                        //email
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $jumlahCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
                                 'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                'jenis_cuti_id' => $id_cuti,
                                 'tgl_mulai' => $request->tgl_mulai,
                                 'tgl_akhir' => $request->tgl_akhir,
                                 'alamat_cuti' => $request->alamat_cuti,
-                                'status' => 3,
-                                'created_at' => Carbon::now(),
-                                'updated_at' => Carbon::now(),
-                            ]);
-                            if ($request->alasan_cuti == 'Cuti Tahunan') {
-                                $hak_cuti = [
-                                    'hak_cuti' => $jumlahCuti,
-                                ];
-                                HakCuti::whereId($id)->update($hak_cuti);
-                            }
-                            //email
-                            if ($request->alasan_cuti == 'Cuti Tahunan') {
-                                $mailData = [
-                                    'title' => 'Mail from SICUTE',
-                                    'body' => 'Assalamualaikum',
-                                    'name' => Auth::user()->name,
-                                    'sisa_cuti' => $jumlahCuti,
-                                    'jenis_cuti' => $request->alasan_cuti,
-                                    'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                    'tgl_mulai' => $request->tgl_mulai,
-                                    'tgl_akhir' => $request->tgl_akhir,
-                                    'alamat_cuti' => $request->alamat_cuti,
-                                ];
-                            } else {
-                                $mailData = [
-                                    'title' => 'Mail from SICUTE',
-                                    'body' => 'Assalamualaikum',
-                                    'name' => Auth::user()->name,
-                                    'sisa_cuti' => $sisaCuti,
-                                    'jenis_cuti' => $request->alasan_cuti,
-                                    'alasan_cuti' => $request->alasan_cuti_lainnya,
-                                    'tgl_mulai' => $request->tgl_mulai,
-                                    'tgl_akhir' => $request->tgl_akhir,
-                                    'alamat_cuti' => $request->alamat_cuti,
-                                ];
-                            }
-                            //mail to direktur
-                            $cekemail = PermohonanModel::latest()->first();
-                            $direktur = User::where('role_id', 5)->get();
-                            foreach ($direktur as $p) {
-                                Mail::to($p->email)->send(new sicute($mailData));
-                            }
-                            return redirect()->route('tambah.permohonan')
-                                ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',]);
+                            ];
+                        } else {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $sisaCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
                         }
+                        //mail to wadir
+                        $cekemail = PermohonanModel::latest()->first();
+                        $wadir = User::where('role_id', 3)->get();
+                        foreach ($wadir as $p) {
+                            Mail::to($p->email)->send(new sicute($mailData));
+                        }
+                        return redirect()->route('tambah.permohonan')
+                            ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',]);
+                    }
+                    //Tambah Permohonan Wadir
+                    elseif (Auth()->user()->role_id == 3) {
+                        $name_cuti = $request->alasan_cuti;
+                        $id_cuti = JenisCuti::where('jenis_cuti', $name_cuti)->value('id');
+                        PermohonanModel::insert([
+                            'user_id' => Auth::id(),
+                            'alasan_cuti' => $request->alasan_cuti_lainnya,
+                            'jenis_cuti_id' => $id_cuti,
+                            'tgl_mulai' => $request->tgl_mulai,
+                            'tgl_akhir' => $request->tgl_akhir,
+                            'alamat_cuti' => $request->alamat_cuti,
+                            'status' => 3,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+                            $hak_cuti = [
+                                'hak_cuti' => $jumlahCuti,
+                            ];
+                            HakCuti::whereId($id)->update($hak_cuti);
+                        }
+                        //email
+                        if ($request->alasan_cuti == 'Cuti Tahunan') {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $jumlahCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
+                        } else {
+                            $mailData = [
+                                'title' => 'Mail from SICUTE',
+                                'body' => 'Assalamualaikum',
+                                'name' => Auth::user()->name,
+                                'sisa_cuti' => $sisaCuti,
+                                'jenis_cuti' => $request->alasan_cuti,
+                                'alasan_cuti' => $request->alasan_cuti_lainnya,
+                                'tgl_mulai' => $request->tgl_mulai,
+                                'tgl_akhir' => $request->tgl_akhir,
+                                'alamat_cuti' => $request->alamat_cuti,
+                            ];
+                        }
+                        //mail to direktur
+                        $cekemail = PermohonanModel::latest()->first();
+                        $direktur = User::where('role_id', 5)->get();
+                        foreach ($direktur as $p) {
+                            Mail::to($p->email)->send(new sicute($mailData));
+                        }
+                        return redirect()->route('tambah.permohonan')
+                            ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',]);
                     }
                 }
             }
+        }
     }
 
     //Edit Permohonan
     public function editPermohonan(Request $request, $id_permohonan)
     {
+        function countWeekdays2($startDate, $endDate)
+        {
+            $currentDate = clone $startDate;
+            $count = 0;
+
+            while ($currentDate <= $endDate) {
+                $dayOfWeek = $currentDate->format('N');
+
+                // Hanya menghitung hari Senin - Jumat (kode 1 hingga 5)
+                if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
+                    $count++;
+                }
+
+                $currentDate->add(new DateInterval('P1D'));
+            }
+
+            return $count;
+        }
         $permohonan = PermohonanModel::findorFail($id_permohonan);
         $id = Auth()->user()->id;
         $data = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
@@ -253,13 +324,15 @@ class PermohonanCutiController extends Controller
         $sisaCuti = $data[0]->hak_cuti;
         $tglMulai = date_create($request->tgl_mulai);
         $tglAkhir = date_create($request->tgl_akhir);
-        $durasi = date_diff($tglMulai, $tglAkhir);
-        $requ_days = $durasi->days;
+        // $durasi = date_diff($tglMulai, $tglAkhir);
+        $durasi2 = countWeekdays2($tglMulai, $tglAkhir);
+        $requ_days = $durasi2;
 
         $a = date_create($permohonan->tgl_mulai);
         $b = date_create($permohonan->tgl_akhir);
-        $data_db = date_diff($a, $b);
-        $data_days = $data_db->days;
+        $data_db = countWeekdays2($a, $b);
+        $data_days = $data_db;
+        // dd($data_days);
         if ($permohonan->jenis_cuti_id == 4) {
             if ($request->alasan_cuti != 'Cuti Tahunan') {
                 // semua tanggal akhir - tanggal awal jadi + sisa cuti / dd($sisaCuti + $data_days);
@@ -275,7 +348,7 @@ class PermohonanCutiController extends Controller
                                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         }
                     } else {
-                        if ($durasi->days <= 0) {
+                        if ($durasi2 <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
                                     ->route('tambah.permohonan')
@@ -313,7 +386,7 @@ class PermohonanCutiController extends Controller
                                         'updated_at' => Carbon::now(),
                                     ]);
                                 }
-                                if ($tglAkhir > $tglMulai) {
+                                if ($tglAkhir >= $tglMulai) {
                                     $hak_cuti = [
                                         'hak_cuti' => $sisaCuti + $requ_days,
                                     ];
@@ -355,7 +428,7 @@ class PermohonanCutiController extends Controller
                                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         }
                     } else {
-                        if ($durasi->days <= 0) {
+                        if ($durasi2 <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
                                     ->route('tambah.permohonan')
@@ -395,8 +468,9 @@ class PermohonanCutiController extends Controller
                                 }
                                 //untuk tahunan
                                 if ($request->alasan_cuti == 'Cuti Tahunan') {
-                                    if ($tglAkhir > $tglMulai) {
+                                    if ($tglAkhir >= $tglMulai) {
                                         if ($data_days ==  $requ_days) {
+                                            
                                         } elseif ($data_days >  $requ_days) {
                                             $tambah = $data_days - $requ_days;
                                             $hak_cuti = [
@@ -458,7 +532,7 @@ class PermohonanCutiController extends Controller
                                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         }
                     } else {
-                        if ($durasi->days <= 0) {
+                        if ($durasi2 <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
                                     ->route('tambah.permohonan')
@@ -499,8 +573,9 @@ class PermohonanCutiController extends Controller
                                 //untuk tahunan
                                 if ($request->alasan_cuti == 'Cuti Tahunan') {
 
-                                    if ($tglAkhir > $tglMulai) {
+                                    if ($tglAkhir >= $tglMulai) {
                                         if ($data_days ==  $requ_days) {
+                                            
                                         } elseif ($data_days >  $requ_days) {
                                             $tambah = $data_days - $requ_days;
                                             $hak_cuti = [
@@ -557,7 +632,7 @@ class PermohonanCutiController extends Controller
                                 ->with(['error' => 'Maaf sisa cuti anda sudah habis']);
                         }
                     } else {
-                        if ($durasi->days <= 0) {
+                        if ($durasi2 <= 0) {
                             if (Auth()->user()->role_id != 1) {
                                 return redirect()
                                     ->route('tambah.permohonan')
@@ -595,7 +670,7 @@ class PermohonanCutiController extends Controller
                                         'updated_at' => Carbon::now(),
                                     ]);
                                 }
-                                if ($tglAkhir > $tglMulai) {
+                                if ($tglAkhir >= $tglMulai) {
                                     if ($sisaCuti - $requ_days < 0) {
                                         return back()->with(['error' => 'Sisa Cuti Kurang']);
                                     } else {
@@ -903,6 +978,24 @@ class PermohonanCutiController extends Controller
     //Tolak Permohonan
     public function tolak_permohonan(Request $request, $id_permohonan)
     {
+        function countWeekdays3($startDate, $endDate)
+        {
+            $currentDate = clone $startDate;
+            $count = 0;
+
+            while ($currentDate <= $endDate) {
+                $dayOfWeek = $currentDate->format('N');
+
+                // Hanya menghitung hari Senin - Jumat (kode 1 hingga 5)
+                if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
+                    $count++;
+                }
+
+                $currentDate->add(new DateInterval('P1D'));
+            }
+
+            return $count;
+        }
         $permohonan = PermohonanModel::findorFail($id_permohonan);
         $user_id = $permohonan->user_id;
         $data = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
@@ -911,8 +1004,8 @@ class PermohonanCutiController extends Controller
         $sisaCuti = $data[0]->hak_cuti;
         $a = date_create($permohonan->tgl_mulai);
         $b = date_create($permohonan->tgl_akhir);
-        $data_db = date_diff($a, $b);
-        $data_days = $data_db->days;
+        $data_db = countWeekdays3($a, $b);
+        $data_days = $data_db;
         $data = ([
             'alasan_cuti' => $permohonan->alasan_cuti,
             'tgl_mulai' => $permohonan->tgl_mulai,
@@ -937,6 +1030,24 @@ class PermohonanCutiController extends Controller
     //Batalkan Permohonan
     public function batalkan_permohonan(Request $request, $id_permohonan)
     {
+        function countWeekdays4($startDate, $endDate)
+        {
+            $currentDate = clone $startDate;
+            $count = 0;
+
+            while ($currentDate <= $endDate) {
+                $dayOfWeek = $currentDate->format('N');
+
+                // Hanya menghitung hari Senin - Jumat (kode 1 hingga 5)
+                if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
+                    $count++;
+                }
+
+                $currentDate->add(new DateInterval('P1D'));
+            }
+
+            return $count;
+        }
         $permohonan = PermohonanModel::findorFail($id_permohonan);
         $user_id = $permohonan->user_id;
         $data = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
@@ -945,8 +1056,8 @@ class PermohonanCutiController extends Controller
         $sisaCuti = $data[0]->hak_cuti;
         $a = date_create($permohonan->tgl_mulai);
         $b = date_create($permohonan->tgl_akhir);
-        $data_db = date_diff($a, $b);
-        $data_days = $data_db->days;
+        $data_db = countWeekdays4($a, $b);
+        $data_days = $data_db;
         $data = ([
             'alasan_cuti' => $permohonan->alasan_cuti,
             'tgl_mulai' => $permohonan->tgl_mulai,

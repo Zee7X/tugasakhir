@@ -73,33 +73,34 @@ class RiwayatPermohonanController extends Controller
         return view('permohonanCuti.riwayat', compact('riwayat', 'sisacuti'));
     }
 
-    public function permohonanKu(){
+    public function permohonanKu()
+    {
         $sisacuti = User::join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
             ->where('hak_cuti.user_id', '=', auth()->user()->id)->pluck('hak_cuti');
-            $riwayat = User::join(
-                'permohonan_cuti',
-                'users.id',
-                '=',
-                'permohonan_cuti.user_id'
+        $riwayat = User::join(
+            'permohonan_cuti',
+            'users.id',
+            '=',
+            'permohonan_cuti.user_id'
+        )
+            ->leftJoin('units', 'users.unit_id', '=', 'units.id')
+            ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
+            ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
+            ->orderBy('permohonan_cuti.status', 'ASC')
+            ->select(
+                'permohonan_cuti.id',
+                'users.name',
+                'users.jabatan',
+                'units.name_unit',
+                'permohonan_cuti.user_id',
+                'permohonan_cuti.tgl_mulai',
+                'jenis_cutis.jenis_cuti',
+                'permohonan_cuti.alasan_cuti',
+                'permohonan_cuti.tgl_akhir',
+                'permohonan_cuti.alamat_cuti',
+                'permohonan_cuti.status'
             )
-                ->leftJoin('units', 'users.unit_id', '=', 'units.id')
-                ->leftJoin('jenis_cutis', 'permohonan_cuti.jenis_cuti_id', '=', 'jenis_cutis.id')
-                ->where('permohonan_cuti.user_id', '=', auth()->user()->id)
-                ->orderBy('permohonan_cuti.status', 'ASC')
-                ->select(
-                    'permohonan_cuti.id',
-                    'users.name',
-                    'users.jabatan',
-                    'units.name_unit',
-                    'permohonan_cuti.user_id',
-                    'permohonan_cuti.tgl_mulai',
-                    'jenis_cutis.jenis_cuti',
-                    'permohonan_cuti.alasan_cuti',
-                    'permohonan_cuti.tgl_akhir',
-                    'permohonan_cuti.alamat_cuti',
-                    'permohonan_cuti.status'
-                )
-                ->get();
+            ->get();
         return view('permohonanCuti.tambah', compact('riwayat', 'sisacuti'));
     }
     //Function View Acc Cuti
@@ -264,16 +265,16 @@ class RiwayatPermohonanController extends Controller
 
     //export excel
     public function export_excel(Request $request)
-{
-    $year = $request->tahun;
-    return Excel::download(new PermohonanDisetujuiExport($year), 'Laporan Cuti Tahun ' . $year . '.xlsx');
-}
+    {
+        $year = $request->tahun;
+        return Excel::download(new PermohonanDisetujuiExport($year), 'Laporan Cuti Tahun ' . $year . '.xlsx');
+    }
     public function export_excel_2(Request $request)
     {
         $year = $request->tahun;
         $jenis_cuti = $request->jenis;
         $nama_cuti = JenisCuti::where('id', $jenis_cuti)->select('jenis_cuti')->first();
-        $nama_file = 'Laporan '. $nama_cuti->jenis_cuti .' '. $year .'.xlsx';
+        $nama_file = 'Laporan ' . $nama_cuti->jenis_cuti . ' ' . $year . '.xlsx';
         return Excel::download(new PermohonanDisetujuiExportAll($year, $jenis_cuti), $nama_file);
     }
 }

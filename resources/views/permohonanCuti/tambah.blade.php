@@ -139,12 +139,12 @@
                                     <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1"
                                         style="justify-content: center; text-align: center; border-radius: 10px; display: block;">
                                         <label>Sisa Cuti Anda</label><br>
-                                        <h6>{{ $sisacuti[0] }}</h6>
+                                        <h6>{{ $sisacuti[0] }} Hari</h6>
                                     @else
                                         <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1"
                                             style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
                                             <label>Sisa Cuti Anda</label><br>
-                                            <h6>{{ $sisacuti[0] }}</h6>
+                                            <h6>{{ $sisacuti[0] }} Hari</h6>
                                 @endif
 
                                 {{-- <div id="show-sisa-cuti-edit{{ $p->id }}" class="border py-1" style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
@@ -202,8 +202,8 @@
                         <div class="form-group">
                             <label>Tanggal Berakhir Cuti</label>
                             <input type="text" name="tgl_akhir"
-                                value="{{ $p->tgl_akhir, date('Y-m-d', strtotime('+1 day')) }}"
-                                class="form-control datepicker" value="{{ date('Y-m-d', strtotime('+1 day')) }}" required
+                                value="{{ $p->tgl_akhir, date('Y-m-d') }}"
+                                class="form-control datepicker" value="{{ date('Y-m-d') }}" required
                                 id="end_date">
                         </div>
                         <div class="form-group">
@@ -238,7 +238,7 @@
                         <div id="show-sisa-cuti" class="border py-1"
                             style="justify-content: center; text-align: center; border-radius: 10px; display: none;">
                             <label>Sisa Cuti Anda</label><br>
-                            <h6>{{ $sisacuti[0] }}</h6>
+                            <h6>{{ $sisacuti[0] }} Hari</h6>
                         </div>
                         <br>
                         <div class="form-group">
@@ -292,8 +292,8 @@
                         <div class="form-group">
                             <label>Tanggal Berakhir Cuti</label>
                             <input type="text" name="tgl_akhir"
-                                value="{{ old('tgl_akhir', date('Y-m-d', strtotime('+1 day'))) }}" required
-                                class="form-control datepicker" value="{{ date('Y-m-d', strtotime('+1 day')) }}"
+                                value="{{ old('tgl_akhir', date('Y-m-d')) }}" required
+                                class="form-control datepicker" value="{{ date('Y-m-d') }}"
                                 required>
                         </div>
                         <div class="form-group">
