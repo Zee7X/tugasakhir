@@ -24,7 +24,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Nama Pegawai</th>
+                                            <th class="text-center">Nama</th>
                                             <th class="text-center">NIP</th>
                                             <th class="text-center">Jabatan</th>
                                             <th class="text-center">Unit</th>

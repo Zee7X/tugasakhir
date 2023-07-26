@@ -95,7 +95,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Nama Pegawai</th>
+                                            <th class="text-center">Nama</th>
                                             <th class="text-center">Unit</th>
                                             <th class="text-center">Jenis Cuti</th>
                                             <th class="text-center">Alasan Cuti</th>

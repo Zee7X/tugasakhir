@@ -26,7 +26,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Nama Pegawai</th>
+                                            <th class="text-center">Nama</th>
                                             {{-- @if (auth()->user()->role_id == 1)
                                                 <th class="text-center">Jabatan</th>
                                             @endif --}}
@@ -295,7 +295,7 @@
                         <div class="form-group">
                             <label>Tanggal Berakhir Cuti</label>
                             <input type="text" name="tgl_akhir"
-                                value="{{ old('tgl_akhir', date('Y-m-d', strtotime('+1 day'))) }}" required
+                                value="{{ old('tgl_akhir', date('Y-m-d')) }}" required
                                 class="form-control datepicker" value="{{ date('Y-m-d', strtotime('+1 day')) }}"
                                 required>
                         </div>
