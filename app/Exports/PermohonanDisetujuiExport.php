@@ -52,7 +52,6 @@ class PermohonanDisetujuiExport implements FromView
     foreach ($months as $month) {
         $result = DB::table('users')
             ->select('users.nip', 'permohonan_cuti.tgl_mulai', 'permohonan_cuti.tgl_akhir') // Include tgl_mulai and tgl_akhir in the SELECT statement
-            ->addSelect(DB::raw('SUM(DATEDIFF(permohonan_cuti.tgl_akhir, permohonan_cuti.tgl_mulai)) AS rentang_hari'))
             ->join('permohonan_cuti', 'users.id', '=', 'permohonan_cuti.user_id')
             ->join('hak_cuti', 'users.id', '=', 'hak_cuti.user_id')
             ->leftJoin('units', 'users.unit_id', '=', 'units.id')
@@ -62,20 +61,25 @@ class PermohonanDisetujuiExport implements FromView
             ->groupBy('users.nip', 'permohonan_cuti.tgl_mulai', 'permohonan_cuti.tgl_akhir') // Group by tgl_mulai and tgl_akhir
             ->get();
 
-        foreach ($result as $row) {
-            $nip = $row->nip;
-            $totalDays = $row->rentang_hari ?? 0;
-            $weekdaysCount = $this->countWeekdays($row->tgl_mulai, $row->tgl_akhir); // Calculate weekdays count for each row
-
-            if (!isset($results[$nip])) {
-                $results[$nip] = [];
-                $total_rentang_hari[$nip] = 0;
-            }
-
-            // Calculate the total days and weekdays for the current month
-            $results[$nip][$month] = $weekdaysCount;
-            $total_rentang_hari[$nip] += $weekdaysCount;
-        }
+            foreach ($result as $row) {
+                $nip = $row->nip;
+                $weekdaysCount = $this->countWeekdays($row->tgl_mulai, $row->tgl_akhir) ?? 0; // Calculate weekdays count for each row
+            
+                if (!isset($results[$nip])) {
+                    $results[$nip] = [];
+                    $total_rentang_hari[$nip] = 0;
+                }
+            
+                // Calculate the total weekdays for the current month
+                $currentTotalDays = $results[$nip][$month] ?? 0; // Get the existing value or 0 if not set
+                $currentTotalDays += $weekdaysCount;
+            
+                // Calculate the total weekdays for the current user across all months
+                $total_rentang_hari[$nip] += $weekdaysCount;
+            
+                // Update the values in the arrays
+                $results[$nip][$month] = $currentTotalDays;
+            }            
     }
 
     return view('permohonancuti.export_excel', [
