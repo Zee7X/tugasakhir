@@ -162,8 +162,8 @@
                                         Cuti Bersalin</option>
                                 @endif
                                 <option name="alasan_cuti" value="Cuti Sakit"
-                                {{ $p->jenis_cuti == 'Cuti Sakit' ? 'selected' : '' }}>
-                                Cuti Sakit</option>
+                                    {{ $p->jenis_cuti == 'Cuti Sakit' ? 'selected' : '' }}>
+                                    Cuti Sakit</option>
                                 <option name="alasan_cuti" value="Cuti Besar"
                                     {{ $p->jenis_cuti == 'Cuti Besar' ? 'selected' : '' }}>
                                     Cuti Besar</option>
@@ -184,9 +184,6 @@
                                     {{ $p->jenis_cuti == 'Cuti Karena Alasan Penting' ? 'selected' : '' }}>
                                     Cuti Karena Alasan Penting
                                 </option>
-                                {{-- <option name="alasan_cuti" value="Lain - Lain"
-                                            {{ $p->alasan_cuti == 'Lain - Lain' ? 'selected' : '' }}>
-                                            Lain - Lain</option> --}}
                             </select>
                         </div>
                         <div class="form-group" id="form-cuti-lainnya-edit">
@@ -201,10 +198,8 @@
                         </div>
                         <div class="form-group">
                             <label>Tanggal Berakhir Cuti</label>
-                            <input type="text" name="tgl_akhir"
-                                value="{{ $p->tgl_akhir, date('Y-m-d') }}"
-                                class="form-control datepicker" value="{{ date('Y-m-d') }}" required
-                                id="end_date">
+                            <input type="text" name="tgl_akhir" value="{{ $p->tgl_akhir, date('Y-m-d') }}"
+                                class="form-control datepicker" value="{{ date('Y-m-d') }}" required id="end_date">
                         </div>
                         <div class="form-group">
                             <label>Alamat Selama Cuti</label>
@@ -252,7 +247,7 @@
                                     </option>
                                 @endif
                                 <option name="alasan_cuti" value="Cuti Sakit"
-                                        {{ old('alasan_cuti') == 'Cuti Sakit' ? 'selected' : '' }}>Cuti Sakit</option>
+                                    {{ old('alasan_cuti') == 'Cuti Sakit' ? 'selected' : '' }}>Cuti Sakit</option>
                                 <option name="alasan_cuti" value="Cuti Besar"
                                     {{ old('alasan_cuti') == 'Cuti Besar' ? 'selected' : '' }}>Cuti Besar</option>
                                 <option name="alasan_cuti" value="Cuti Diluar Tanggungan"
@@ -272,8 +267,6 @@
                                     {{ old('alasan_cuti') == 'Cuti Karena Alasan Penting' ? 'selected' : '' }}>Cuti
                                     Karena Alasan Penting
                                 </option>
-                                {{-- <option name="alasan_cuti" value="Lain - Lain"
-                                        {{ old('alasan_cuti') == 'Lain - Lain' ? 'selected' : '' }}>Lain - Lain</option> --}}
                             </select>
                         </div>
                         <div class="form-group" id="form-cuti-lainnya" style="display:none;">
@@ -283,6 +276,10 @@
                                 oninvalid="this.setCustomValidity('Data tidak boleh kosong')"
                                 oninput="this.setCustomValidity('')">
                         </div>
+                        {{-- <div class="form-group" id="image-upload" style="display:none;">
+                            <label for="image">Upload Bukti</label>
+                            <input type="file" name="image" accept="image/*">
+                        </div> --}}
                         <div class="form-group">
                             <label>Tanggal Mulai Cuti</label>
                             <input type="text" name="tgl_mulai" value="{{ old('tgl_mulai', date('Y-m-d')) }}"
@@ -290,10 +287,8 @@
                         </div>
                         <div class="form-group">
                             <label>Tanggal Berakhir Cuti</label>
-                            <input type="text" name="tgl_akhir"
-                                value="{{ old('tgl_akhir', date('Y-m-d')) }}" required
-                                class="form-control datepicker" value="{{ date('Y-m-d') }}"
-                                required>
+                            <input type="text" name="tgl_akhir" value="{{ old('tgl_akhir', date('Y-m-d')) }}"
+                                required class="form-control datepicker" value="{{ date('Y-m-d') }}" required>
                         </div>
                         <div class="form-group">
                             <label>Alamat Selama Cuti</label>
@@ -316,13 +311,16 @@
                 var alasanCuti = document.getElementById("alasan_cutiku").value;
                 var formCutiLainnya = document.getElementById("form-cuti-lainnya");
                 var ShowSisaCuti = document.getElementById("show-sisa-cuti");
-                console.log(alasanCuti);
+                // var uploadBuktiField = document.getElementById("image-upload"); 
                 if (alasanCuti === "Cuti Besar" || alasanCuti === "Cuti Diluar Tanggungan" || alasanCuti === "Cuti Tahunan" ||
                     alasanCuti === "Cuti Ibadah Keagamaan" || alasanCuti === "Cuti Karena Alasan Penting" || alasanCuti ===
                     "Cuti Bersalin" || alasanCuti === "Cuti Sakit") {
                     formCutiLainnya.style.display = "block";
+                    // uploadBuktiField.style.display = (alasanCuti === "Cuti Bersalin" || alasanCuti === "Cuti Sakit") ? "block" :
+                    //     "none";
                 } else {
                     formCutiLainnya.style.display = "none";
+                    // uploadBuktiField.style.display = "none";
                 }
                 if (alasanCuti === "Cuti Besar" || alasanCuti === "Cuti Diluar Tanggungan" || alasanCuti ===
                     "Cuti Ibadah Keagamaan" || alasanCuti === "Cuti Karena Alasan Penting" || alasanCuti === "Cuti Bersalin" ||
@@ -334,6 +332,8 @@
             }
         </script>
 
+
+
         <script>
             $(document).ready(function() {
                 $("select[id^='alasan_cuti_edit']").on("change", function() {
@@ -342,7 +342,6 @@
                     var ShowSisaCutiEdit = document.getElementById("show-sisa-cuti-edit" + id);
                     console.log(selectedValue);
                     console.log(id);
-
                     if (selectedValue == "Cuti Besar" || selectedValue == "Cuti Diluar Tanggungan" ||
                         selectedValue == "Cuti Ibadah Keagamaan" || selectedValue ==
                         "Cuti Karena Alasan Penting" || selectedValue == "Cuti Bersalin" || selectedValue ==
