@@ -164,10 +164,10 @@
                                     <option name="alasan_cuti" value="Cuti Bersalin"
                                         {{ $p->jenis_cuti == 'Cuti Bersalin' ? 'selected' : '' }}>
                                         Cuti Bersalin</option>
-                                    <option name="alasan_cuti" value="Gugur Kandungan"
-                                        {{ $p->jenis_cuti == 'Gugur Kandungan' ? 'selected' : '' }}>
-                                        Gugur Kandungan</option>
                                 @endif
+                                <option name="alasan_cuti" value="Cuti Sakit"
+                                {{ $p->jenis_cuti == 'Cuti Sakit' ? 'selected' : '' }}>
+                                Cuti Sakit</option>
                                 <option name="alasan_cuti" value="Cuti Besar"
                                     {{ $p->jenis_cuti == 'Cuti Besar' ? 'selected' : '' }}>
                                     Cuti Besar</option>
@@ -253,10 +253,9 @@
                                     <option name="alasan_cuti" value="Cuti Bersalin"
                                         {{ old('alasan_cuti') == 'Cuti Bersalin' ? 'selected' : '' }}>Cuti Bersalin
                                     </option>
-                                    <option name="alasan_cuti" value="Gugur Kandungan"
-                                        {{ old('alasan_cuti') == 'Gugur Kandungan' ? 'selected' : '' }}>Gugur
-                                        Kandungan</option>
                                 @endif
+                                <option name="alasan_cuti" value="Cuti Sakit"
+                                        {{ old('alasan_cuti') == 'Cuti Sakit' ? 'selected' : '' }}>Cuti Sakit</option>
                                 <option name="alasan_cuti" value="Cuti Besar"
                                     {{ old('alasan_cuti') == 'Cuti Besar' ? 'selected' : '' }}>Cuti Besar</option>
                                 <option name="alasan_cuti" value="Cuti Diluar Tanggungan"
@@ -349,14 +348,14 @@
                 console.log(alasanCuti);
                 if (alasanCuti === "Cuti Besar" || alasanCuti === "Cuti Diluar Tanggungan" || alasanCuti === "Cuti Tahunan" ||
                     alasanCuti === "Cuti Ibadah Keagamaan" || alasanCuti === "Cuti Karena Alasan Penting" || alasanCuti ===
-                    "Cuti Bersalin" || alasanCuti === "Gugur Kandungan") {
+                    "Cuti Bersalin" || alasanCuti === "Cuti Sakit") {
                     formCutiLainnya.style.display = "block";
                 } else {
                     formCutiLainnya.style.display = "none";
                 }
                 if (alasanCuti === "Cuti Besar" || alasanCuti === "Cuti Diluar Tanggungan" || alasanCuti ===
                     "Cuti Ibadah Keagamaan" || alasanCuti === "Cuti Karena Alasan Penting" || alasanCuti === "Cuti Bersalin" ||
-                    alasanCuti === "Gugur Kandungan") {
+                    alasanCuti === "Cuti Sakit") {
                     ShowSisaCuti.style.display = "none";
                 } else {
                     ShowSisaCuti.style.display = "block";
@@ -376,7 +375,7 @@
                     if (selectedValue == "Cuti Besar" || selectedValue == "Cuti Diluar Tanggungan" ||
                         selectedValue == "Cuti Ibadah Keagamaan" || selectedValue ==
                         "Cuti Karena Alasan Penting" || selectedValue == "Cuti Bersalin" || selectedValue ==
-                        "Gugur Kandungan") {
+                        "Cuti Sakit") {
                         ShowSisaCutiEdit.style.display = "none";
                     } else {
                         ShowSisaCutiEdit.style.display = "block";

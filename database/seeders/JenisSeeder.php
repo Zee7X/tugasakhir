@@ -20,7 +20,7 @@ class JenisSeeder extends Seeder
         ]);
 
         JenisCuti::create([
-            'jenis_cuti'=> 'Gugur Kandungan'
+            'jenis_cuti'=> 'Cuti Sakit'
         ]);
 
         JenisCuti::create([

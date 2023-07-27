@@ -27,7 +27,6 @@ class PermohonanCutiController extends Controller
         {
             $currentDate = clone $startDate;
             $count = 0;
-
             while ($currentDate <= $endDate) {
                 $dayOfWeek = $currentDate->format('N');
 
@@ -35,10 +34,8 @@ class PermohonanCutiController extends Controller
                 if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
                     $count++;
                 }
-
                 $currentDate->add(new DateInterval('P1D'));
             }
-
             return $count;
         }
 
@@ -53,7 +50,6 @@ class PermohonanCutiController extends Controller
         $durasi2 = countWeekdays($tglMulai, $tglAkhir);
         // dd($durasi2);
         $jumlahCuti = $sisaCuti - $durasi2;
-
         $get_tgl = [
             'tglMulai' => $tglMulai,
             'tglAkhir' => $tglAkhir,
@@ -70,11 +66,8 @@ class PermohonanCutiController extends Controller
             ->where('permohonan_cuti.user_id', '=', $id)
             ->get()
             ->pluck('tgl_akhir');
-
-        // Check if the current submission dates already exist in the database
         $areDatesEqual = $tgl1->contains($tglMulai->format('Y-m-d')) || $tgl2->contains($tglAkhir->format('Y-m-d'));
         // dd($areDatesEqual);
-
         if ($areDatesEqual) {
             return redirect()
                 ->back()
@@ -114,7 +107,6 @@ class PermohonanCutiController extends Controller
                         ->withInput()
                         ->with(['error' => 'Silahkan periksa alasan cuti!']);
                 } else {
-
                     //Tambah Permohonan Pegawai & Bagian Kepegawaian
                     if (Auth()->user()->role_id == 1 || Auth()->user()->role_id == 4) {
                         $name_cuti = $request->alasan_cuti;
@@ -130,7 +122,6 @@ class PermohonanCutiController extends Controller
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                         ]);
-
                         //pengurangan sisa cuti hanya untuk tahunan
                         if ($request->alasan_cuti == 'Cuti Tahunan') {
                             $hak_cuti = [
@@ -138,7 +129,6 @@ class PermohonanCutiController extends Controller
                             ];
                             HakCuti::whereId($id)->update($hak_cuti);
                         }
-
                         //email
                         if ($request->alasan_cuti == 'Cuti Tahunan') {
                             $mailData = [
@@ -165,7 +155,6 @@ class PermohonanCutiController extends Controller
                                 'alamat_cuti' => $request->alamat_cuti,
                             ];
                         }
-
                         //mail to kepala unit
                         $cekemail = PermohonanModel::all()->first();
                         $kepala_unit = User::where('unit_id', Auth::user()->unit_id)->where('role_id', 2)->get();
@@ -175,7 +164,6 @@ class PermohonanCutiController extends Controller
                         return redirect()->route('permohonan')
                             ->with(['success' => 'Berhasil Mengajukan Permohonan Cuti',], compact('data'));
                     }
-
                     //Tambah Permohonan Kepala Unit
                     elseif (Auth()->user()->role_id == 2) {
                         $name_cuti = $request->alasan_cuti;
@@ -192,13 +180,11 @@ class PermohonanCutiController extends Controller
                             'updated_at' => Carbon::now(),
                         ]);
                         if ($request->alasan_cuti == 'Cuti Tahunan') {
-
                             $hak_cuti = [
                                 'hak_cuti' => $jumlahCuti,
                             ];
                             HakCuti::whereId($id)->update($hak_cuti);
                         }
-
                         //email
                         if ($request->alasan_cuti == 'Cuti Tahunan') {
                             $mailData = [
